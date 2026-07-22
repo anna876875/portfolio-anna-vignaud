@@ -319,14 +319,17 @@ html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  color-scheme: light !important;
+  background-color: #ffffff !important;
 }
 
 body {
   font-family: var(--font-sans);
   font-size: var(--text-body);
   line-height: var(--lh-body);
-  color: var(--color-label);
-  background-color: var(--color-bg-primary);
+  color: #000000 !important;
+  background-color: #ffffff !important;
+  color-scheme: light !important;
   min-height: 100dvh;
 }
 

@@ -14,6 +14,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Anna V. · Product Designer UX/UI",
   description: "Portfolio de Anna V., Product Designer diplômée d'un Master UX Design. Spécialisée en recherche utilisateur, design d'interface et développement frontend.",
+  colorScheme: "light",
   openGraph: {
     title: "Anna V. · Product Designer UX/UI",
     description: "Portfolio de Anna V., Product Designer diplômée d'un Master UX Design. Spécialisée en recherche utilisateur, design d'interface et développement frontend.",
@@ -31,8 +32,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="fr" className={`h-full ${inter.variable}`}>
-      <body className="min-h-full flex flex-col antialiased"><PageTransition>{children}</PageTransition><TweaksDrawer /></body>
+    <html lang="fr" className={`h-full ${inter.variable}`} style={{ colorScheme: "light", backgroundColor: "#ffffff" }}>
+      <body className="min-h-full flex flex-col antialiased" style={{ backgroundColor: "#ffffff", color: "#000000", colorScheme: "light" }}><PageTransition>{children}</PageTransition><TweaksDrawer /></body>
     </html>
   );
 }
