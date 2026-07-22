@@ -1335,7 +1335,7 @@ function ProjectWindow({
             border: "1px solid rgba(0,0,0,0.08)", cursor: "pointer",
             boxShadow: "0 4px 16px rgba(0,0,0,0.08)" }}>
           <VisualArea accentBg={accentBg} visual={visual} />
-          <WindowInfo num={num} title={title} color={color} tags={tags} />
+          <WindowInfo num={num} title={title} color={color} tags={tags} isMobile />
         </motion.article>
       </Link>
     );
@@ -1564,19 +1564,19 @@ function VisualArea({ accentBg, visual }: { accentBg: string; visual: React.Reac
 }
 
 /* Barre d'info sous la fenêtre */
-function WindowInfo({ num, title, color, tags, href }: {
+function WindowInfo({ num, title, color, tags, href, isMobile }: {
   num: string; title: string; color: string;
-  tags: string[]; href?: string;
+  tags: string[]; href?: string; isMobile?: boolean;
 }) {
   return (
-    <div style={{ padding: "10px 14px 13px", borderTop: "1px solid rgba(0,0,0,0.06)",
-      display: "flex", flexDirection: "column", gap: 8, background: "#fff" }}>
-      <p style={{ fontSize: 11, fontWeight: 600, color: INK, margin: 0,
+    <div style={{ padding: isMobile ? "14px 16px 16px" : "10px 14px 13px", borderTop: "1px solid rgba(0,0,0,0.06)",
+      display: "flex", flexDirection: "column", gap: isMobile ? 10 : 8, background: "#fff" }}>
+      <p style={{ fontSize: isMobile ? 15 : 11, fontWeight: 600, color: INK, margin: 0,
         lineHeight: 1.4, letterSpacing: "-0.01em" }}>{title}</p>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
         {tags.map(t => (
-          <span key={t} style={{ fontSize: 9, fontWeight: 500,
-            padding: "1px 6px", borderRadius: 100,
+          <span key={t} style={{ fontSize: isMobile ? 11 : 9, fontWeight: 500,
+            padding: isMobile ? "3px 9px" : "1px 6px", borderRadius: 100,
             background: `color-mix(in srgb, ${color} 8%, transparent)`,
             color, border: `1px solid color-mix(in srgb, ${color} 18%, transparent)` }}>
             {t}
@@ -1586,12 +1586,12 @@ function WindowInfo({ num, title, color, tags, href }: {
       {href && (
         <Link href={href}
           style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 4,
-            padding: "6px 0", borderRadius: 6, fontSize: 10, fontWeight: 600,
+            padding: isMobile ? "10px 0" : "6px 0", borderRadius: 6, fontSize: isMobile ? 13 : 10, fontWeight: 600,
             background: `color-mix(in srgb, ${color} 7%, transparent)`,
             color, border: `1px solid color-mix(in srgb, ${color} 22%, transparent)`,
             textDecoration: "none", width: "100%" }}
           onClick={e => e.stopPropagation()}>
-          Voir le projet <ArrowUpRight size={9} strokeWidth={2} />
+          Voir le projet <ArrowUpRight size={isMobile ? 12 : 9} strokeWidth={2} />
         </Link>
       )}
     </div>

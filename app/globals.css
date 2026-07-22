@@ -2001,11 +2001,14 @@ body {
   .hig-largetitle { font-size: clamp(26px, 6vw, 34px) !important; }
   .hig-title1     { font-size: clamp(22px, 5vw, 28px) !important; }
 
-  /* Espace pour la bottom nav */
-  body { padding-bottom: 68px; }
+  /* Nav identique au desktop — liens toujours visibles */
+  .pf-header-nav { display: flex !important; gap: 0 !important; }
+  .pf-header-nav-btn { font-size: 11px !important; padding: 4px 7px !important; }
 
-  /* Cacher la nav desktop dans le header */
-  .pf-header-nav { display: none !important; }
+  /* Masquer hamburger (nav est déjà visible) */
+  .pf-hamburger { display: none !important; }
+
+  body { padding-bottom: 20px; }
 }
 
 /* ─── Touch : hover → active/focus ────────────────────────────────────────
@@ -2048,7 +2051,7 @@ body {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 @media (max-width: 767px) {
-  .pf-bottom-nav { display: flex; }
+  .pf-bottom-nav { display: none !important; }
   .pf-hamburger  { display: none !important; }
 }
 .pf-bottom-nav-item {
@@ -2083,7 +2086,7 @@ body {
   justify-content: center;
 }
 @media (max-width: 767px) {
-  .pf-hamburger  { display: flex; }
+  .pf-hamburger    { display: none !important; }
   .pf-header-right { display: none !important; }
 }
 
