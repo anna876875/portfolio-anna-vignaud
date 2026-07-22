@@ -1485,11 +1485,12 @@ function LockedProjectWindow({
         transition={{ duration: 0.5, delay, ease: SP }}
         onHoverStart={() => setHovered(true)}
         onHoverEnd={() => setHovered(false)}
+        onTouchStart={() => setHovered(h => !h)}
         style={{
           borderRadius: 12, overflow: "hidden", background: "#fff",
           border: "1px solid rgba(0,0,0,0.08)",
           boxShadow: "0 4px 16px rgba(0,0,0,0.06)",
-          cursor: "default",
+          cursor: "pointer",
         }}>
         {inner}
       </motion.div>

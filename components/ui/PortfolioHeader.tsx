@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Home, User, Layers, Mail } from "lucide-react";
 
 const SP   = [0.22, 1, 0.36, 1] as const;
 const INK  = "var(--color-label)";
@@ -14,6 +14,13 @@ const NAV = [
   { label: "À propos", href: "/#about"   },
   { label: "Projets",  href: "/#work"    },
   { label: "Contact",  href: "/#contact" },
+];
+
+const BOTTOM_NAV = [
+  { label: "Accueil",  href: "/",         Icon: Home   },
+  { label: "À propos", href: "/#about",   Icon: User   },
+  { label: "Projets",  href: "/#work",    Icon: Layers },
+  { label: "Contact",  href: "/#contact", Icon: Mail   },
 ];
 
 /* Sur les pages projet, active "Projets" */
@@ -35,8 +42,8 @@ function isActive(href: string, pathname: string, activeSection: string): boolea
 
 export function PortfolioHeader() {
   const pathname    = usePathname();
-  const [scrollY, setScrollY]           = useState(0);
-  const [menuOpen, setMenuOpen]         = useState(false);
+  const [scrollY, setScrollY]             = useState(0);
+  const [menuOpen, setMenuOpen]           = useState(false);
   const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
@@ -94,8 +101,8 @@ export function PortfolioHeader() {
             Anna V.
           </Link>
 
-          {/* Nav desktop */}
-          <nav style={{ display: "flex", gap: 28 }}>
+          {/* Nav desktop — cachée sur mobile via .pf-header-nav */}
+          <nav className="pf-header-nav" style={{ display: "flex", gap: 28 }}>
             {NAV.map(({ label, href }) => (
               <Link key={label} href={href}
                 className={`pf-header-nav-btn${isActive(href, pathname, activeSection) ? " active" : ""}`}
@@ -111,14 +118,14 @@ export function PortfolioHeader() {
             <span className="hig-caption2" style={{ color: INK3 }}>Disponible</span>
           </div>
 
-          {/* Hamburger mobile */}
+          {/* Hamburger mobile — masqué quand bottom nav est présente */}
           <button className="pf-hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Menu">
             {menuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </motion.header>
 
-      {/* Menu mobile dropdown */}
+      {/* Menu mobile dropdown (fallback si bottom nav désactivée) */}
       <AnimatePresence>
         {menuOpen && (
           <motion.nav
@@ -140,6 +147,19 @@ export function PortfolioHeader() {
           </motion.nav>
         )}
       </AnimatePresence>
+
+      {/* Bottom tab bar mobile */}
+      <nav className="pf-bottom-nav" aria-label="Navigation principale">
+        {BOTTOM_NAV.map(({ label, href, Icon }) => (
+          <Link
+            key={label}
+            href={href}
+            className={`pf-bottom-nav-item${isActive(href, pathname, activeSection) ? " active" : ""}`}>
+            <Icon size={22} strokeWidth={1.6} />
+            <span>{label}</span>
+          </Link>
+        ))}
+      </nav>
     </>
   );
 }

@@ -2088,7 +2088,83 @@ body {
 
   /* Sections padding horizontal */
   .cs-section-pad { padding-left: 20px !important; padding-right: 20px !important; }
+
+  /* Info strip padding horizontal plus serré */
+  .cs-info-strip { padding-left: 20px !important; padding-right: 20px !important; }
+
+  /* Typo display trop grande sur petit écran */
+  .hig-display    { font-size: clamp(32px, 8vw, 64px) !important; }
+  .hig-largetitle { font-size: clamp(26px, 6vw, 34px) !important; }
+  .hig-title1     { font-size: clamp(22px, 5vw, 28px) !important; }
+
+  /* Espace pour la bottom nav */
+  body { padding-bottom: 68px; }
+
+  /* Cacher la nav desktop dans le header */
+  .pf-header-nav { display: none !important; }
 }
+
+/* ─── Touch : hover → active/focus ────────────────────────────────────────
+   Sur mobile les :hover ne déclenchent pas au toucher. On duplique les
+   styles visuels importants sur :active pour un feedback immédiat.
+   ─────────────────────────────────────────────────────────────────────── */
+.ftr-card:active {
+  border-color: rgba(34,211,238,0.28);
+  box-shadow: 0 0 60px rgba(34,211,238,0.10), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.ftr-tag:active {
+  border-color: rgba(34,211,238,0.5);
+  background: rgba(34,211,238,0.09);
+  box-shadow: 0 0 16px rgba(34,211,238,0.15);
+}
+.ftr-btn:active {
+  border-color: rgba(34,211,238,0.45);
+  background: rgba(34,211,238,0.07);
+  box-shadow: 0 0 24px rgba(34,211,238,0.14);
+  color: #22D3EE;
+}
+.ftr-btn:active .ftr-btn-arrow { transform: translateX(4px); color: #22D3EE; }
+.bubble-card:active { border-color: var(--color-blue); box-shadow: 0 4px 24px rgba(59,130,246,0.12); }
+.exp-card:active    { border-left-color: var(--color-blue); }
+.pf2-contact-link:active { color: #FFD600 !important; }
+.pf2-btn-primary:active  { opacity: 0.85; }
+.btn-tinted:active:not(:disabled) { background-color: var(--color-accent-tint-hover); }
+
+/* ─── Bottom navigation mobile ───────────────────────────────────────────── */
+.pf-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 56px;
+  background: var(--color-bg-primary);
+  border-top: 1px solid var(--color-sep-opaque);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 100;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (max-width: 767px) {
+  .pf-bottom-nav { display: flex; }
+  .pf-hamburger  { display: none !important; }
+}
+.pf-bottom-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  text-decoration: none;
+  color: var(--color-label-3);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: color 120ms;
+  padding: 6px 4px;
+  -webkit-tap-highlight-color: transparent;
+}
+.pf-bottom-nav-item.active { color: var(--color-accent); }
+.pf-bottom-nav-item:active { color: var(--color-accent); }
 
 /* PortfolioHeader — hamburger mobile */
 .pf-hamburger {
