@@ -180,65 +180,11 @@
 
 
 /* ────────────────────────────────────────────────────────────────
-   3. COLOR TOKENS — Dark Mode
-   Dark mode is NOT "inverted light mode".
-   Apple carefully re-tunes every color for dark backgrounds.
-   Key principles:
-   - Backgrounds go dark but NOT pure black (#000) on mid-layers
-   - Labels invert (white becomes primary)
-   - Accent colors become slightly more saturated/bright for legibility
+   3. COLOR TOKENS — Dark Mode (DÉSACTIVÉ)
+   Le portfolio est light-only. Les blocs dark mode ont été
+   supprimés pour que le thème clair s'applique sur tous les
+   appareils, quel que soit le réglage système.
    ──────────────────────────────────────────────────────────────── */
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* ── Backgrounds ──
-       Layering: #000 → #1C1C1E → #2C2C2E → #3A3A3C
-       Each step is a subtle lift, like paper on paper. */
-    --color-bg-primary:   #000000;
-    --color-bg-secondary: #1C1C1E;
-    --color-bg-tertiary:  #2C2C2E;
-    --color-bg-elevated:  #3A3A3C;
-
-    /* ── Labels ──
-       Primary white (#FFF) on #000 = 21:1 ✓
-       Secondary (60%) on #000 ≈ 12.6:1 ✓ */
-    --color-label:   #FFFFFF;
-    --color-label-2: rgba(235, 235, 245, 0.60);
-    --color-label-3: rgba(235, 235, 245, 0.30);
-    --color-label-4: rgba(235, 235, 245, 0.18);
-
-    /* ── Fills ── Higher opacity needed on dark surfaces to be visible */
-    --color-fill:   rgba(120, 120, 128, 0.36);
-    --color-fill-2: rgba(120, 120, 128, 0.32);
-    --color-fill-3: rgba(118, 118, 128, 0.24);
-    --color-fill-4: rgba(116, 116, 128, 0.18);
-
-    /* ── Separators ── */
-    --color-sep:        rgba(84, 84, 88, 0.65);
-    --color-sep-opaque: #38383A;
-
-    /* ── System Colors — Dark variants ──
-       More vibrant / saturated to compensate for the Helmholtz-Kohlrausch
-       effect: colors appear less saturated on dark backgrounds. */
-    --color-blue:   #0A84FF;
-    --color-green:  #30D158;
-    --color-red:    #FF453A;
-    --color-orange: #FF9F0A;
-    --color-yellow: #FFD60A;
-    --color-purple: #BF5AF2;
-    --color-pink:   #FF375F;
-    --color-teal:   #64D2FF;
-    --color-indigo: #5E5CE6;
-    --color-mint:   #63E6E2;
-    --color-brown:  #AC8E68;
-    --color-cyan:   #64D2FF;
-
-    /* ── Materials — Dark ── */
-    --mat-bg-thin:    rgba(28, 28, 30, 0.55);
-    --mat-bg-regular: rgba(28, 28, 30, 0.72);
-    --mat-bg-thick:   rgba(28, 28, 30, 0.85);
-    --mat-bg-chrome:  rgba(44, 44, 46, 0.94);
-  }
-}
 
 
 /* ────────────────────────────────────────────────────────────────
@@ -520,10 +466,6 @@ body {
   backdrop-filter: blur(40px) saturate(200%);
   -webkit-backdrop-filter: blur(40px) saturate(200%);
 }
-@media (prefers-color-scheme: dark) {
-  .mat-ultra-thin  { background-color: rgba(20,20,22,0.45); }
-  .mat-ultra-thick { background-color: rgba(44,44,46,0.94); }
-}
 
 
 /* ────────────────────────────────────────────────────────────────
@@ -582,17 +524,6 @@ body {
 
 .glass-card > * { position: relative; z-index: 1; }
 
-@media (prefers-color-scheme: dark) {
-  .glass-card {
-    background-color: rgba(20, 20, 24, 0.40);
-    border-color: rgba(255, 255, 255, 0.14);
-    box-shadow:
-      inset 0  1px 0 rgba(255, 255, 255, 0.14),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.35),
-      0 8px 32px rgba(0, 0, 0, 0.45),
-      0 2px  8px rgba(0, 0, 0, 0.25);
-  }
-}
 
 
 /* ────────────────────────────────────────────────────────────────
@@ -1453,10 +1384,6 @@ body {
 .footer-link:hover {
   color: var(--color-label);
 }
-@media (prefers-color-scheme: dark) {
-  .footer-link       { color: var(--color-label-3); }
-  .footer-link:hover { color: var(--color-label);   }
-}
 
 /* Gray button: neutral fill, primary label */
 .btn-gray {
@@ -1497,9 +1424,6 @@ body {
   border-radius: var(--r-md);
   background-color: rgba(116, 116, 128, 0.12);
 }
-@media (prefers-color-scheme: dark) {
-  .seg-root { background-color: rgba(116, 116, 128, 0.24); }
-}
 
 /* Le thumb glissant — positionné par JS via style={{left, width}} */
 .seg-thumb {
@@ -1516,14 +1440,6 @@ body {
     width 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
   pointer-events: none;
   will-change: left, width;
-}
-@media (prefers-color-scheme: dark) {
-  .seg-thumb {
-    background-color: rgba(58, 58, 62, 1);
-    box-shadow:
-      0 1px 3px rgba(0, 0, 0, 0.30),
-      0 1px 1px rgba(0, 0, 0, 0.20);
-  }
 }
 
 .seg-item {
@@ -1601,9 +1517,6 @@ body {
   padding: 0;
   appearance: none;
 }
-@media (prefers-color-scheme: dark) {
-  .toggle-track { background-color: rgba(120, 120, 128, 0.32); }
-}
 .toggle-track:focus-visible {
   outline: 2px solid var(--color-blue);
   outline-offset: 3px;
@@ -1661,9 +1574,6 @@ body {
   border-radius: var(--r-full);
   background-color: rgba(120, 120, 128, 0.16);
   overflow: hidden;
-}
-@media (prefers-color-scheme: dark) {
-  .progress-track { background-color: rgba(120, 120, 128, 0.24); }
 }
 
 .progress-track-sm { height: 4px; }
@@ -1738,12 +1648,6 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.25),
     0 8px 32px rgba(0, 0, 0, 0.18),
     0 2px  8px rgba(0, 0, 0, 0.10);
-}
-@media (prefers-color-scheme: dark) {
-  .toast {
-    background-color: rgba(28, 28, 32, 0.85);
-    border-color: rgba(255, 255, 255, 0.10);
-  }
 }
 
 .toast[data-state="entering"] { animation: toast-in  350ms cubic-bezier(0.34, 1.56, 0.64, 1) both; }
