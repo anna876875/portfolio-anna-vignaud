@@ -1,0 +1,2169 @@
+@import "tailwindcss";
+
+/* ================================================================
+   PORTFOLIO — Design System Foundation
+   Inspired by Apple Human Interface Guidelines (HIG)
+   Single Source of Truth — v1.0
+   ================================================================
+
+   TABLE OF CONTENTS
+   1.  Typography Tokens
+   2.  Color Tokens — Light Mode
+   3.  Color Tokens — Dark Mode
+   4.  Spacing Tokens (4pt grid)
+   5.  Radius Tokens (Squircle system)
+   6.  Shadow Tokens
+   7.  Motion Tokens
+   8.  Material (Frosted Glass) Variables
+   9.  Tailwind v4 Theme Integration
+   10. Base Reset & Defaults
+   11. Typography Utility Classes
+   12. Material Utility Classes
+   13. Button Variant Helpers
+   ================================================================ */
+
+
+/* ────────────────────────────────────────────────────────────────
+   1. TYPOGRAPHY TOKENS
+   Apple HIG defines precise text styles. Each has a specific role.
+   Point values (pt) map 1:1 to pixels on 1x screens.
+   ──────────────────────────────────────────────────────────────── */
+:root {
+  /* SF Pro is a system font — available natively on all Apple devices.
+     On Windows/Android we fall back to system equivalents.
+     We never ship or embed SF Pro (Apple license). */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+               "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "SF Mono", "Fira Code", "Cascadia Code", Menlo,
+               Consolas, monospace;
+
+  /* ── Text Sizes (Apple HIG scale) ── */
+  --text-display:    64px;  /* Marketing hero — not an HIG style, web addition */
+  --text-largetitle: 34px;  /* Large Title — section openers, hero screens     */
+  --text-title1:     28px;  /* Title 1 — primary view title                    */
+  --text-title2:     22px;  /* Title 2 — secondary sections                    */
+  --text-title3:     20px;  /* Title 3 — subsections                           */
+  --text-headline:   17px;  /* Headline — list item titles, card headers       */
+  --text-body:       17px;  /* Body — readable prose, descriptions             */
+  --text-callout:    16px;  /* Callout — emphasized secondary text             */
+  --text-subhead:    15px;  /* Subheadline — metadata, subtitles               */
+  --text-footnote:   13px;  /* Footnote — legal text, timestamps               */
+  --text-caption1:   12px;  /* Caption 1 — labels under images, error messages */
+  --text-caption2:   11px;  /* Caption 2 — tab bar labels, badges              */
+
+  /* ── Weights ──
+     Apple reserves bold (700) for emphasis + large titles.
+     Body text is always regular (400) to reduce visual fatigue.
+     Semibold (600) is the sweet spot for interactive labels. */
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  /* ── Line Heights (Apple HIG ratios) ──
+     Tighter leading for large titles (already visually spacious),
+     looser for body (readability in long-form paragraphs). */
+  --lh-display:    1.10;
+  --lh-largetitle: 1.21;   /* 41px / 34px */
+  --lh-title1:     1.21;   /* 34px / 28px */
+  --lh-title2:     1.27;   /* 28px / 22px */
+  --lh-title3:     1.25;   /* 25px / 20px */
+  --lh-headline:   1.29;   /* 22px / 17px */
+  --lh-body:       1.47;   /* 25px / 17px — generous for readability */
+  --lh-callout:    1.31;   /* 21px / 16px */
+  --lh-subhead:    1.33;   /* 20px / 15px */
+  --lh-footnote:   1.38;   /* 18px / 13px */
+  --lh-caption1:   1.33;   /* 16px / 12px */
+  --lh-caption2:   1.45;   /* 16px / 11px */
+
+  /* ── Letter Spacing ──
+     Negative tracking on large sizes prevents optical looseness.
+     Zero tracking on body — Apple specifies 0 for SF Pro body text. */
+  --ls-display:    -0.05em;
+  --ls-largetitle: -0.03em;
+  --ls-title1:     -0.02em;
+  --ls-title2:     -0.02em;
+  --ls-title3:      0em;
+  --ls-body:        0em;
+  --ls-caption2:    0.01em;  /* Slightly wider for small caps readability */
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   2. COLOR TOKENS — Light Mode
+   Apple's color system is built on 4 semantic layers:
+   Background → Labels → Fills → Accents.
+   Each layer has 4 levels of hierarchy (primary → quaternary).
+   ──────────────────────────────────────────────────────────────── */
+:root {
+  /* Force le navigateur à utiliser le light mode pour cette page,
+     même si le système est en dark mode. Cela empêche les blocs
+     @media (prefers-color-scheme: dark) de s'appliquer. */
+  color-scheme: light;
+
+  /* ── Backgrounds ──
+     Primary: main content canvas (pure white in light)
+     Secondary: grouped/inset areas (the "gray behind cards" on iOS)
+     Tertiary: card surface inside secondary areas
+     Elevated: highest layer, menus, popovers */
+  --color-bg-primary:   #FFFFFF;
+  --color-bg-secondary: #FFFFFF;
+  --color-bg-tertiary:  #FFFFFF;
+  --color-bg-elevated:  #FFFFFF;
+
+  /* ── Labels (Text Hierarchy) ──
+     WCAG AA requires ≥4.5:1 for body text, ≥3:1 for large text.
+     Primary (#000 on #FFF) = 21:1 ✓
+     Secondary (80% opacity) ≈ 5.9:1 ✓ AA body text
+     Tertiary (65% opacity) ≈ 3.4:1 ✓ valid for captions/large text
+     Quaternary (18% opacity) — decorative only, not for readable text */
+  --color-label:   #000000;
+  --color-label-2: rgba(60, 60, 67, 0.80);
+  --color-label-3: rgba(60, 60, 67, 0.65);
+  --color-label-4: rgba(60, 60, 67, 0.18);
+
+  /* ── Fills (Interactive Surface Backgrounds) ──
+     Used for buttons (gray style), input fields, segmented controls.
+     Pure CSS opacity layers — they tint any background color. */
+  --color-fill:   rgba(120, 120, 128, 0.20);
+  --color-fill-2: rgba(120, 120, 128, 0.16);
+  --color-fill-3: rgba(118, 118, 128, 0.12);
+  --color-fill-4: rgba(116, 116, 128, 0.08);
+
+  /* ── Separators ──
+     Non-opaque: hair-line dividers (respects backgrounds)
+     Opaque: solid dividers where blur/transparency isn't used */
+  --color-sep:        rgba(60, 60, 67, 0.29);
+  --color-sep-opaque: #C6C6C8;
+
+  /* ── Apple System Colors ──
+     These are the canonical Apple colors used across iOS/macOS.
+     Each has a distinct accessibility-optimized dark variant (defined below).
+     Light mode values target ~AA contrast on white backgrounds. */
+  --color-blue:   #007AFF;
+  --color-green:  #34C759;
+  --color-red:    #FF3B30;
+  --color-orange: #FF9500;
+  --color-yellow: #FFCC00;
+  --color-purple: #AF52DE;
+  --color-pink:   #FF2D55;
+  --color-teal:   #32ADE6;
+  --color-indigo: #5856D6;
+  --color-mint:   #00C7BE;
+  --color-brown:  #A2845E;
+  --color-cyan:   #32ADE6;
+
+  /* ── Semantic Colors ──
+     Never hard-code a semantic meaning to a raw color.
+     Always use --color-accent, --color-success, etc. in components.
+     This lets us retheme without hunting through components. */
+  --color-accent:      var(--color-blue);
+  --color-success:     var(--color-green);
+  --color-warning:     var(--color-orange);
+  --color-danger:      var(--color-red);
+  --color-info:        var(--color-teal);
+
+  /* ── Tinted Button Backgrounds ──
+     Pre-computed because color-mix in arbitrary Tailwind values is fragile. */
+  --color-accent-tint-rest:  color-mix(in srgb, var(--color-accent) 12%, transparent);
+  --color-accent-tint-hover: color-mix(in srgb, var(--color-accent) 18%, transparent);
+
+  /* ── Materials (Frosted Glass / SF UI Materials) ──
+     Apple's vibrancy system blurs what's behind a surface.
+     blur(20px) + saturate(180%) = the classic "frosted glass" look.
+     The semi-transparent background ensures readability over any content. */
+  --mat-bg-thin:    rgba(255, 255, 255, 0.60);
+  --mat-bg-regular: rgba(255, 255, 255, 0.72);
+  --mat-bg-thick:   rgba(255, 255, 255, 0.85);
+  --mat-bg-chrome:  rgba(255, 255, 255, 0.94);
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   3. COLOR TOKENS — Dark Mode
+   Dark mode is NOT "inverted light mode".
+   Apple carefully re-tunes every color for dark backgrounds.
+   Key principles:
+   - Backgrounds go dark but NOT pure black (#000) on mid-layers
+   - Labels invert (white becomes primary)
+   - Accent colors become slightly more saturated/bright for legibility
+   ──────────────────────────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* ── Backgrounds ──
+       Layering: #000 → #1C1C1E → #2C2C2E → #3A3A3C
+       Each step is a subtle lift, like paper on paper. */
+    --color-bg-primary:   #000000;
+    --color-bg-secondary: #1C1C1E;
+    --color-bg-tertiary:  #2C2C2E;
+    --color-bg-elevated:  #3A3A3C;
+
+    /* ── Labels ──
+       Primary white (#FFF) on #000 = 21:1 ✓
+       Secondary (60%) on #000 ≈ 12.6:1 ✓ */
+    --color-label:   #FFFFFF;
+    --color-label-2: rgba(235, 235, 245, 0.60);
+    --color-label-3: rgba(235, 235, 245, 0.30);
+    --color-label-4: rgba(235, 235, 245, 0.18);
+
+    /* ── Fills ── Higher opacity needed on dark surfaces to be visible */
+    --color-fill:   rgba(120, 120, 128, 0.36);
+    --color-fill-2: rgba(120, 120, 128, 0.32);
+    --color-fill-3: rgba(118, 118, 128, 0.24);
+    --color-fill-4: rgba(116, 116, 128, 0.18);
+
+    /* ── Separators ── */
+    --color-sep:        rgba(84, 84, 88, 0.65);
+    --color-sep-opaque: #38383A;
+
+    /* ── System Colors — Dark variants ──
+       More vibrant / saturated to compensate for the Helmholtz-Kohlrausch
+       effect: colors appear less saturated on dark backgrounds. */
+    --color-blue:   #0A84FF;
+    --color-green:  #30D158;
+    --color-red:    #FF453A;
+    --color-orange: #FF9F0A;
+    --color-yellow: #FFD60A;
+    --color-purple: #BF5AF2;
+    --color-pink:   #FF375F;
+    --color-teal:   #64D2FF;
+    --color-indigo: #5E5CE6;
+    --color-mint:   #63E6E2;
+    --color-brown:  #AC8E68;
+    --color-cyan:   #64D2FF;
+
+    /* ── Materials — Dark ── */
+    --mat-bg-thin:    rgba(28, 28, 30, 0.55);
+    --mat-bg-regular: rgba(28, 28, 30, 0.72);
+    --mat-bg-thick:   rgba(28, 28, 30, 0.85);
+    --mat-bg-chrome:  rgba(44, 44, 46, 0.94);
+  }
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   4. SPACING TOKENS — 4pt Base Grid
+   Apple's entire UI is built on a 4pt grid.
+   Benefits:
+   - Everything aligns perfectly because all values share a factor
+   - Consistent "breathing room" — white space is intentional, not random
+   - Scales cleanly across screen densities (1x/2x/3x)
+   ──────────────────────────────────────────────────────────────── */
+:root {
+  --sp-1:  4px;    /* Hair: icon padding, micro gaps           */
+  --sp-2:  8px;    /* Tight: between icon and label            */
+  --sp-3:  12px;   /* Close: list item internal padding        */
+  --sp-4:  16px;   /* Default: standard horizontal margins     */
+  --sp-5:  20px;   /* Comfortable: card padding                */
+  --sp-6:  24px;   /* Relaxed: section gaps                    */
+  --sp-8:  32px;   /* Open: between major sections             */
+  --sp-10: 40px;   /* Generous: hero area padding              */
+  --sp-12: 48px;   /* Spacious: large section padding          */
+  --sp-16: 64px;   /* Airy: between page sections              */
+  --sp-20: 80px;   /* Vast: hero vertical rhythm               */
+  --sp-24: 96px;   /* Maximum: top-of-page breathing room      */
+
+  /* Layout containers */
+  --layout-sm:  390px;   /* iPhone 15 Pro viewport width */
+  --layout-md:  744px;   /* iPad Mini landscape         */
+  --layout-lg:  1024px;  /* iPad Pro portrait           */
+  --layout-xl:  1280px;  /* MacBook Air                 */
+  --layout-2xl: 1440px;  /* MacBook Pro 14"             */
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   5. RADIUS TOKENS — The Apple Squircle System
+   Apple uses "continuous corner curves" (squircles) not circular arcs.
+   The curve is a superellipse — it flows out of the edge more gently.
+   We approximate this in CSS with specific radius values.
+   ──────────────────────────────────────────────────────────────── */
+:root {
+  --r-xs:   4px;      /* Tiny badges, inline chips            */
+  --r-sm:   6px;      /* Small tags, segmented controls       */
+  --r-md:   10px;     /* Text fields, table rows, tooltips    */
+  --r-lg:   14px;     /* Cards, sheets, alerts                */
+  --r-xl:   20px;     /* Large cards, modal dialogs           */
+  --r-2xl:  28px;     /* Buttons (the pill feel), large chips */
+  --r-3xl:  40px;     /* Extra-large containers               */
+  --r-full: 9999px;   /* Perfect pill / circular              */
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   6. SHADOW TOKENS
+   Apple shadows are subtle, multi-layered, and never harsh.
+   Pattern: combine a tight, opaque shadow (for grounding) with a
+   wider, diffuse one (for depth). Never use black at full opacity.
+   ──────────────────────────────────────────────────────────────── */
+:root {
+  --shadow-sm:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 1px 3px rgba(0, 0, 0, 0.06);
+
+  --shadow-md:
+    0 2px 4px  rgba(0, 0, 0, 0.04),
+    0 4px 8px  rgba(0, 0, 0, 0.08),
+    0 1px 2px  rgba(0, 0, 0, 0.03);
+
+  --shadow-lg:
+    0 4px 8px  rgba(0, 0, 0, 0.06),
+    0 8px 16px rgba(0, 0, 0, 0.10),
+    0 2px 4px  rgba(0, 0, 0, 0.04);
+
+  --shadow-xl:
+    0  8px 10px rgba(0, 0, 0, 0.06),
+    0 16px 32px rgba(0, 0, 0, 0.12),
+    0  4px  8px rgba(0, 0, 0, 0.04);
+
+  --shadow-card:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   7. MOTION TOKENS
+   Apple's motion philosophy: responsive, intentional, non-distracting.
+   - Spring easing: snappy feedback for interactive elements
+   - Ease-out: entering elements decelerate into place
+   - Ease-in: exiting elements accelerate away
+   - Standard: symmetric transitions for state changes
+   ──────────────────────────────────────────────────────────────── */
+:root {
+  --ease-spring:     cubic-bezier(0.34, 1.56, 0.64, 1.00);  /* Tactile, slight overshoot */
+  --ease-standard:   cubic-bezier(0.45, 0.00, 0.55, 1.00);  /* Balanced in/out           */
+  --ease-decelerate: cubic-bezier(0.00, 0.00, 0.38, 1.00);  /* Enters from off-screen    */
+  --ease-accelerate: cubic-bezier(0.40, 0.00, 1.00, 1.00);  /* Exits to off-screen       */
+
+  --dur-fast:   120ms;   /* Micro-interactions: button press, toggle       */
+  --dur-base:   200ms;   /* Standard: hover states, color transitions      */
+  --dur-slow:   320ms;   /* Spatial: panel slides, modal enter             */
+  --dur-enter:  400ms;   /* Page-level: full screen transitions            */
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   9. TAILWIND v4 THEME INTEGRATION
+   Seules les polices sont enregistrées ici avec leurs valeurs LITTÉRALES.
+   Les couleurs ne passent PAS par @theme — var() sur soi-même crée
+   une référence circulaire que Tailwind résout vers le défaut (Geist).
+   Toutes les couleurs sont consommées via les arbitrary values Tailwind
+   (bg-[var(--color-blue)]) ou nos classes custom (hig-*, mat-*).
+   ──────────────────────────────────────────────────────────────── */
+@theme inline {
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+               "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "SF Mono", "Fira Code", "Cascadia Code", Menlo,
+               Consolas, monospace;
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   10. BASE RESET & DEFAULTS
+   ──────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+  color: var(--color-label);
+  background-color: var(--color-bg-primary);
+  min-height: 100dvh;
+}
+
+/* Apple-style focus ring — keyboard nav only, not on mouse click */
+:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}
+
+/* Branded selection highlight */
+::selection {
+  background-color: color-mix(in srgb, var(--color-blue) 25%, transparent);
+  color: var(--color-label);
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   11. TYPOGRAPHY UTILITY CLASSES
+   Use as className="hig-display", "hig-title1", "hig-body", etc.
+   These classes encode Apple's exact HIG text style specifications.
+   ──────────────────────────────────────────────────────────────── */
+.hig-display {
+  font-size: var(--text-display);
+  line-height: var(--lh-display);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--ls-display);
+}
+.hig-largetitle {
+  font-size: var(--text-largetitle);
+  line-height: var(--lh-largetitle);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--ls-largetitle);
+}
+.hig-title1 {
+  font-size: var(--text-title1);
+  line-height: var(--lh-title1);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--ls-title1);
+}
+.hig-title2 {
+  font-size: var(--text-title2);
+  line-height: var(--lh-title2);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--ls-title2);
+}
+.hig-title3 {
+  font-size: var(--text-title3);
+  line-height: var(--lh-title3);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--ls-title3);
+}
+.hig-headline {
+  font-size: var(--text-headline);
+  line-height: var(--lh-headline);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--ls-body);
+}
+.hig-body {
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--ls-body);
+}
+.hig-callout {
+  font-size: var(--text-callout);
+  line-height: var(--lh-callout);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--ls-body);
+}
+.hig-subhead {
+  font-size: var(--text-subhead);
+  line-height: var(--lh-subhead);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--ls-body);
+}
+.hig-footnote {
+  font-size: var(--text-footnote);
+  line-height: var(--lh-footnote);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--ls-body);
+}
+.hig-caption1 {
+  font-size: var(--text-caption1);
+  line-height: var(--lh-caption1);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--ls-body);
+}
+.hig-caption2 {
+  font-size: var(--text-caption2);
+  line-height: var(--lh-caption2);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--ls-caption2);
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   12. MATERIAL UTILITY CLASSES
+   Apple's "vibrancy" system layers translucent surfaces over content.
+   The backdrop-filter creates the characteristic "frosted glass" look.
+   Always test materials over diverse backgrounds — that's their purpose.
+   ──────────────────────────────────────────────────────────────── */
+.mat-thin {
+  background-color: var(--mat-bg-thin);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+.mat-regular {
+  background-color: var(--mat-bg-regular);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+.mat-thick {
+  background-color: var(--mat-bg-thick);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+}
+.mat-chrome {
+  background-color: var(--mat-bg-chrome);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   13-A. EXTENDED MATERIALS
+   Apple visionOS a introduit deux matériaux supplémentaires :
+   ultraThin (très léger, fenêtres flottantes) et ultraThick (sidebars).
+   ──────────────────────────────────────────────────────────────── */
+.mat-ultra-thin {
+  background-color: var(--mat-bg-ultra-thin, rgba(255,255,255,0.45));
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+}
+.mat-ultra-thick {
+  background-color: var(--mat-bg-ultra-thick, rgba(255,255,255,0.94));
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+}
+@media (prefers-color-scheme: dark) {
+  .mat-ultra-thin  { background-color: rgba(20,20,22,0.45); }
+  .mat-ultra-thick { background-color: rgba(44,44,46,0.94); }
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   13-B. GLASS CARD
+   Carte en verre avec reflet spéculaire (highlight haut de surface)
+   et texture noise subtile — signature visuelle d'Apple depuis iOS 7.
+
+   RÈGLE CLÉ : le verre n'est visible QUE sur un fond vivid et complexe.
+   Sur fond blanc, la transparence n'a rien à "flouter" — le blur existe
+   mais est imperceptible. Toujours poser une glass card sur :
+   - un mesh gradient (nos classes .mesh-*)
+   - une image ou photo
+   - un fond uni coloré et saturé
+
+   Anatomie d'un verre Apple :
+   ① backdrop-filter : blur + saturate = la "vibrancy"
+   ② background transparent à 35% (pas 72%) — laisse passer la couleur
+   ③ border rgba(255,255,255,0.25) : le contour lumineux
+   ④ inset box-shadow top : reflet spéculaire (la "brillance" du verre)
+   ⑤ inset box-shadow bottom : l'ombre interne qui ancre la forme
+   ⑥ pseudo-element ::before : texture noise quasi-imperceptible
+   ──────────────────────────────────────────────────────────────── */
+
+/* Variable CSS pour contourner le strip backdrop-filter par PostCSS */
+:root {
+  --glass-filter: blur(24px) saturate(200%);
+}
+
+.glass-card {
+  position: relative;
+  overflow: hidden;
+  /* 35% opacité : assez transparent pour que le fond coloré transparaisse */
+  background-color: rgba(255, 255, 255, 0.35);
+  -webkit-backdrop-filter: var(--glass-filter);
+  backdrop-filter: var(--glass-filter);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    inset 0  1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    0 2px  8px rgba(0, 0, 0, 0.08);
+}
+
+/* Texture noise : SVG feTurbulence inline, opacité 4% */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+.glass-card > * { position: relative; z-index: 1; }
+
+@media (prefers-color-scheme: dark) {
+  .glass-card {
+    background-color: rgba(20, 20, 24, 0.40);
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow:
+      inset 0  1px 0 rgba(255, 255, 255, 0.14),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+      0 8px 32px rgba(0, 0, 0, 0.45),
+      0 2px  8px rgba(0, 0, 0, 0.25);
+  }
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   13-C. GRADIENT MESH BACKGROUNDS
+   Les arrière-plans dégradés d'Apple sont des "mesh gradients" :
+   plusieurs radial-gradient superposés, chacun ancré à un coin.
+   Ce n'est PAS un simple linéaire — c'est une lumière colorée projetée.
+   ──────────────────────────────────────────────────────────────── */
+/* Standard (showcase de composants) — 55% pour que le blur soit perceptible */
+.mesh-blue-purple {
+  background:
+    radial-gradient(ellipse 70% 70% at 15% 15%,
+      color-mix(in srgb, var(--color-blue)   55%, transparent), transparent),
+    radial-gradient(ellipse 70% 70% at 85% 85%,
+      color-mix(in srgb, var(--color-purple) 55%, transparent), transparent),
+    var(--color-bg-secondary);
+}
+.mesh-orange-pink {
+  background:
+    radial-gradient(ellipse 70% 70% at 80% 15%,
+      color-mix(in srgb, var(--color-orange) 55%, transparent), transparent),
+    radial-gradient(ellipse 70% 70% at 20% 85%,
+      color-mix(in srgb, var(--color-pink)   55%, transparent), transparent),
+    var(--color-bg-secondary);
+}
+.mesh-green-teal {
+  background:
+    radial-gradient(ellipse 70% 70% at 20% 20%,
+      color-mix(in srgb, var(--color-green)  55%, transparent), transparent),
+    radial-gradient(ellipse 70% 70% at 80% 80%,
+      color-mix(in srgb, var(--color-teal)   55%, transparent), transparent),
+    var(--color-bg-secondary);
+}
+.mesh-indigo-cyan {
+  background:
+    radial-gradient(ellipse 70% 70% at 80% 20%,
+      color-mix(in srgb, var(--color-indigo) 55%, transparent), transparent),
+    radial-gradient(ellipse 70% 70% at 20% 80%,
+      color-mix(in srgb, var(--color-cyan)   55%, transparent), transparent),
+    var(--color-bg-secondary);
+}
+
+/* Demo vivid — fond très saturé pour montrer l'effet blur en action */
+.mesh-demo-vivid {
+  background:
+    radial-gradient(ellipse 65% 65% at  0%   0%,  #007AFF 0%, transparent 70%),
+    radial-gradient(ellipse 65% 65% at 100%   0%, #AF52DE 0%, transparent 70%),
+    radial-gradient(ellipse 65% 65% at  50% 100%, #FF2D55 0%, transparent 70%),
+    radial-gradient(ellipse 55% 55% at  50%  50%, #FF9F0A 0%, transparent 70%),
+    #0A0A1A;
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   13-D. ICON CONTAINER
+   Le "rounded square" d'Apple pour les icônes de contenu.
+   Utilisé dans les réglages iOS (icônes d'apps), feature lists, etc.
+   Rayon = r-lg (14px) pour la taille standard — approxime le squircle.
+   ──────────────────────────────────────────────────────────────── */
+.icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-lg);
+  flex-shrink: 0;
+}
+.icon-wrap-sm  { width: 32px; height: 32px; }
+.icon-wrap-md  { width: 44px; height: 44px; }
+.icon-wrap-lg  { width: 56px; height: 56px; border-radius: var(--r-xl); }
+.icon-wrap-xl  { width: 72px; height: 72px; border-radius: var(--r-xl); }
+
+/* Couleurs de l'icon-wrap — tint à 15% de saturation */
+.icon-wrap-blue   { background: color-mix(in srgb, var(--color-blue)   15%, transparent); color: var(--color-blue);   }
+.icon-wrap-green  { background: color-mix(in srgb, var(--color-green)  15%, transparent); color: var(--color-green);  }
+.icon-wrap-red    { background: color-mix(in srgb, var(--color-red)    15%, transparent); color: var(--color-red);    }
+.icon-wrap-orange { background: color-mix(in srgb, var(--color-orange) 15%, transparent); color: var(--color-orange); }
+.icon-wrap-purple { background: color-mix(in srgb, var(--color-purple) 15%, transparent); color: var(--color-purple); }
+.icon-wrap-teal   { background: color-mix(in srgb, var(--color-teal)   15%, transparent); color: var(--color-teal);   }
+.icon-wrap-pink   { background: color-mix(in srgb, var(--color-pink)   15%, transparent); color: var(--color-pink);   }
+.icon-wrap-indigo { background: color-mix(in srgb, var(--color-indigo) 15%, transparent); color: var(--color-indigo); }
+.icon-wrap-neutral{ background: var(--color-fill-2);                                      color: var(--color-label);   }
+
+
+/* ────────────────────────────────────────────────────────────────
+   13-E. BADGE / TAG HELPERS
+   Pilule colorée pour les technologies, catégories, statuts.
+   Même logique color-mix que les boutons "tinted".
+   ──────────────────────────────────────────────────────────────── */
+.badge-blue   { background: color-mix(in srgb, var(--color-blue)   12%, transparent); color: var(--color-blue);   }
+.badge-green  { background: color-mix(in srgb, var(--color-green)  12%, transparent); color: var(--color-green);  }
+.badge-red    { background: color-mix(in srgb, var(--color-red)    12%, transparent); color: var(--color-red);    }
+.badge-orange { background: color-mix(in srgb, var(--color-orange) 12%, transparent); color: var(--color-orange); }
+.badge-purple { background: color-mix(in srgb, var(--color-purple) 12%, transparent); color: var(--color-purple); }
+.badge-teal   { background: color-mix(in srgb, var(--color-teal)   12%, transparent); color: var(--color-teal);   }
+.badge-pink   { background: color-mix(in srgb, var(--color-pink)   12%, transparent); color: var(--color-pink);   }
+.badge-indigo { background: color-mix(in srgb, var(--color-indigo) 12%, transparent); color: var(--color-indigo); }
+.badge-neutral{ background: var(--color-fill-2);                                      color: var(--color-label-2); }
+
+
+/* ────────────────────────────────────────────────────────────────
+   13-F. ANIMATIONS & KEYFRAMES
+   ──────────────────────────────────────────────────────────────── */
+
+/* Skeleton shimmer — chargement façon iOS */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-fill-3) 25%,
+    var(--color-fill-2) 50%,
+    var(--color-fill-3) 75%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.6s infinite linear;
+  border-radius: var(--r-md);
+}
+
+/* Fade-in depuis le bas — entrée d'éléments */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fade-up var(--dur-slow) var(--ease-decelerate) both;
+}
+
+/* Scale-in — apparition de cartes/modals */
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.animate-scale-in {
+  animation: scale-in var(--dur-slow) var(--ease-spring) both;
+}
+
+/* Glow pulsé — hover accent sur éléments interactifs */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0   0   color-mix(in srgb, var(--color-blue) 40%, transparent); }
+  50%       { box-shadow: 0 0 16px 4px color-mix(in srgb, var(--color-blue) 40%, transparent); }
+}
+.animate-glow {
+  animation: glow-pulse 2s var(--ease-standard) infinite;
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   13. BUTTON VARIANT HELPERS
+   Defined here to safely use color-mix() without Tailwind escaping issues.
+   ──────────────────────────────────────────────────────────────── */
+
+/* Tinted button: accent-colored background at low opacity */
+.btn-tinted {
+  background-color: var(--color-accent-tint-rest);
+  color: var(--color-accent);
+}
+.btn-tinted:hover:not(:disabled) {
+  background-color: var(--color-accent-tint-hover);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   13-K. SCROLL REVEAL
+   Système de révélation au scroll via IntersectionObserver (Reveal.tsx).
+   L'élément part dans un état "caché" (opacity 0 + transform),
+   la classe .revealed est ajoutée par JS → déclenche la transition CSS.
+
+   POURQUOI CSS plutôt que JS pour les transitions :
+   → Le JS change UNE classe, le CSS gère TOUT le mouvement.
+   → GPU-accelerated (opacity + transform = composite layer).
+   → Aucun jank — le thread JS n'est pas impliqué pendant l'animation.
+
+   delay : passé via style={{ transitionDelay }} pour permettre
+   les entrées en cascade (stagger) depuis le parent React.
+   ──────────────────────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transition:
+    opacity   700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-up    { transform: translateY(48px); }
+.reveal-left  { transform: translateX(-48px); }
+.reveal-right { transform: translateX(48px);  }
+.reveal-scale { transform: scale(0.94);       }
+.reveal-fade  { transform: none;              }
+
+.reveal.revealed {
+  opacity:   1 !important;
+  transform: none !important;
+}
+
+/* Hero word stagger — animation CSS au chargement (sans JS) */
+@keyframes word-enter {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+.hero-word {
+  display: block;
+  opacity: 0;
+  animation: word-enter 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.hero-word:nth-child(1) { animation-delay: 100ms; }
+.hero-word:nth-child(2) { animation-delay: 280ms; }
+.hero-word:nth-child(3) { animation-delay: 460ms; }
+
+/* Fondu sous-titre hero */
+@keyframes fade-in-soft {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.hero-subtitle {
+  opacity: 0;
+  animation: fade-in-soft 800ms ease 700ms forwards;
+}
+.hero-cta {
+  opacity: 0;
+  animation: fade-in-soft 800ms ease 900ms forwards;
+}
+
+/* ── Experience card — left accent strip ─────────────────────── */
+.exp-card {
+  position: relative;
+  padding-left: var(--sp-5);
+  border-left: 2px solid transparent;
+  transition: border-color var(--dur-base) var(--ease-out);
+}
+.exp-card:hover { border-left-color: var(--color-blue); }
+.exp-card.accent-blue   { border-left-color: var(--color-blue);   }
+.exp-card.accent-purple { border-left-color: var(--color-purple); }
+.exp-card.accent-green  { border-left-color: var(--color-green);  }
+.exp-card.accent-orange { border-left-color: var(--color-orange); }
+.exp-card.accent-teal   { border-left-color: var(--color-teal);   }
+
+/* ────────────────────────────────────────────────────────────────
+   13-L. BUBBLE TIMELINE
+   Frise centrale avec bulles de contenu qui apparaissent au scroll.
+   Chaque section = une bulle reliée à la ligne par un bras horizontal.
+
+   PRINCIPE :
+   - La ligne verticale court au milieu de la page (desktop) ou à
+     gauche (mobile). Elle se colore en bleu au scroll via JS.
+   - Chaque nœud (.bubble-node) contient : un dot sur la ligne,
+     un bras horizontal, et la bulle (.bubble-card).
+   - Desktop : les bulles alternent gauche / droite (zigzag).
+   - Mobile  : toutes les bulles sont à droite de la ligne.
+
+   ANATOMIE D'UN NŒUD (desktop) :
+
+     [bulle ←]  ──── ● ────  [→ bulle]
+                   dot (sur la ligne)
+
+   CALCULS clés :
+   - Ligne : left = calc(50% - 1px)  (1px = demi-épaisseur)
+   - Dot   : left = calc(50% - 10px) (dot 20px, centre à 50%)
+   - Bulle : width = calc(50% - 44px) → laisse 44px pour le bras
+   - Bras  : 44px — depuis bord bulle jusqu'au centre de la ligne
+   ──────────────────────────────────────────────────────────────── */
+
+/* Conteneur — position:relative pour les enfants absolus */
+.bubble-container { position: relative; }
+
+/* Ligne track (grise) + fill (bleue, hauteur pilotée par JS) */
+.bubble-track,
+.bubble-fill {
+  position: absolute;
+  width: 2px;
+  left: 23px;          /* mobile : centre à 24px, -1px demi-trait */
+  pointer-events: none;
+  z-index: 1;
+}
+.bubble-track { top: 0; bottom: 0; background: #E5E5EA; }
+.bubble-fill  { top: 0; background: var(--color-blue); transition: height 80ms linear; }
+
+/* Nœud de bulle */
+.bubble-node {
+  position: relative;
+  padding: 28px 0 28px 64px; /* mobile : padding-left dégager la ligne */
+}
+
+/* Dot coloré sur la ligne */
+.bubble-dot {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid #FFFFFF;
+  z-index: 10;
+  left: 14px;          /* mobile : 24 - 10 → centre = 24px ✓ */
+  top: 28px;
+}
+
+/* Enveloppe de la bulle (reçoit la largeur sur desktop) */
+.bubble-card-wrap { width: 100%; }
+
+/* La bulle elle-même */
+.bubble-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 2px 24px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04);
+  width: 100%;
+  position: relative;
+  transition: box-shadow var(--dur-base) var(--ease-out),
+              transform  var(--dur-base) var(--ease-out);
+}
+.bubble-card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.10), 0 0 0 1px rgba(0,0,0,0.04);
+  transform: translateY(-2px);
+}
+
+/* Bras horizontal — masqué sur mobile */
+.bubble-arm { display: none; }
+
+/* ── Variante "grande bulle" — contenu de section complet ───────
+   Utilisée sur la home page où chaque bulle = une section entière.
+   padding-top plus grand → le dot s'aligne + haut sur la ligne,
+   laissant de la place pour que la ligne "arrive" avant la bulle.
+   !important nécessaire pour dépasser le @media de .bubble-node.   */
+.bubble-node-lg                 { padding-top: 60px !important; padding-bottom: 60px !important; }
+.bubble-node-lg .bubble-dot    { top: 60px !important; }
+.bubble-node-lg .bubble-card   { padding: 28px; }
+
+/* Éléments éditoriaux dans les cards */
+.pf-pull-quote {
+  border-left: 3px solid var(--color-blue);
+  padding: 14px 18px;
+  border-radius: 0 var(--r-lg) var(--r-lg) 0;
+  background: rgba(0,122,255,0.04);
+  font-size: 18px;
+  font-style: italic;
+  line-height: 1.65;
+  color: var(--color-label);
+  letter-spacing: -0.01em;
+}
+.pf-section-rule {
+  border: none;
+  border-top: 1px solid var(--color-sep-opaque);
+  margin: 18px 0;
+}
+.pf-metric-value {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--color-label);
+}
+.pf-metric-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-label-3);
+  margin-top: 4px;
+}
+.pf-step-num {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--color-blue);
+  display: block;
+  margin-bottom: 4px;
+}
+.pf-insight {
+  border-radius: var(--r-lg);
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(255,255,255,0.80);
+  padding: 14px 16px;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--color-label-2);
+  line-height: 1.65;
+}
+
+/* ── Zigzag ≥ 640px : tablette, laptop, desktop ─────────────────
+   POURQUOI 640px et non 1024px ?
+   Sur macOS, le Safari / Chrome en fenêtre non maximisée peut être
+   plus étroit que 1024px. À 640px le zigzag est confortable même
+   sur une tablette en paysage. En dessous : frise à gauche, tout
+   à droite (même disposition que la colonne de droite mobile).   */
+@media (min-width: 640px) {
+  /* Ligne passe au centre */
+  .bubble-track, .bubble-fill { left: calc(50% - 1px); }
+
+  /* Nœud : plus de padding-left, espacement vertical propre */
+  .bubble-node { padding: 36px 0; min-height: 80px; }
+
+  /* Dot centré sur la ligne */
+  .bubble-dot { left: calc(50% - 10px); top: 36px; }
+
+  /* Bulles : chacune prend 50% - bras (40px) */
+  .bubble-node-left .bubble-card-wrap  { width: calc(50% - 40px); margin-right: auto; }
+  .bubble-node-right .bubble-card-wrap { width: calc(50% - 40px); margin-left:  auto; }
+
+  /* Bras horizontal reliant le dot au bord de la bulle
+     top: 46px = 36px padding + 10px demi-dot (centré sur le dot) */
+  .bubble-arm {
+    display: block;
+    position: absolute;
+    height: 1px;
+    background: #E5E5EA;
+    top: 46px;
+    z-index: 2;
+  }
+  .bubble-node-left  .bubble-arm { left: calc(50% - 40px); width: 40px; }
+  .bubble-node-right .bubble-arm { left: 50%;              width: 40px; }
+
+  /* Nœud grande bulle : arm aligné sur 100px + demi-dot */
+  .bubble-node-lg .bubble-arm { top: 70px !important; }
+
+  .bubble-terminal { left: calc(50% - 4px); }
+}
+
+/* Point terminal de fin de frise */
+.bubble-terminal {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #D2D2D7;
+  left: 20px;
+  z-index: 10;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   13-M-0. HOME PAGE — LAYOUT 2 COLONNES
+   Fidèle à la maquette : colonne gauche (5 parts) / droite (6 parts).
+   Défini ici pour éviter les conflits avec les classes Tailwind inline.
+   ──────────────────────────────────────────────────────────────── */
+.home-cols {
+  display:        flex;
+  flex-direction: column;
+  gap:            20px;
+}
+@media (min-width: 700px) {
+  .home-cols {
+    display:               grid;
+    grid-template-columns: 5fr 6fr;
+    gap:                   28px;
+    align-items:           start;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────────
+   13-M. FUTURISTIC THEME
+   Composants pour le design futuriste : fond sombre, accents cyan,
+   glassmorphism, glow, monospace labels.
+   ──────────────────────────────────────────────────────────────── */
+
+/* Fond page — dark navy + dot grid subtil */
+.ftr-bg {
+  background-color: #05070F;
+  background-image:
+    radial-gradient(ellipse 80% 40% at 50% -5%,  rgba(34,211,238,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 100% 80%, rgba(139,92,246,0.06) 0%, transparent 55%),
+    radial-gradient(rgba(34,211,238,0.07) 1px, transparent 1px);
+  background-size: auto, auto, 28px 28px;
+  min-height: 100dvh;
+}
+
+/* Ligne horizontale animée (hero separator) — dégradé Apple bleu→violet */
+.ftr-line {
+  height: 1px;
+  background: linear-gradient(to right,
+    transparent 0%,
+    color-mix(in srgb, var(--color-blue)   60%, transparent) 20%,
+    color-mix(in srgb, var(--color-purple) 60%, transparent) 80%,
+    transparent 100%);
+  transform-origin: left;
+  animation: ftr-draw 1.4s cubic-bezier(0.22,1,0.36,1) 0.6s both;
+}
+@keyframes ftr-draw {
+  from { transform: scaleX(0); opacity: 0; }
+  to   { transform: scaleX(1); opacity: 1; }
+}
+
+/* Carte glass futuriste */
+.ftr-card {
+  background:    rgba(255,255,255,0.025);
+  border:        1px solid rgba(34,211,238,0.12);
+  border-radius: 10px;
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  box-shadow:
+    0 0 40px rgba(34,211,238,0.04),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  transition: border-color 300ms ease, box-shadow 300ms ease;
+  position: relative;
+  overflow: hidden;
+}
+.ftr-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(34,211,238,0.03) 0%, transparent 60%);
+  pointer-events: none;
+}
+.ftr-card:hover {
+  border-color: rgba(34,211,238,0.28);
+  box-shadow:
+    0 0 60px rgba(34,211,238,0.10),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+/* Label monospace cyan */
+.ftr-label {
+  font-family:   'Courier New', 'SF Mono', monospace;
+  font-size:     10px;
+  font-weight:   600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color:         rgba(34,211,238,0.65);
+  display:       block;
+  margin-bottom: 10px;
+}
+
+/* Tag / chip outline */
+.ftr-tag {
+  display:       inline-flex;
+  align-items:   center;
+  padding:       5px 14px;
+  border:        1px solid rgba(34,211,238,0.22);
+  border-radius: 4px;
+  background:    rgba(34,211,238,0.04);
+  color:         rgba(34,211,238,0.8);
+  font-family:   'Courier New', monospace;
+  font-size:     11px;
+  letter-spacing: 0.08em;
+  transition:    border-color 200ms, background 200ms, box-shadow 200ms;
+  text-decoration: none;
+  white-space:   nowrap;
+}
+.ftr-tag:hover {
+  border-color: rgba(34,211,238,0.5);
+  background:   rgba(34,211,238,0.09);
+  box-shadow:   0 0 16px rgba(34,211,238,0.15);
+}
+
+/* Bouton CTA fullwidth outline */
+.ftr-btn {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  width:           100%;
+  padding:         14px 20px;
+  border:          1px solid rgba(34,211,238,0.16);
+  border-radius:   8px;
+  background:      rgba(34,211,238,0.03);
+  color:           rgba(240,244,248,0.85);
+  font-family:     var(--font-sans);
+  font-size:       13px;
+  letter-spacing:  0.02em;
+  text-align:      left;
+  text-decoration: none;
+  transition:      border-color 200ms, background 200ms, box-shadow 200ms, color 200ms;
+}
+.ftr-btn:hover {
+  border-color: rgba(34,211,238,0.45);
+  background:   rgba(34,211,238,0.07);
+  box-shadow:   0 0 24px rgba(34,211,238,0.14);
+  color:        #22D3EE;
+}
+.ftr-btn-arrow {
+  color:      rgba(34,211,238,0.5);
+  transition: transform 200ms, color 200ms;
+}
+.ftr-btn:hover .ftr-btn-arrow {
+  transform:  translateX(4px);
+  color:      #22D3EE;
+}
+
+/* Avatar / photo — cercle avec glow pulsé */
+.ftr-avatar {
+  border-radius: 50%;
+  border:        2px solid rgba(34,211,238,0.35);
+  box-shadow:    0 0 32px rgba(34,211,238,0.18), inset 0 0 24px rgba(34,211,238,0.06);
+  animation:     ftr-pulse 3.5s ease-in-out infinite;
+  overflow:      hidden;
+  position:      relative;
+}
+@keyframes ftr-pulse {
+  0%,100% { box-shadow: 0 0 32px rgba(34,211,238,0.18), inset 0 0 24px rgba(34,211,238,0.06); }
+  50%     { box-shadow: 0 0 52px rgba(34,211,238,0.32), inset 0 0 28px rgba(34,211,238,0.10); }
+}
+
+/* Skill badge futuriste */
+.ftr-skill {
+  display:       inline-flex;
+  align-items:   center;
+  padding:       4px 12px;
+  border:        1px solid rgba(34,211,238,0.18);
+  border-radius: 100px;
+  background:    rgba(34,211,238,0.05);
+  color:         rgba(240,244,248,0.75);
+  font-family:   var(--font-sans);
+  font-size:     12px;
+  font-weight:   500;
+}
+
+/* Nav futuriste */
+.ftr-nav {
+  background:    rgba(5,7,15,0.75);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-bottom: 1px solid rgba(34,211,238,0.08);
+}
+
+/* Héro reveal lignes */
+@keyframes ftr-line-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.ftr-hero-l1 { opacity:0; animation: ftr-line-in 900ms cubic-bezier(0.22,1,0.36,1) 0.1s forwards; }
+.ftr-hero-l2 { opacity:0; animation: ftr-line-in 900ms cubic-bezier(0.22,1,0.36,1) 0.3s forwards; }
+.ftr-hero-l3 { opacity:0; animation: ftr-line-in 900ms cubic-bezier(0.22,1,0.36,1) 0.5s forwards; }
+.ftr-hero-sub { opacity:0; animation: ftr-line-in 700ms ease 0.9s forwards; }
+
+/* ── Portfolio Premium — Animations & Timeline ─────────────────────── */
+@keyframes orb-float-a {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33%  { transform: translate(28px,-18px) scale(1.05); }
+  66%  { transform: translate(-16px,-32px) scale(0.96); }
+}
+@keyframes orb-float-b {
+  0%,100% { transform: translate(0,0) scale(1); }
+  50%  { transform: translate(-28px,22px) scale(1.07); }
+}
+@keyframes orb-float-c {
+  0%,100% { transform: translate(0,0) scale(1); }
+  40%  { transform: translate(18px,14px) scale(1.04); }
+  80%  { transform: translate(-14px,-18px) scale(0.97); }
+}
+@keyframes pf-float-badge {
+  0%,100% { transform: translateY(0px); }
+  50%  { transform: translateY(-10px); }
+}
+@keyframes pf-stat-in {
+  from { opacity:0; transform: translateY(14px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+@keyframes pf-dot-appear {
+  from { transform: scale(0); opacity:0; }
+  to   { transform: scale(1); opacity:1; }
+}
+@keyframes pf-line-draw {
+  from { stroke-dashoffset: 800; opacity:0; }
+  to   { stroke-dashoffset: 0; opacity:1; }
+}
+
+/* Timeline de navigation latérale */
+.pf-timeline-nav {
+  position: fixed;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+@media (max-width: 767px) { .pf-timeline-nav { display: none; } }
+
+.pf-tl-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+.pf-tl-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #D2D2D7;
+  position: relative;
+  z-index: 2;
+  transition: all 350ms cubic-bezier(0.34,1.56,0.64,1);
+  flex-shrink: 0;
+}
+.pf-tl-dot.done  { background: var(--color-blue); }
+.pf-tl-dot.active {
+  width: 12px;
+  height: 12px;
+  background: var(--color-blue);
+  box-shadow: 0 0 0 4px rgba(0,122,255,0.18);
+}
+.pf-tl-label {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-label-2);
+  /* opacity contrôlée par inline style (scroll-driven) — pas de transition CSS */
+  pointer-events: auto;
+  transition: color 200ms;
+}
+.pf-tl-dot.active + .pf-tl-label { color: var(--color-blue); }
+.pf-tl-dot.done  + .pf-tl-label { color: var(--color-label-3); }
+.pf-tl-seg {
+  width: 1px;
+  height: 44px;
+  background: #E5E5EA;
+  position: relative;
+  overflow: hidden;
+}
+.pf-tl-seg-fill {
+  position: absolute;
+  top: 0; left: 0; width: 100%;
+  background: var(--color-blue);
+  transition: height 500ms ease;
+}
+
+/* ── Header Premium — morphing vers timeline au scroll ──────────── */
+
+/* Entrance animation partagée par tous les enfants du header */
+@keyframes pf-header-in {
+  from { opacity: 0; transform: translateY(-7px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.pf-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 52px;
+  z-index: 60;
+  will-change: transform, opacity;
+}
+.pf-header-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.pf-header-inner {
+  position: relative;
+  max-width: var(--layout-xl);
+  margin: 0 auto;
+  padding: 0 var(--sp-5);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Logo ── */
+.pf-header-logo {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-label);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  animation: pf-header-in 560ms cubic-bezier(0.22,1,0.36,1) 60ms backwards;
+}
+.pf-header-logo-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--color-blue);
+  box-shadow: 0 0 0 2px rgba(0,122,255,0.22);
+  flex-shrink: 0;
+}
+
+/* Nav centrale ── */
+.pf-header-nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  justify-content: center;
+}
+.pf-header-nav-btn {
+  font-size: 13px;
+  font-weight: 500;
+  color: #545457;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px 11px;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  white-space: nowrap;
+  transition: color 200ms, background 200ms;
+  will-change: transform;
+  line-height: 1;
+}
+.pf-header-nav-btn:hover {
+  color: #1D1D1F;
+  background: rgba(0,0,0,0.04);
+}
+.pf-header-nav-btn.active {
+  color: #A259FF;
+  background: rgba(162, 89, 255, 0.10);
+  font-weight: 600;
+}
+/* Stagger entrance pour chaque bouton nav */
+.pf-header-nav-btn:nth-child(1) { animation: pf-header-in 560ms cubic-bezier(0.22,1,0.36,1) 130ms backwards; }
+.pf-header-nav-btn:nth-child(2) { animation: pf-header-in 560ms cubic-bezier(0.22,1,0.36,1) 190ms backwards; }
+.pf-header-nav-btn:nth-child(3) { animation: pf-header-in 560ms cubic-bezier(0.22,1,0.36,1) 250ms backwards; }
+.pf-header-nav-btn:nth-child(4) { animation: pf-header-in 560ms cubic-bezier(0.22,1,0.36,1) 310ms backwards; }
+
+/* Droite — statut + séparateur ── */
+.pf-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: pf-header-in 560ms cubic-bezier(0.22,1,0.36,1) 380ms backwards;
+}
+.pf-header-sep {
+  width: 1px; height: 16px;
+  background: var(--color-sep-opaque);
+  flex-shrink: 0;
+}
+.pf-header-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--color-label-3);
+  white-space: nowrap;
+}
+.pf-header-status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #A8D400;
+  box-shadow: 0 0 0 3px rgba(168,212,0,0.22);
+  flex-shrink: 0;
+}
+
+/* Mobile : nav et statut cachés, header reste comme barre simple */
+@media (max-width: 768px) {
+  .pf-header-nav  { display: none; }
+  .pf-header-status { display: none; }
+  .pf-header-sep  { display: none; }
+  .pf-header { height: 48px; }
+}
+
+/* Footer links — style apple.com : 12px gris, hover → label */
+.footer-link {
+  color: #545457;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.footer-link:hover {
+  color: var(--color-label);
+}
+@media (prefers-color-scheme: dark) {
+  .footer-link       { color: var(--color-label-3); }
+  .footer-link:hover { color: var(--color-label);   }
+}
+
+/* Gray button: neutral fill, primary label */
+.btn-gray {
+  background-color: var(--color-fill-2);
+  color: var(--color-label);
+}
+.btn-gray:hover:not(:disabled) {
+  background-color: var(--color-fill);
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   13-G. SEGMENTED CONTROL — UISegmentedControl (iOS HIG)
+
+   Anatomie Apple :
+   - Track (fond gris-translucide) : toute la largeur
+   - Thumb (pastille blanche) : se déplace sous le label actif
+   - Le thumb est positionné par JS (SegmentedControl.tsx)
+   - La transition est CSS spring — le JS change uniquement left + width
+
+   Specs (iOS 16+) :
+   - Hauteur : 32px (28pt compact, 32pt standard)
+   - Rayon externe : --r-md (10px)
+   - Rayon thumb : 7px (légèrement moins = "contenu dans" le track)
+   - Padding interne : 2px
+   - Fond light  : rgba(116,116,128, 0.12)
+   - Fond dark   : rgba(116,116,128, 0.24)
+   - Thumb light : #FFFFFF + shadow
+   - Thumb dark  : rgba(58,58,62,1) + shadow renforcée
+   - Typo : 13px (--text-footnote), weight 600 (semibold)
+   ──────────────────────────────────────────────────────────────── */
+.seg-root {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  height: 32px;
+  padding: 2px;
+  border-radius: var(--r-md);
+  background-color: rgba(116, 116, 128, 0.12);
+}
+@media (prefers-color-scheme: dark) {
+  .seg-root { background-color: rgba(116, 116, 128, 0.24); }
+}
+
+/* Le thumb glissant — positionné par JS via style={{left, width}} */
+.seg-thumb {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  border-radius: 7px;
+  background-color: #ffffff;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 1px rgba(0, 0, 0, 0.08);
+  transition:
+    left  280ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    width 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+  will-change: left, width;
+}
+@media (prefers-color-scheme: dark) {
+  .seg-thumb {
+    background-color: rgba(58, 58, 62, 1);
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.30),
+      0 1px 1px rgba(0, 0, 0, 0.20);
+  }
+}
+
+.seg-item {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-1);
+  height: 100%;
+  padding: 0 var(--sp-3);
+  min-width: 44px;
+  font-family: var(--font-sans);
+  font-size: var(--text-footnote);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  color: var(--color-label);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  border: none;
+  background: transparent;
+  border-radius: 7px;
+  transition: color var(--dur-fast) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.seg-item:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: -2px;
+}
+.seg-item:disabled {
+  opacity: 0.36;
+  cursor: not-allowed;
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   13-H. TOGGLE — UISwitch (iOS HIG)
+
+   Le switch iOS est l'un des composants les plus reconnaissables d'Apple.
+   Son animation spring est une signature visuelle.
+
+   Specs (iPhone, iOS 16+) :
+   - Track  : 51×31px, rayon 15.5px (= height/2, fully-rounded)
+   - Thumb  : 27×27px, rayon 13.5px, ombre 0 2px 4px rgba(0,0,0,0.18)
+   - Off    : rgba(120,120,128,0.16) light / rgba(120,120,128,0.32) dark
+   - On     : var(--color-green) #30D158 (couleur par défaut)
+   - Position thumb off : translateX(2px)
+   - Position thumb on  : translateX(22px)   [51 - 27 - 2 = 22px]
+   - Transition : 300ms spring cubic-bezier(0.34,1.2,0.64,1)
+   ──────────────────────────────────────────────────────────────── */
+.toggle-root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.toggle-root:has(.toggle-track:focus-visible) {
+  outline: none;
+}
+
+.toggle-track {
+  position: relative;
+  display: inline-block;
+  width: 51px;
+  height: 31px;
+  border-radius: 15.5px;
+  background-color: rgba(120, 120, 128, 0.16);
+  transition: background-color 300ms cubic-bezier(0.34, 1.2, 0.64, 1);
+  flex-shrink: 0;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  appearance: none;
+}
+@media (prefers-color-scheme: dark) {
+  .toggle-track { background-color: rgba(120, 120, 128, 0.32); }
+}
+.toggle-track:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 3px;
+}
+.toggle-track[aria-checked="true"] {
+  background-color: var(--color-green);
+}
+.toggle-track[data-color="blue"][aria-checked="true"]   { background-color: var(--color-blue);   }
+.toggle-track[data-color="orange"][aria-checked="true"] { background-color: var(--color-orange); }
+.toggle-track[data-color="red"][aria-checked="true"]    { background-color: var(--color-red);    }
+
+.toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 27px;
+  height: 27px;
+  border-radius: 13.5px;
+  background-color: #ffffff;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.18),
+    0 0.5px 1px rgba(0, 0, 0, 0.10);
+  transition: transform 300ms cubic-bezier(0.34, 1.2, 0.64, 1);
+  pointer-events: none;
+}
+.toggle-track[aria-checked="true"] .toggle-thumb {
+  transform: translateX(20px);
+}
+
+.toggle-label {
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+  color: var(--color-label);
+  user-select: none;
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   13-I. PROGRESS & SKILL BAR
+
+   UIProgressView (iOS HIG) :
+   - Hauteur track : 4px (sm), 6px (md), 8px (lg)
+   - Rayon : --r-full (fully rounded)
+   - Track : rgba(120,120,128,0.16)
+   - Fill  : accent color (ou couleur sémantique)
+   - Animation fill : width transition 600ms ease-out
+
+   Skill bar (variante portfolio) :
+   - Même track mais avec label + pourcentage affiché
+   - Utilisé pour montrer des niveaux de compétences
+   ──────────────────────────────────────────────────────────────── */
+.progress-track {
+  position: relative;
+  width: 100%;
+  border-radius: var(--r-full);
+  background-color: rgba(120, 120, 128, 0.16);
+  overflow: hidden;
+}
+@media (prefers-color-scheme: dark) {
+  .progress-track { background-color: rgba(120, 120, 128, 0.24); }
+}
+
+.progress-track-sm { height: 4px; }
+.progress-track-md { height: 6px; }
+.progress-track-lg { height: 8px; }
+
+.progress-fill {
+  height: 100%;
+  border-radius: var(--r-full);
+  background-color: var(--color-accent);
+  transition: width 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: width;
+}
+
+.progress-fill-green  { background-color: var(--color-green);  }
+.progress-fill-orange { background-color: var(--color-orange); }
+.progress-fill-red    { background-color: var(--color-red);    }
+.progress-fill-purple { background-color: var(--color-purple); }
+.progress-fill-teal   { background-color: var(--color-teal);   }
+
+/* Indeterminate — animation de défilement */
+@keyframes progress-indeterminate {
+  0%   { transform: translateX(-100%); width: 40%; }
+  50%  { transform: translateX(100%);  width: 70%; }
+  100% { transform: translateX(250%);  width: 40%; }
+}
+.progress-fill-indeterminate {
+  animation: progress-indeterminate 1.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+
+/* ────────────────────────────────────────────────────────────────
+   13-J. TOAST / NOTIFICATION BANNER
+
+   Style : iOS Live Notification Banner (iOS 16+)
+   - Position : fixed top-center (16px du bord)
+   - Fond : mat-regular (frosted glass + ombre portée forte)
+   - Rayon : --r-xl (18px)
+   - Padding : 12px 16px
+   - Min-height : 56px (44pt content + 2×6pt padding)
+   - Animation entrée  : slide-down 350ms spring
+   - Animation sortie  : slide-up   280ms ease-in
+   - Variants : default / success / warning / error / info
+   ──────────────────────────────────────────────────────────────── */
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(-110%) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)     scale(1);    }
+}
+@keyframes toast-out {
+  from { opacity: 1; transform: translateY(0)     scale(1);    }
+  to   { opacity: 0; transform: translateY(-110%) scale(0.96); }
+}
+
+.toast {
+  position: fixed;
+  top: var(--sp-4);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  width: calc(100% - var(--sp-8));
+  max-width: 400px;
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-xl);
+  background-color: var(--mat-bg-regular);
+  -webkit-backdrop-filter: var(--glass-filter);
+  backdrop-filter: var(--glass-filter);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 8px 32px rgba(0, 0, 0, 0.18),
+    0 2px  8px rgba(0, 0, 0, 0.10);
+}
+@media (prefers-color-scheme: dark) {
+  .toast {
+    background-color: rgba(28, 28, 32, 0.85);
+    border-color: rgba(255, 255, 255, 0.10);
+  }
+}
+
+.toast[data-state="entering"] { animation: toast-in  350ms cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+.toast[data-state="leaving"]  { animation: toast-out 280ms cubic-bezier(0.55, 0, 1, 0.45)    both; }
+
+.toast-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-full);
+  margin-top: 1px;
+}
+.toast-icon-success { color: var(--color-green);  }
+.toast-icon-warning { color: var(--color-orange); }
+.toast-icon-error   { color: var(--color-red);    }
+.toast-icon-info    { color: var(--color-blue);   }
+
+.toast-content { flex: 1; min-width: 0; }
+.toast-title   {
+  font-size: var(--text-footnote);
+  font-weight: var(--weight-semibold);
+  line-height: var(--lh-footnote);
+  color: var(--color-label);
+}
+.toast-message {
+  font-size: var(--text-caption1);
+  line-height: var(--lh-caption1);
+  color: var(--color-label-2);
+  margin-top: 1px;
+}
+
+.toast-close {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-label-3);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  border-radius: var(--r-full);
+  transition: color var(--dur-fast);
+  padding: 0;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   PORTFOLIO — Page sections responsive grids
+   ──────────────────────────────────────────────────────────────── */
+
+/* Scroll indicator bounce */
+@keyframes bounce-y {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(7px); }
+}
+
+/* Header nav stagger — extended to 7 items */
+.pf-header-nav-btn:nth-child(5) { animation: pf-header-in 560ms cubic-bezier(0.22,1,0.36,1) 370ms backwards; }
+.pf-header-nav-btn:nth-child(6) { animation: pf-header-in 560ms cubic-bezier(0.22,1,0.36,1) 430ms backwards; }
+.pf-header-nav-btn:nth-child(7) { animation: pf-header-in 560ms cubic-bezier(0.22,1,0.36,1) 490ms backwards; }
+
+/* 2-col : À propos (text + visual) */
+.pf-grid-about {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: start;
+}
+@media (min-width: 768px) {
+  .pf-grid-about { grid-template-columns: 3fr 2fr; gap: 64px; }
+}
+
+/* 2-col : Formation (intro + cards) */
+.pf-grid-formation {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: start;
+}
+@media (min-width: 768px) {
+  .pf-grid-formation { grid-template-columns: 1fr 1fr; gap: 80px; }
+}
+
+/* Metrics 3-col */
+.pf-grid-metrics {
+  display: grid;
+  grid-template-columns: 1fr;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  border: 1px solid var(--color-sep-opaque);
+}
+@media (min-width: 540px) {
+  .pf-grid-metrics { grid-template-columns: repeat(3, 1fr); }
+}
+.pf-grid-metrics-cell {
+  padding: 28px 24px;
+  background: #FFFFFF;
+  text-align: center;
+  border-bottom: 1px solid var(--color-sep-opaque);
+}
+@media (min-width: 540px) {
+  .pf-grid-metrics-cell {
+    border-bottom: none;
+    border-right: 1px solid var(--color-sep-opaque);
+  }
+  .pf-grid-metrics-cell:last-child { border-right: none; }
+}
+
+/* Compétences 2×2 */
+.pf-grid-skills {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 640px) {
+  .pf-grid-skills { grid-template-columns: 1fr 1fr; }
+}
+
+/* Méthodologie 8 steps */
+.pf-grid-steps {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+@media (min-width: 860px) {
+  .pf-grid-steps { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Valeur ajoutée 3×2 */
+.pf-grid-valeur {
+  display: grid;
+  grid-template-columns: 1fr;
+  border: 1px solid var(--color-sep-opaque);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+}
+@media (min-width: 640px) {
+  .pf-grid-valeur { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 960px) {
+  .pf-grid-valeur { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Projet inner grid (titre + case study) */
+.pf-project-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: start;
+}
+@media (min-width: 768px) {
+  .pf-project-inner { grid-template-columns: 1fr 1fr; gap: 40px; }
+}
+
+/* Case study 2×2 */
+.pf-cs-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+@media (min-width: 480px) {
+  .pf-cs-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { transition: none !important; }
+  .reveal.revealed { opacity: 1 !important; transform: none !important; }
+  .pf-header-logo, .pf-header-nav-btn, .pf-header-right { animation: none !important; }
+  [style*="orb-float"], [style*="pf-float-badge"], [style*="bounce-y"] { animation: none !important; }
+}
+.toast-close:hover { color: var(--color-label); }
+
+
+/* ════════════════════════════════════════════════════════════════════
+   PORTFOLIO V2 — Design System Swiss/Linear
+   Palette éditoriale, typographie fine, grilles asymétriques.
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ── Typographie — Inter Variable ── */
+:root {
+  --font-display: var(--font-inter, -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif);
+}
+
+/* ── Grille projets — asymétrique responsive ── */
+.pf2-work-row1 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+@media (min-width: 768px) {
+  .pf2-work-row1 { grid-template-columns: 62fr 38fr; }
+}
+
+.pf2-work-row3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 768px) {
+  .pf2-work-row3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ── About — 2 colonnes responsive ── */
+.pf2-about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .pf2-about-grid { grid-template-columns: 3fr 2fr; gap: 72px; align-items: center; }
+}
+
+/* ── Process — 5 colonnes responsive avec lignes-grille ── */
+.pf2-process-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: #E4E4E7;
+  border: 1px solid #E4E4E7;
+  border-radius: 16px;
+  overflow: hidden;
+}
+@media (min-width: 860px) {
+  .pf2-process-grid { grid-template-columns: repeat(5, 1fr); }
+}
+
+/* ── Skills — 3 colonnes responsive ── */
+.pf2-skills-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: #E4E4E7;
+  border: 1px solid #E4E4E7;
+  border-radius: 16px;
+  overflow: hidden;
+}
+@media (min-width: 640px) {
+  .pf2-skills-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 900px) {
+  .pf2-skills-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ── Nav de page v2 ── */
+.pf2-nav-btn {
+  background: none; border: none; cursor: pointer; padding: 0;
+  font-size: 13px; letter-spacing: -0.01em;
+  color: #71717A; transition: color 200ms ease;
+}
+.pf2-nav-btn:hover { color: #09090B; }
+.pf2-nav-dropdown-item:hover { background: rgba(0,0,0,0.04); }
+
+/* ── Links contact hover ── */
+.pf2-contact-link {
+  text-decoration: none; transition: color 200ms ease;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.pf2-contact-link:hover { color: #FFD600 !important; }
+
+/* ── Dot pulsant (disponible) ── */
+@keyframes pf2-pulse {
+  0%, 100% { box-shadow: 0 0 0 0px rgba(168,212,0,0.4); }
+  50%       { box-shadow: 0 0 0 4px rgba(168,212,0,0);  }
+}
+.pf2-dot-available {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #A8D400;
+  animation: pf2-pulse 2.5s ease-in-out infinite;
+}
+
+/* ── Marquee clients ── */
+@keyframes pf2-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.pf2-marquee-track {
+  display: flex; gap: 56px; align-items: center;
+  animation: pf2-marquee 200s linear infinite;
+  width: max-content;
+}
+.pf2-marquee-wrap { overflow: hidden; }
+.pf2-marquee-wrap:hover .pf2-marquee-track { animation-play-state: paused; }
+
+/* ── Nav hero padding mobile ── */
+.pf2-section-pad { padding: 80px 24px; }
+@media (min-width: 640px) { .pf2-section-pad { padding: 96px 48px; } }
+@media (min-width: 1024px) { .pf2-section-pad { padding: 104px 48px; } }
+
+/* ── CTA primaire v2 ── */
+.pf2-btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 24px; border-radius: 100px;
+  background: #09090B; color: #FAFAFA;
+  border: none; cursor: pointer;
+  font-size: 15px; font-weight: 500; letter-spacing: -0.01em;
+  transition: opacity 200ms, transform 200ms;
+}
+.pf2-btn-primary:hover { opacity: 0.85; }
+.pf2-btn-primary:active { transform: scale(0.98); }
+
+/* ── prefers-reduced-motion v2 ── */
+@media (prefers-reduced-motion: reduce) {
+  .pf2-marquee-track { animation: none; }
+  .pf2-dot-available { animation: none; }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   MOBILE — Overrides uniquement ≤ 767px
+   Les inline styles desktop restent INTACTS. !important écrase
+   uniquement sur mobile, le desktop ne change pas d'un pixel.
+   ════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+
+  /* Hero homepage — réduire le padding top */
+  .pf2-hero-pad { padding: 100px 24px 0 !important; }
+
+  /* Sections about / grilles 2 cols → 1 col */
+  .pf2-about-grid,
+  .cs-hero-grid,
+  .cs-two-col,
+  .cs-context-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--sp-6) !important;
+    align-items: start !important;
+  }
+
+  /* Info strip 4 cols → 2×2 */
+  .cs-info-strip { grid-template-columns: 1fr 1fr !important; }
+  .cs-info-strip > div:nth-child(2n)  { border-right: none !important; }
+  .cs-info-strip > div:nth-child(-n+2) { border-bottom: 1px solid var(--color-sep-opaque) !important; }
+
+  /* Contraintes 3 cols → 1 col */
+  .cs-three-col { grid-template-columns: 1fr !important; }
+
+  /* Sections padding horizontal */
+  .cs-section-pad { padding-left: 20px !important; padding-right: 20px !important; }
+}
+
+/* PortfolioHeader — hamburger mobile */
+.pf-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  color: var(--color-label);
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 767px) {
+  .pf-hamburger  { display: flex; }
+  .pf-header-right { display: none !important; }
+}
+
+/* Mobile nav dropdown */
+.pf-mobile-nav {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  background: var(--color-bg-primary);
+  border-bottom: 1px solid var(--color-sep-opaque);
+  padding: 8px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 99;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+}
+.pf-mobile-nav-item {
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-label);
+  transition: background 150ms;
+  display: block;
+}
+.pf-mobile-nav-item:hover { background: var(--color-bg-secondary); }
+.pf-mobile-nav-item.active { color: hsl(262, 45%, 55%); background: hsla(262, 45%, 60%, 0.10); font-weight: 600; }
+
+/* Desktop-only modal — prototypes back-office */
+.desktop-only-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 24px;
+}
+@media (max-width: 767px) {
+  .desktop-only-modal { display: flex; }
+}
+
+.desktop-only-modal__card {
+  background: var(--color-bg-primary);
+  border-radius: 24px;
+  padding: 36px 28px 28px;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 32px 96px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* PayNow BO — ancien banner (legacy, gardé au cas où) */
+.pn-desktop-only-banner { display: none !important; }

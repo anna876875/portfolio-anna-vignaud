@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190 44" fill="none">
+  <!-- Mark SG rouge -->
+  <rect x="4" y="8" width="28" height="28" rx="3" fill="#E30613"/>
+  <text x="7" y="29" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="900" fill="#FFFFFF">SG</text>
+  <!-- Wordmark -->
+  <text x="40" y="27" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="600" fill="#1A1A1A" letter-spacing="-0.2">soge<tspan fill="#E30613">commerce</tspan></text>
+</svg>

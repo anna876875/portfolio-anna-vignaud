@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amplitudes — Voyages de luxe sur mesure</title>
+<meta name="description" content="Amplitudes conçoit votre voyage de luxe sur mesure. Itinéraires personnalisés, guides experts, hébergements sélectionnés depuis 2003.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Amplitudes — Voyages de luxe sur mesure">
+<meta property="og:description" content="Des itinéraires d'exception dessinés pour vous par des experts qui connaissent chaque destination.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?w=1200&q=75&fm=webp&fit=crop">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<a href="/amplitudes" class="pf-back">← Portfolio</a>
+
+<!-- ═══ HEADER ═══════════════════════════════════════════════════════ -->
+<header class="hdr">
+  <div class="wrap">
+    <a href="index.html" class="logo">Amplitudes</a>
+    <nav class="nav">
+      <a href="index.html" aria-current="page">Accueil</a>
+      <a href="nos-voyages.html">Nos voyages</a>
+      <a href="inspirations.html">Inspirations</a>
+      <a href="agence.html">L'agence</a>
+    </nav>
+    <div class="hdr-r">
+      <span class="lang"><b>FR</b> / EN</span>
+      <button class="wl-hdr-btn" id="wl-hdr-btn" type="button" aria-label="Mes favoris (0)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="wl-hdr-badge" id="wl-count" hidden>0</span>
+      </button>
+      <button class="auth-open" type="button">Connexion</button>    </div>
+    <button class="hbg" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<nav class="mnav" aria-label="Navigation mobile">
+  <button class="cls" aria-label="Fermer">✕</button>
+  <a href="nos-voyages.html">Nos voyages</a>
+  <a href="inspirations.html">Inspirations</a>
+  <a href="agence.html">L'agence</a></nav>
+
+<main>
+
+<!-- ═══ HERO ═══════════════════════════════════════════════════════════ -->
+<section class="hero-v2">
+  <img class="bg"
+       src="https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?w=1600&q=80&fm=webp&fit=crop"
+       srcset="https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?w=768&q=72&fm=webp&fit=crop 768w,
+               https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?w=1200&q=72&fm=webp&fit=crop 1200w,
+               https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?w=1600&q=80&fm=webp&fit=crop 1600w"
+       sizes="100vw" alt="" loading="eager" width="1600" height="900">
+  <div class="hero-v2-ov"></div>
+  <div class="wrap hero-v2-c">
+    <h1>
+      <span>Créez votre voyage</span>
+      <span>de <em class="sa">luxe</em></span>
+      <span>sur mesure</span>
+    </h1>
+    <p class="hero-v2-sub">Des itinéraires d'exception, dessinés pour vous par des experts qui connaissent chaque destination, chaque lodge, chaque détail.</p>
+    <div class="hero-v2-btns">
+      <button type="button" class="btn btn-owh" id="btn-cre">Créer mon voyage</button>
+    </div>
+    <p class="hero-v2-cta-note">Sans engagement · Réponse sous 24h · Itinéraire 100&nbsp;% sur mesure</p>
+    <div class="trust-strip">
+      <div class="trust-item">
+        <div class="trust-ico">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </div>
+        <span class="trust-lbl">Depuis 2003</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-ico">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <span class="trust-lbl">4,9 / 5 ★</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-ico">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </div>
+        <span class="trust-lbl">48 destinations</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-ico">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <span class="trust-lbl">Annulation 30 j</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-ico">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <span class="trust-lbl">Expert dédié</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-ico">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <span class="trust-lbl">Sur mesure</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INSPIRATIONS ════════════════════════════════════════════════ -->
+<section class="sec sec-bg">
+  <div class="wrap">
+    <div class="insp-layout">
+
+      <!-- Colonne gauche : cards destinations -->
+      <div>
+        <p class="lbl">Inspirations pour votre voyage sur mesure</p>
+
+        <div class="insp-card" data-wip>
+          <img class="insp-card-img"
+               src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=300&q=80&fm=webp&fit=crop"
+               alt="Maroc" width="152" height="102" loading="lazy">
+          <div class="insp-card-b">
+            <p class="insp-card-reg">Moyen-Orient &amp; Maghreb</p>
+            <h3 class="insp-card-t">Un circuit au cœur du Maroc authentique</h3>
+            <p class="insp-card-p">Médinas, désert de l'Erg Chebbi et riads de luxe à Marrakech.</p>
+          </div>
+        </div>
+
+        <div class="insp-card" data-wip>
+          <img class="insp-card-img"
+               src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=300&q=80&fm=webp&fit=crop"
+               alt="Italie" width="152" height="102" loading="lazy">
+          <div class="insp-card-b">
+            <p class="insp-card-reg">Europe &amp; Grands Classiques</p>
+            <h3 class="insp-card-t">Les lacs italiens, de Côme à Majeur</h3>
+            <p class="insp-card-p">Villas historiques, jardins botaniques et villages lacustres en bateau privé.</p>
+          </div>
+        </div>
+
+        <div class="insp-card" data-wip>
+          <img class="insp-card-img"
+               src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=300&q=80&fm=webp&fit=crop"
+               alt="Polynésie" width="152" height="102" loading="lazy">
+          <div class="insp-card-b">
+            <p class="insp-card-reg">Pacifique &amp; Océanie</p>
+            <h3 class="insp-card-t">Polynésie : l'archipel de la Société</h3>
+            <p class="insp-card-p">Bora Bora, Moorea, Huahine — lagons et bungalows sur pilotis.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Colonne droite : guides -->
+      <div>
+        <p class="lbl">Guides</p>
+        <ul class="guides-list">
+          <li data-wip>Guide Tanzanie &amp; Zanzibar</li>
+          <li data-wip>Guide safari Serengeti</li>
+          <li data-wip>Guide Maroc de luxe</li>
+          <li data-wip>Guide Maldives 2025</li>
+          <li data-wip>Guide Japon — 12 jours</li>
+          <li data-wip>Guide Pérou &amp; Machu Picchu</li>
+          <li data-wip>Guide Bali — retraite luxe</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BONNES RAISONS ══════════════════════════════════════════════ -->
+<section class="raisons-sec">
+  <div class="wrap">
+    <p class="lbl" style="color:var(--teal)">Les bonnes raisons de partir avec nous</p>
+    <div class="raisons-layout">
+
+      <div>
+        <h2 class="hl">Une agence fondée<br>sur l'expertise terrain</h2>
+        <p class="sub">Nos conseillers voyagent sur les destinations qu'ils vendent. Chaque itinéraire est testé, validé, affiné par des experts qui connaissent chaque lodge, chaque guide, chaque détail.</p>
+        <a href="detail-nepal.html" class="btn btn-dk">Voir un exemple de voyage</a>
+      </div>
+
+      <div class="raisons-grid">
+        <div class="raison-it">
+          <span class="raison-num">01</span>
+          <h4 class="raison-t">Conseillers experts</h4>
+          <p class="raison-p">20 ans d'expérience terrain dans chacune de nos destinations.</p>
+        </div>
+        <div class="raison-it">
+          <span class="raison-num">02</span>
+          <h4 class="raison-t">Hébergements sélectionnés</h4>
+          <p class="raison-p">Chaque lodge ou villa est visité et évalué par nos équipes.</p>
+        </div>
+        <div class="raison-it">
+          <span class="raison-num">03</span>
+          <h4 class="raison-t">Assistance 24h/24</h4>
+          <p class="raison-p">Un conseiller dédié joignable à tout moment pendant le voyage.</p>
+        </div>
+        <div class="raison-it">
+          <span class="raison-num">04</span>
+          <h4 class="raison-t">Itinéraires sur mesure</h4>
+          <p class="raison-p">Aucun voyage identique — chaque circuit est conçu pour vous.</p>
+        </div>
+        <div class="raison-it">
+          <span class="raison-num">05</span>
+          <h4 class="raison-t">Guides locaux certifiés</h4>
+          <p class="raison-p">Des partenaires triés sur le volet dans 48 pays.</p>
+        </div>
+        <div class="raison-it">
+          <span class="raison-num">06</span>
+          <h4 class="raison-t">Flexibilité totale</h4>
+          <p class="raison-p">Modification jusqu'à 30 jours avant départ sans frais.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CIRCUITS À PERSONNALISER ════════════════════════════════════ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="circ-header">
+      <div>
+        <p class="lbl">Créez votre circuit à personnaliser</p>
+        <h2 class="hl" style="margin-bottom:0">Des destinations qui<br>vous ressemblent</h2>
+      </div>
+      <a href="nos-voyages.html" class="btn btn-ol">Voir tous les voyages</a>
+    </div>
+    <div class="grid3">
+      <a href="detail-nepal.html" class="circ-c rev">
+        <img src="https://images.unsplash.com/photo-1544985361-b420d7a77043?w=700&q=80&fm=webp&fit=crop"
+             alt="Népal — Fenêtres Népalaises" width="700" height="1050" loading="lazy">
+        <div class="circ-ov"></div>
+        <div class="circ-b">
+          <p class="circ-sub">Asie · 10 jours</p>
+          <h3 class="circ-t">Népal</h3>
+          <p class="circ-price">Dès 2 490 €</p>
+        </div>
+      </a>
+      <a href="detail-tanzanie.html" class="circ-c rev" data-wip>
+        <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=700&q=80&fm=webp&fit=crop"
+             alt="Tanzanie — Serengeti &amp; Zanzibar" width="700" height="1050" loading="lazy">
+        <div class="circ-ov"></div>
+        <div class="circ-b">
+          <p class="circ-sub">Afrique · 14 jours</p>
+          <h3 class="circ-t">Tanzanie</h3>
+          <p class="circ-price">Dès 3 290 €</p>
+        </div>
+      </a>
+      <a href="detail-srilanka.html" class="circ-c rev" data-wip>
+        <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=700&q=80&fm=webp&fit=crop"
+             alt="Sri Lanka" width="700" height="1050" loading="lazy">
+        <div class="circ-ov"></div>
+        <div class="circ-b">
+          <p class="circ-sub">Asie · 12 jours</p>
+          <h3 class="circ-t">Sri Lanka</h3>
+          <p class="circ-price">Dès 2 190 €</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TÉMOIGNAGE ═══════════════════════════════════════════════════ -->
+<section class="rev-sec-v2">
+  <img class="bg"
+       src="https://images.unsplash.com/photo-1559825481-12a05cc00344?w=1400&q=80&fm=webp&fit=crop"
+       alt="" width="1400" height="600" loading="lazy">
+  <div class="rev-ov"></div>
+  <div class="wrap" style="position:relative;z-index:1">
+    <div class="rev-card">
+      <div class="rev-stars">★★★★★</div>
+      <p class="rev-q">"Notre safari en Tanzanie était absolument extraordinaire. Chaque détail avait été pensé — des lodges d'exception aux guides passionnés. Amplitudes a transformé notre rêve en réalité."</p>
+      <div class="rev-meta">
+        <div>
+          <p class="rev-author">Sophie &amp; Marc L.</p>
+          <p class="rev-dest-lbl">Safari Tanzanie · Zanzibar · Septembre 2024</p>
+        </div>
+        <div>
+          <div class="rev-score-big">4.9</div>
+          <p class="rev-count">48 avis vérifiés</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NOS AGENCES ══════════════════════════════════════════════════ -->
+<section class="sec sec-bg">
+  <div class="wrap">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:1.5rem">
+      <div>
+        <p class="lbl">Nos agences</p>
+        <h2 class="hl" style="margin-bottom:0">Près de chez vous</h2>
+      </div>
+    </div>
+    <div class="agences-grid">
+
+      <!-- Paris -->
+      <div class="agence-c">
+        <div class="agence-illus">
+          <svg viewBox="0 0 180 150" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="30" y1="138" x2="150" y2="138"/>
+            <path d="M60 138 Q90 126 120 138"/>
+            <path d="M54 138 L78 98"/>
+            <path d="M126 138 L102 98"/>
+            <line x1="72" y1="104" x2="108" y2="104"/>
+            <path d="M78 98 L86 68"/>
+            <path d="M102 98 L94 68"/>
+            <line x1="83" y1="73" x2="97" y2="73"/>
+            <path d="M86 68 L88 38"/>
+            <path d="M94 68 L92 38"/>
+            <line x1="86" y1="44" x2="94" y2="44"/>
+            <line x1="90" y1="38" x2="90" y2="12"/>
+            <line x1="87" y1="20" x2="93" y2="20"/>
+          </svg>
+        </div>
+        <div class="agence-b">
+          <p class="agence-t">Paris</p>
+          <p class="agence-s">Siège social</p>
+        </div>
+      </div>
+
+      <!-- Lyon -->
+      <div class="agence-c">
+        <div class="agence-illus">
+          <svg viewBox="0 0 180 150" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 138 Q90 112 160 138"/>
+            <rect x="64" y="84" width="52" height="46" rx="1"/>
+            <path d="M64 84 Q90 58 116 84"/>
+            <path d="M76 84 Q90 72 104 84"/>
+            <line x1="90" y1="58" x2="90" y2="48"/>
+            <line x1="86" y1="52" x2="94" y2="52"/>
+            <rect x="44" y="92" width="22" height="38" rx="1"/>
+            <path d="M44 92 L55 76 L66 92"/>
+            <rect x="114" y="92" width="22" height="38" rx="1"/>
+            <path d="M114 92 L125 76 L136 92"/>
+            <path d="M74 130 Q90 118 106 130"/>
+            <path d="M48 100 Q55 94 62 100"/>
+            <path d="M118 100 Q125 94 132 100"/>
+          </svg>
+        </div>
+        <div class="agence-b">
+          <p class="agence-t">Lyon</p>
+          <p class="agence-s">Presqu'île</p>
+        </div>
+      </div>
+
+      <!-- Bordeaux -->
+      <div class="agence-c">
+        <div class="agence-illus">
+          <svg viewBox="0 0 180 150" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="16" y="70" width="148" height="58" rx="1"/>
+            <rect x="58" y="56" width="64" height="72" rx="1"/>
+            <path d="M58 56 L90 38 L122 56"/>
+            <path d="M70 130 L70 106 Q78 96 86 106 L86 130"/>
+            <path d="M94 130 L94 106 Q102 96 110 106 L110 130"/>
+            <rect x="72" y="72" width="12" height="18" rx="6"/>
+            <rect x="96" y="72" width="12" height="18" rx="6"/>
+            <path d="M24 130 L24 104 Q32 96 40 104 L40 130"/>
+            <path d="M48 130 L48 104 Q56 96 64 104 L64 130"/>
+            <path d="M116 130 L116 104 Q124 96 132 104 L132 130"/>
+            <path d="M140 130 L140 104 Q148 96 156 104 L156 130"/>
+            <path d="M16 140 Q47 134 78 140 Q109 146 140 140 Q155 136 164 140"/>
+            <path d="M20 146 Q60 140 90 146 Q120 152 160 146"/>
+          </svg>
+        </div>
+        <div class="agence-b">
+          <p class="agence-t">Bordeaux</p>
+          <p class="agence-s">Chartrons</p>
+        </div>
+      </div>
+
+      <!-- Marseille -->
+      <div class="agence-c">
+        <div class="agence-illus">
+          <svg viewBox="0 0 180 150" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M10 138 Q35 130 60 138 Q85 146 110 138 Q135 130 170 138"/>
+            <path d="M40 138 Q56 118 70 106 Q80 98 90 92 Q100 98 110 106 Q124 118 140 138"/>
+            <rect x="68" y="76" width="44" height="30" rx="1"/>
+            <rect x="80" y="36" width="20" height="42" rx="1"/>
+            <path d="M78 36 L90 20 L102 36"/>
+            <path d="M82 60 Q90 54 98 60"/>
+            <path d="M82 46 Q90 40 98 46"/>
+            <path d="M72 106 Q82 92 90 88 Q98 92 108 106"/>
+            <rect x="70" y="84" width="8" height="10" rx="4"/>
+            <rect x="102" y="84" width="8" height="10" rx="4"/>
+            <line x1="90" y1="20" x2="90" y2="8"/>
+            <circle cx="90" cy="6" r="3"/>
+          </svg>
+        </div>
+        <div class="agence-b">
+          <p class="agence-t">Marseille</p>
+          <p class="agence-s">Vieux-Port</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ AVIS CLIENTS ═════════════════════════════════════════════════ -->
+<section class="avis-home-sec">
+  <div class="wrap">
+    <div class="avis-home-hd">
+      <div class="avis-home-score">
+        <p class="lbl">Avis clients</p>
+        <span class="avis-home-n">4.9</span>
+        <span class="avis-home-stars">★★★★★</span>
+        <p class="avis-home-count">Basé sur 48 avis vérifiés</p>
+      </div>
+      <div>
+        <h2 class="hl" style="margin-bottom:.5rem">Ce que nos clients<br>disent de nous</h2>
+        <p class="sub" style="margin-bottom:0">Des voyageurs du monde entier nous font confiance pour concevoir leurs voyages les plus importants.</p>
+      </div>
+    </div>
+    <div class="avis-home-grid">
+
+      <div class="avis-home-card">
+        <div class="avis-home-card-stars">★★★★★</div>
+        <p class="avis-home-q">"Notre safari en Tanzanie était absolument extraordinaire. Chaque détail avait été pensé — des lodges d'exception aux guides passionnés. Amplitudes a transformé notre rêve en réalité."</p>
+        <div class="avis-home-footer">
+          <div class="avis-home-avatar">SL</div>
+          <div>
+            <p class="avis-home-name">Sophie &amp; Marc L.</p>
+            <p class="avis-home-dest">Safari Tanzanie · Septembre 2024</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="avis-home-card">
+        <div class="avis-home-card-stars">★★★★★</div>
+        <p class="avis-home-q">"Deux semaines au Japon organisées à la perfection. Les adresses exclusives, les ryokans hors des circuits touristiques — un voyage que nous n'aurions jamais pu construire seuls."</p>
+        <div class="avis-home-footer">
+          <div class="avis-home-avatar">TC</div>
+          <div>
+            <p class="avis-home-name">Thomas C.</p>
+            <p class="avis-home-dest">Circuit Japon 12 jours · Avril 2024</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="avis-home-card">
+        <div class="avis-home-card-stars">★★★★★</div>
+        <p class="avis-home-q">"Un voyage au Népal inoubliable. L'équipe a géré notre itinéraire avec une précision remarquable, tout en restant disponible à chaque instant pendant notre séjour."</p>
+        <div class="avis-home-footer">
+          <div class="avis-home-avatar">AB</div>
+          <div>
+            <p class="avis-home-name">Alice &amp; Benjamin R.</p>
+            <p class="avis-home-dest">Circuit Népal · Octobre 2024</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ══════════════════════════════════════════════════════════ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="faq-layout">
+      <div>
+        <p class="lbl">FAQ</p>
+        <h2 class="hl">Les combinaisons<br>d'un voyage<br>sur mesure</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-it" open>
+          <summary class="faq-q">Comment fonctionne un voyage sur mesure Amplitudes&nbsp;?</summary>
+          <p class="faq-a">Un conseiller dédié étudie votre profil et vos souhaits, puis conçoit un itinéraire unique. Vous validez, ajustez, et votre voyage prend forme — sans frais tant que vous n'avez pas confirmé.</p>
+        </details>
+        <details class="faq-it">
+          <summary class="faq-q">Quels sont les délais pour organiser un voyage&nbsp;?</summary>
+          <p class="faq-a">Idéalement 3 à 6 mois avant le départ pour les destinations avec haute saison. Nous pouvons toutefois organiser des voyages en 4 à 6 semaines pour les destinations disponibles.</p>
+        </details>
+        <details class="faq-it">
+          <summary class="faq-q">Peut-on combiner plusieurs destinations&nbsp;?</summary>
+          <p class="faq-a">C'est l'une de nos spécialités. Safari au Kenya suivi d'une semaine à Zanzibar, ou Pérou historique et extension gastronomique à Lima — les combinaisons sont infinies et toujours conçues sur mesure.</p>
+        </details>
+        <details class="faq-it">
+          <summary class="faq-q">Quelles assurances proposez-vous&nbsp;?</summary>
+          <p class="faq-a">Nous travaillons avec les principaux assureurs voyage (Allianz, AXA) et proposons des formules annulation, rapatriement et assistance médicale adaptées à chaque profil et destination.</p>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NEWSLETTER ════════════════════════════════════════════════════ -->
+<section class="nl-sec">
+  <img class="bg"
+       src="https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?w=1400&q=80&fm=webp&fit=crop"
+       alt="" width="1400" height="600" loading="lazy">
+  <div class="nl-ov"></div>
+  <div class="wrap nl-c">
+    <p class="nl-tag">Newsletter</p>
+    <h2 class="nl-t">Inspirez-vous pour<br>votre prochaine aventure</h2>
+    <p class="nl-sub">Récits de voyage, nouvelles destinations, offres exclusives — une fois par mois.</p>
+    <form class="nl-form" onsubmit="return false" aria-label="Inscription newsletter">
+      <input type="email" class="nl-input" placeholder="Votre adresse e-mail" autocomplete="email" aria-label="Email">
+      <button type="submit" class="nl-btn">S'abonner</button>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════════════ -->
+<footer class="ftr-v2">
+  <div class="wrap">
+    <span class="ftr-v2-super" aria-hidden="true">Amplitudes</span>
+    <div class="ftr-v2-body">
+      <div>
+        <a href="index.html" class="logo" style="color:rgba(255,255,255,.85)">Amplitudes</a>
+        <p class="ftr-v2-brand-desc">Agence de voyages sur mesure spécialisée dans les circuits de luxe et les itinéraires personnalisés depuis 2003.</p>
+        <div class="ftr-v2-socials">
+          <span class="ftr-v2-social" data-wip style="cursor:pointer">f</span>
+          <span class="ftr-v2-social" data-wip style="cursor:pointer">in</span>
+          <span class="ftr-v2-social" data-wip style="cursor:pointer">ig</span>
+        </div>
+      </div>
+      <div class="ftr-v2-col">
+        <h4>Destinations</h4>
+        <ul>
+          <li><a href="detail-tanzanie.html">Tanzanie &amp; Zanzibar</a></li>
+          <li><a href="detail-nepal.html">Népal</a></li>
+          <li><a href="detail-maroc.html">Maroc</a></li>
+          <li><a href="detail-maldives.html">Maldives</a></li>
+          <li><a href="detail-japon.html">Japon</a></li>
+          <li><a href="detail-perou.html">Pérou</a></li>
+        </ul>
+      </div>
+      <div class="ftr-v2-col">
+        <h4>L'agence</h4>
+        <ul>
+          <li><a href="agence.html">Qui sommes-nous</a></li>
+          <li><a href="agence.html#equipe">Notre équipe</a></li>
+          <li><a href="agence.html#engagements">Engagements</a></li>
+          <li><a href="agence.html#presse">Presse</a></li>
+        </ul>
+      </div>
+      <div class="ftr-v2-col">
+        <h4>Services</h4>
+        <ul>
+          <li><span data-wip style="cursor:pointer">Voyages sur mesure</span></li>
+          <li><span data-wip style="cursor:pointer">Voyages groupe</span></li>
+          <li><span data-wip style="cursor:pointer">Lune de miel</span></li>
+          <li><span data-wip style="cursor:pointer">Voyages famille</span></li>
+        </ul>
+      </div>
+      <div class="ftr-v2-col">
+        <h4>Infos</h4>
+        <ul>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+          <li><a href="mentions-legales.html">CGV</a></li>
+          <li><a href="mentions-legales.html">Confidentialité</a></li>
+          <li><span data-wip style="cursor:pointer">Assurances</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ftr-v2-bottom">
+      <p class="ftr-v2-copyright">© 2025 Amplitudes — Tous droits réservés</p>
+      <div class="ftr-v2-logos">
+        <span class="ftr-v2-badge">Atout France</span>
+        <span class="ftr-v2-badge">APST</span>
+        <span class="ftr-v2-badge">IATA</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- WISHLIST DRAWER -->
+<div class="wl-drawer-ov" id="wl-drawer-ov"></div>
+<aside class="wl-drawer" id="wl-drawer" role="complementary" aria-label="Mes voyages favoris">
+  <div class="wl-drawer-hd">
+    <p class="wl-drawer-title">Mes favoris</p>
+    <button class="wl-drawer-cls" id="wl-drawer-cls" type="button" aria-label="Fermer les favoris">✕</button>
+  </div>
+  <div id="wl-list"></div>
+  <a href="nos-voyages.html" class="wl-drawer-cta">Explorer tous les voyages →</a>
+</aside>
+
+<script src="js/main.js"></script>
+
+<!-- ══ MODALE CRÉATION VOYAGE ════════════════════════════════════════ -->
+<div class="cre-modal" id="cre-modal" role="dialog" aria-modal="true" aria-labelledby="cre-q-title" hidden>
+  <div class="cre-ov" id="cre-ov"></div>
+  <div class="cre-panel" id="cre-panel">
+
+    <button class="cre-cls" id="cre-cls" type="button" aria-label="Fermer">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+
+    <!-- Barre de progression (étapes 1-5) -->
+    <div class="cre-progress" id="cre-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="20">
+      <div class="cre-bar" id="cre-bar" style="width:20%"></div>
+    </div>
+
+    <!-- ── Q1 — Ambiance ── -->
+    <div class="cre-step" id="cre-s1">
+      <p class="cre-step-n">1 sur 5</p>
+      <h2 class="cre-q" id="cre-q-title">Quelle ambiance vous fait rêver&nbsp;?</h2>
+      <div class="cre-opts cre-opts-col" role="group" aria-label="Choisir une ambiance">
+        <button class="cre-opt" type="button" data-field="ambiance" data-val="aventure">
+          <span class="cre-opt-ico">🏔</span><span class="cre-opt-txt">Aventure &amp; Trek</span>
+        </button>
+        <button class="cre-opt" type="button" data-field="ambiance" data-val="faune">
+          <span class="cre-opt-ico">🐘</span><span class="cre-opt-txt">Faune &amp; Safari</span>
+        </button>
+        <button class="cre-opt" type="button" data-field="ambiance" data-val="culture">
+          <span class="cre-opt-ico">🏛</span><span class="cre-opt-txt">Culture &amp; Histoire</span>
+        </button>
+        <button class="cre-opt" type="button" data-field="ambiance" data-val="mer">
+          <span class="cre-opt-ico">🌊</span><span class="cre-opt-txt">Mer &amp; Plage</span>
+        </button>
+        <button class="cre-opt" type="button" data-field="ambiance" data-val="luxe">
+          <span class="cre-opt-ico">✨</span><span class="cre-opt-txt">Luxe &amp; Bien-être</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── Q2 — Voyageurs ── -->
+    <div class="cre-step" id="cre-s2" hidden>
+      <p class="cre-step-n">2 sur 5</p>
+      <h2 class="cre-q">Ce voyage, c'est pour&nbsp;qui&nbsp;?</h2>
+      <div class="cre-opts" role="group" aria-label="Choisir une composition">
+        <button class="cre-opt" type="button" data-field="voyageurs" data-val="couple">
+          <span class="cre-opt-ico">💑</span><span class="cre-opt-txt">Nous deux</span>
+        </button>
+        <button class="cre-opt" type="button" data-field="voyageurs" data-val="famille">
+          <span class="cre-opt-ico">👨‍👩‍👧</span><span class="cre-opt-txt">En famille</span>
+        </button>
+        <button class="cre-opt" type="button" data-field="voyageurs" data-val="amis">
+          <span class="cre-opt-ico">👫</span><span class="cre-opt-txt">Entre amis</span>
+        </button>
+        <button class="cre-opt" type="button" data-field="voyageurs" data-val="solo">
+          <span class="cre-opt-ico">🧍</span><span class="cre-opt-txt">Je pars seul·e</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── Q3 — Durée ── -->
+    <div class="cre-step" id="cre-s3" hidden>
+      <p class="cre-step-n">3 sur 5</p>
+      <h2 class="cre-q">Combien de temps avez-vous&nbsp;?</h2>
+      <div class="cre-opts" role="group" aria-label="Choisir une durée">
+        <button class="cre-opt" type="button" data-field="duree" data-val="court">7 – 10 jours</button>
+        <button class="cre-opt" type="button" data-field="duree" data-val="moyen">11 – 14 jours</button>
+        <button class="cre-opt" type="button" data-field="duree" data-val="long">15 – 21 jours</button>
+        <button class="cre-opt" type="button" data-field="duree" data-val="xl">3 semaines ou plus</button>
+      </div>
+    </div>
+
+    <!-- ── Q4 — Budget ── -->
+    <div class="cre-step" id="cre-s4" hidden>
+      <p class="cre-step-n">4 sur 5</p>
+      <h2 class="cre-q">Quel budget par personne&nbsp;?</h2>
+      <div class="cre-opts cre-opts-col" role="group" aria-label="Choisir un budget">
+        <button class="cre-opt cre-opt-budget" type="button" data-field="budget" data-val="confort">
+          <span class="cre-opt-txt">Confort</span>
+          <span class="cre-opt-sub">2 000 – 4 000 €</span>
+        </button>
+        <button class="cre-opt cre-opt-budget" type="button" data-field="budget" data-val="premium">
+          <span class="cre-opt-txt">Premium</span>
+          <span class="cre-opt-sub">4 000 – 6 000 €</span>
+        </button>
+        <button class="cre-opt cre-opt-budget" type="button" data-field="budget" data-val="excellence">
+          <span class="cre-opt-txt">Excellence</span>
+          <span class="cre-opt-sub">+ de 6 000 €</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── Q5 — Période ── -->
+    <div class="cre-step" id="cre-s5" hidden>
+      <p class="cre-step-n">5 sur 5</p>
+      <h2 class="cre-q">Quand envisagez-vous de partir&nbsp;?</h2>
+      <div class="cre-opts" role="group" aria-label="Choisir une période">
+        <button class="cre-opt" type="button" data-field="periode" data-val="urgent">Dans moins de 3 mois</button>
+        <button class="cre-opt" type="button" data-field="periode" data-val="proche">Dans 3 à 6 mois</button>
+        <button class="cre-opt" type="button" data-field="periode" data-val="loin">Dans 6 mois à 1 an</button>
+        <button class="cre-opt cre-opt-full" type="button" data-field="periode" data-val="flexible">Je suis flexible</button>
+      </div>
+    </div>
+
+    <!-- ── Q6 — Contact ── -->
+    <div class="cre-step" id="cre-s6" hidden>
+      <p class="cre-step-n">Presque là !</p>
+      <h2 class="cre-q">Pour qui préparons-<em class="sa">nous</em> ce voyage&nbsp;?</h2>
+      <form class="cre-form" id="cre-form" onsubmit="return false" novalidate>
+        <div class="cre-fld">
+          <label class="cre-lbl" for="cre-prenom">Prénom</label>
+          <input class="cre-inp" type="text" id="cre-prenom" placeholder="Votre prénom" autocomplete="given-name">
+        </div>
+        <div class="cre-fld">
+          <label class="cre-lbl" for="cre-email">Email <span style="color:var(--teal)">*</span></label>
+          <input class="cre-inp" type="email" id="cre-email" placeholder="votre@email.com" autocomplete="email">
+        </div>
+        <div class="cre-fld">
+          <label class="cre-lbl" for="cre-tel">Téléphone (optionnel)</label>
+          <input class="cre-inp" type="tel" id="cre-tel" placeholder="+33 6 00 00 00 00" autocomplete="tel">
+        </div>
+        <button class="cre-submit" type="submit">Recevoir mes propositions →</button>
+      </form>
+    </div>
+
+    <!-- ── Confirmation ── -->
+    <div class="cre-done" id="cre-done" hidden>
+      <div class="cre-done-ico">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h2 class="cre-q" style="margin-bottom:.5rem">Votre demande est envoyée&nbsp;!</h2>
+      <p class="cre-done-sub">Un conseiller Amplitudes vous contactera sous 24h avec vos propositions de voyage sur mesure.</p>
+      <a href="nos-voyages.html" class="btn btn-dk" style="margin-top:1.75rem;display:inline-flex">Voir nos voyages →</a>
+    </div>
+
+    <!-- ── Navigation ── -->
+    <div class="cre-nav" id="cre-nav">
+      <button class="cre-back" id="cre-back" type="button" hidden>← Retour</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div id="auth-modal" class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title" hidden>
+  <div class="auth-ov"></div>
+  <div class="auth-panel">
+    <button class="auth-cls" type="button" aria-label="Fermer">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <span class="auth-logo">Amplitudes</span>
+    <div class="auth-tabs" role="tablist">
+      <button class="auth-tab on" type="button" data-tab="connexion" role="tab" aria-selected="true">Connexion</button>
+      <button class="auth-tab" type="button" data-tab="inscription" role="tab" aria-selected="false">S'inscrire</button>
+    </div>
+    <div class="auth-pane" data-pane="connexion">
+      <h2 id="auth-title" style="font-family:var(--serif);font-size:1.25rem;color:var(--ink);margin-bottom:1.25rem">Bienvenue</h2>
+      <form onsubmit="return false">
+        <div class="auth-fld"><label class="auth-lbl" for="auth-email">Email</label><input class="auth-inp" type="email" id="auth-email" placeholder="votre@email.com" autocomplete="email"></div>
+        <div class="auth-fld"><label class="auth-lbl" for="auth-pwd">Mot de passe</label><input class="auth-inp" type="password" id="auth-pwd" placeholder="••••••••" autocomplete="current-password"></div>
+        <button class="auth-submit" type="submit">Se connecter</button>
+      </form>
+      <div class="auth-sep"><span>ou</span></div>
+      <p class="auth-note">Pas encore de compte ? <button class="auth-tab-sw" type="button" data-tab="inscription" style="background:none;border:none;font-size:inherit;color:var(--acc);cursor:pointer;text-decoration:underline;font-family:inherit">S'inscrire</button></p>
+    </div>
+    <div class="auth-pane" data-pane="inscription" hidden>
+      <h2 style="font-family:var(--serif);font-size:1.25rem;color:var(--ink);margin-bottom:1.25rem">Créer un compte</h2>
+      <form onsubmit="return false">
+        <div class="auth-fld"><label class="auth-lbl" for="reg-prenom">Prénom</label><input class="auth-inp" type="text" id="reg-prenom" placeholder="Votre prénom" autocomplete="given-name"></div>
+        <div class="auth-fld"><label class="auth-lbl" for="reg-email">Email</label><input class="auth-inp" type="email" id="reg-email" placeholder="votre@email.com" autocomplete="email"></div>
+        <div class="auth-fld"><label class="auth-lbl" for="reg-pwd">Mot de passe</label><input class="auth-inp" type="password" id="reg-pwd" placeholder="Min. 8 caractères" autocomplete="new-password"></div>
+        <button class="auth-submit" type="submit">Créer mon compte</button>
+      </form>
+      <p class="auth-note" style="margin-top:1rem">Déjà inscrit ? <button class="auth-tab-sw" type="button" data-tab="connexion" style="background:none;border:none;font-size:inherit;color:var(--acc);cursor:pointer;text-decoration:underline;font-family:inherit">Se connecter</button></p>
+    </div>
+  </div>
+</div>
+
+<!-- WIP MODAL -->
+<div id="wip-modal" class="wip-modal" hidden>
+  <div class="wip-ov"></div>
+  <div class="wip-panel" role="dialog" aria-modal="true" aria-labelledby="wip-title">
+    <button class="wip-cls" type="button" aria-label="Fermer" style="position:absolute;top:1.25rem;right:1.25rem;background:rgba(0,0,0,.07);border:none;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.85rem;color:var(--ink2);display:flex;align-items:center;justify-content:center">✕</button>
+    <div class="wip-badge">À venir</div>
+    <h2 class="wip-t" id="wip-title">Ce contenu arrive bientôt</h2>
+    <p class="wip-p">Cette page est en cours de construction. Voici ce que vous pouvez explorer dès maintenant :</p>
+    <div class="wip-links">
+      <a href="nos-voyages.html" class="wip-link">Nos voyages</a>
+      <a href="inspirations.html" class="wip-link">Inspirations</a>
+      <a href="agence.html" class="wip-link">L'agence</a>
+      <a href="detail-nepal.html" class="wip-link">Circuit Népal</a>
+      <a href="detail-tanzanie.html" class="wip-link">Circuit Tanzanie</a>
+      <a href="detail-maroc.html" class="wip-link">Circuit Maroc</a>
+    </div>
+  </div>
+</div>
+
+    <script src="js/image-apply.js"></script>
+    <script src="js/image-tweak.js"></script>
+</body>
+</html>

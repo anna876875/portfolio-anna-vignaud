@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 44" fill="none">
+  <!-- Écureuil simplifié -->
+  <circle cx="14" cy="18" r="6" fill="#1DAF2D"/>
+  <path d="M10 24 C8 30 10 38 16 38 C18 38 19 36 18 34 C22 36 24 34 22 30 C26 32 24 24 20 24Z" fill="#1DAF2D"/>
+  <path d="M14 12 C16 8 20 9 20 13" stroke="#1DAF2D" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Wordmark -->
+  <text x="34" y="17" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#1DAF2D" letter-spacing="0.3">CAISSE</text>
+  <text x="34" y="32" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#1A1A1A" letter-spacing="0.3">D'ÉPARGNE</text>
+</svg>

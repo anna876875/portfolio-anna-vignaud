@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nos voyages — Amplitudes</title>
+<meta name="description" content="6 circuits d'exception en Asie, Afrique et Amériques. Filtrez par destination, type de voyage, durée et période de départ.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="hdr">
+  <div class="wrap">
+    <a href="index.html" class="logo">Amplitudes</a>
+    <nav class="nav">
+      <a href="index.html" class="nav-off">Accueil</a>
+      <a href="nos-voyages.html" aria-current="page">Nos voyages</a>
+      <span class="nav-off">Destinations</span>
+      <span class="nav-off">Inspirations</span>
+      <span class="nav-off">L'agence</span>
+      <span class="nav-off">Blog</span>
+    </nav>
+    <div class="hdr-r">
+      <span class="lang"><b>FR</b> / EN</span>
+      <a href="#contact" class="cta-link">Réserver</a>
+    </div>
+    <button class="hbg" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<nav class="mnav" aria-label="Navigation mobile">
+  <button class="cls" aria-label="Fermer">✕</button>
+  <a href="index.html">Accueil</a>
+  <a href="nos-voyages.html">Nos voyages</a>
+  <span class="nav-off">Destinations</span>
+  <span class="nav-off">Inspirations</span>
+  <span class="nav-off">L'agence</span>
+</nav>
+
+<main>
+
+<!-- ══ HERO ══════════════════════════════════════════════════════════ -->
+<section class="voy-hero">
+  <div class="wrap">
+    <span class="lbl">6 destinations · 3 continents</span>
+    <h1>Nos voyages</h1>
+    <p class="voy-hero-sub">Des itinéraires conçus par des experts terrain — chaque circuit, chaque logement, chaque étape a été vécu avant d'être proposé.</p>
+  </div>
+</section>
+
+<!-- ══ FILTRES ════════════════════════════════════════════════════════ -->
+<section class="voy-filters-sec" aria-label="Filtres">
+  <div class="wrap">
+    <div class="voy-filter-bar">
+
+      <div class="voy-sel-wrap">
+        <label class="voy-sel-lbl" for="f-dest">Destination</label>
+        <select class="voy-sel" id="f-dest">
+          <option value="">Toutes</option>
+          <option value="asie">Asie</option>
+          <option value="afrique">Afrique</option>
+          <option value="amerique">Amérique du Sud</option>
+        </select>
+      </div>
+
+      <div class="voy-sel-wrap">
+        <label class="voy-sel-lbl" for="f-type">Type de voyage</label>
+        <select class="voy-sel" id="f-type">
+          <option value="">Tous</option>
+          <option value="aventure">Aventure &amp; Trek</option>
+          <option value="culture">Culture &amp; Patrimoine</option>
+          <option value="nature">Nature &amp; Safari</option>
+          <option value="luxe">Luxe &amp; Bien-être</option>
+        </select>
+      </div>
+
+      <div class="voy-sel-wrap">
+        <label class="voy-sel-lbl" for="f-duree">Durée</label>
+        <select class="voy-sel" id="f-duree">
+          <option value="">Toute durée</option>
+          <option value="court">Moins de 10 jours</option>
+          <option value="moyen">10 à 14 jours</option>
+          <option value="long">15 jours et +</option>
+        </select>
+      </div>
+
+      <div class="voy-sel-wrap">
+        <label class="voy-sel-lbl" for="f-mois">Période</label>
+        <select class="voy-sel" id="f-mois">
+          <option value="">Toute période</option>
+          <option value="printemps">Printemps (Mar–Mai)</option>
+          <option value="ete">Été (Juin–Août)</option>
+          <option value="automne">Automne (Sep–Nov)</option>
+          <option value="hiver">Hiver (Déc–Fév)</option>
+        </select>
+      </div>
+
+    </div>
+    <div class="voy-filter-meta">
+      <span><b id="voy-n">6</b> voyage<span id="voy-pl">s</span></span>
+      <button class="voy-reset" id="voy-reset" type="button">Réinitialiser les filtres</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GRILLE ═════════════════════════════════════════════════════════ -->
+<section class="sec" style="padding-top:2rem">
+  <div class="wrap">
+    <div class="voy-grid" id="voy-grid">
+
+      <!-- NÉPAL -->
+      <article class="voy-card rev"
+               data-dest="asie"
+               data-type="aventure culture"
+               data-duree="moyen"
+               data-mois="hiver printemps automne">
+        <a href="detail-nepal.html" class="voy-card-lnk">
+          <div class="voy-card-img">
+            <img src="https://images.unsplash.com/photo-1544985361-b420d7a77043?w=700&q=72&fm=webp&fit=crop"
+                 srcset="https://images.unsplash.com/photo-1544985361-b420d7a77043?w=400&q=68&fm=webp&fit=crop 400w,
+                         https://images.unsplash.com/photo-1544985361-b420d7a77043?w=700&q=72&fm=webp&fit=crop 700w"
+                 sizes="(max-width:640px) 90vw, (max-width:900px) 45vw, 30vw"
+                 width="700" height="467" alt="Himalaya, Népal" loading="lazy">
+            <div class="voy-card-badges">
+              <span class="voy-tag">Asie</span>
+              <span class="voy-tag">Aventure</span>
+            </div>
+          </div>
+          <div class="voy-card-body">
+            <h2 class="voy-card-title">Népal <span class="voy-card-circuit">Fenêtres népalaises</span></h2>
+            <p class="voy-card-desc">Katmandou, la jungle du Chitwan et les lacs de Pokhara — un triangle qui révèle toutes les facettes du pays de l'Himalaya.</p>
+            <div class="voy-card-meta">
+              <span><strong>10 jours</strong></span>
+              <span>Dès <strong>2 490 €</strong></span>
+              <span>Oct → Avr</span>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- TANZANIE -->
+      <article class="voy-card rev"
+               data-dest="afrique"
+               data-type="nature aventure"
+               data-duree="moyen"
+               data-mois="ete automne">
+        <a href="detail-tanzanie.html" class="voy-card-lnk">
+          <div class="voy-card-img">
+            <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=700&q=72&fm=webp&fit=crop"
+                 srcset="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400&q=68&fm=webp&fit=crop 400w,
+                         https://images.unsplash.com/photo-1516426122078-c23e76319801?w=700&q=72&fm=webp&fit=crop 700w"
+                 sizes="(max-width:640px) 90vw, (max-width:900px) 45vw, 30vw"
+                 width="700" height="467" alt="Safari, Tanzanie" loading="lazy">
+            <div class="voy-card-badges">
+              <span class="voy-tag">Afrique</span>
+              <span class="voy-tag">Safari</span>
+            </div>
+          </div>
+          <div class="voy-card-body">
+            <h2 class="voy-card-title">Tanzanie <span class="voy-card-circuit">Safari &amp; Zanzibar</span></h2>
+            <p class="voy-card-desc">Serengeti, cratère du Ngorongoro, puis les plages de Zanzibar — la grande migration et l'océan Indien en un seul voyage.</p>
+            <div class="voy-card-meta">
+              <span><strong>14 jours</strong></span>
+              <span>Dès <strong>3 290 €</strong></span>
+              <span>Juin → Oct</span>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- JAPON -->
+      <article class="voy-card rev"
+               data-dest="asie"
+               data-type="culture luxe"
+               data-duree="moyen"
+               data-mois="printemps automne">
+        <a href="detail-japon.html" class="voy-card-lnk">
+          <div class="voy-card-img">
+            <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=700&q=72&fm=webp&fit=crop"
+                 srcset="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&q=68&fm=webp&fit=crop 400w,
+                         https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=700&q=72&fm=webp&fit=crop 700w"
+                 sizes="(max-width:640px) 90vw, (max-width:900px) 45vw, 30vw"
+                 width="700" height="467" alt="Temple, Japon" loading="lazy">
+            <div class="voy-card-badges">
+              <span class="voy-tag">Asie</span>
+              <span class="voy-tag">Culture</span>
+            </div>
+          </div>
+          <div class="voy-card-body">
+            <h2 class="voy-card-title">Japon <span class="voy-card-circuit">Ryokan &amp; Sakura</span></h2>
+            <p class="voy-card-desc">Tokyo, Kyoto, Nara et Hiroshima — le Japon éternel entre temples zen, cerisiers en fleurs et nuits en ryokan.</p>
+            <div class="voy-card-meta">
+              <span><strong>12 jours</strong></span>
+              <span>Dès <strong>3 890 €</strong></span>
+              <span>Mar–Mai · Oct–Nov</span>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- MALDIVES -->
+      <article class="voy-card rev"
+               data-dest="asie"
+               data-type="luxe"
+               data-duree="court"
+               data-mois="printemps ete automne hiver">
+        <a href="detail-maldives.html" class="voy-card-lnk">
+          <div class="voy-card-img">
+            <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=700&q=72&fm=webp&fit=crop"
+                 srcset="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=400&q=68&fm=webp&fit=crop 400w,
+                         https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=700&q=72&fm=webp&fit=crop 700w"
+                 sizes="(max-width:640px) 90vw, (max-width:900px) 45vw, 30vw"
+                 width="700" height="467" alt="Lagons, Maldives" loading="lazy">
+            <div class="voy-card-badges">
+              <span class="voy-tag">Océan Indien</span>
+              <span class="voy-tag">Luxe</span>
+            </div>
+          </div>
+          <div class="voy-card-body">
+            <h2 class="voy-card-title">Maldives <span class="voy-card-circuit">Archipel privé</span></h2>
+            <p class="voy-card-desc">Villas sur pilotis, lagons turquoise et récifs coralliens préservés — l'évasion absolue dans l'un des derniers paradis de l'Indien.</p>
+            <div class="voy-card-meta">
+              <span><strong>8 jours</strong></span>
+              <span>Dès <strong>4 590 €</strong></span>
+              <span>Toute l'année</span>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- MAROC -->
+      <article class="voy-card rev"
+               data-dest="afrique"
+               data-type="culture aventure"
+               data-duree="court"
+               data-mois="printemps automne">
+        <a href="detail-maroc.html" class="voy-card-lnk">
+          <div class="voy-card-img">
+            <img src="https://images.unsplash.com/photo-1539020140153-e479b8c22e70?w=700&q=72&fm=webp&fit=crop"
+                 srcset="https://images.unsplash.com/photo-1539020140153-e479b8c22e70?w=400&q=68&fm=webp&fit=crop 400w,
+                         https://images.unsplash.com/photo-1539020140153-e479b8c22e70?w=700&q=72&fm=webp&fit=crop 700w"
+                 sizes="(max-width:640px) 90vw, (max-width:900px) 45vw, 30vw"
+                 width="700" height="467" alt="Médina, Maroc" loading="lazy">
+            <div class="voy-card-badges">
+              <span class="voy-tag">Afrique</span>
+              <span class="voy-tag">Culture</span>
+            </div>
+          </div>
+          <div class="voy-card-body">
+            <h2 class="voy-card-title">Maroc <span class="voy-card-circuit">Impérial &amp; désert</span></h2>
+            <p class="voy-card-desc">Fès, Marrakech, les gorges du Todgha et les dunes de l'Erg Chebbi — les villes impériales et le grand Sahara en neuf jours.</p>
+            <div class="voy-card-meta">
+              <span><strong>9 jours</strong></span>
+              <span>Dès <strong>1 890 €</strong></span>
+              <span>Avr–Juin · Sept–Nov</span>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- PÉROU -->
+      <article class="voy-card rev"
+               data-dest="amerique"
+               data-type="aventure culture"
+               data-duree="long"
+               data-mois="printemps ete automne">
+        <a href="detail-perou.html" class="voy-card-lnk">
+          <div class="voy-card-img">
+            <img src="https://images.unsplash.com/photo-1526392060635-9d6019884377?w=700&q=72&fm=webp&fit=crop"
+                 srcset="https://images.unsplash.com/photo-1526392060635-9d6019884377?w=400&q=68&fm=webp&fit=crop 400w,
+                         https://images.unsplash.com/photo-1526392060635-9d6019884377?w=700&q=72&fm=webp&fit=crop 700w"
+                 sizes="(max-width:640px) 90vw, (max-width:900px) 45vw, 30vw"
+                 width="700" height="467" alt="Machu Picchu, Pérou" loading="lazy">
+            <div class="voy-card-badges">
+              <span class="voy-tag">Amériques</span>
+              <span class="voy-tag">Aventure</span>
+            </div>
+          </div>
+          <div class="voy-card-body">
+            <h2 class="voy-card-title">Pérou <span class="voy-card-circuit">Inca &amp; Amazonie</span></h2>
+            <p class="voy-card-desc">Lima, Cusco, Machu Picchu et la jungle amazonienne — la civilisation inca et la biodiversité la plus dense de la planète.</p>
+            <div class="voy-card-meta">
+              <span><strong>15 jours</strong></span>
+              <span>Dès <strong>3 490 €</strong></span>
+              <span>Mai → Oct</span>
+            </div>
+          </div>
+        </a>
+      </article>
+
+    </div>
+
+    <div class="voy-empty" id="voy-empty" hidden>
+      <p>Aucun voyage ne correspond à ces critères.</p>
+      <button class="voy-reset" type="button" id="voy-reset-empty">Réinitialiser les filtres</button>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<!-- ══ FOOTER ═════════════════════════════════════════════════════════ -->
+<footer class="ftr-v2">
+  <div class="wrap">
+    <span class="ftr-v2-super" aria-hidden="true">Amplitudes</span>
+    <div class="ftr-v2-body">
+      <div>
+        <a href="index.html" class="logo" style="color:rgba(255,255,255,.85)">Amplitudes</a>
+        <p class="ftr-v2-brand-desc">Agence de voyages sur mesure spécialisée dans les circuits de luxe et les itinéraires personnalisés depuis 2003.</p>
+        <div class="ftr-v2-socials">
+          <span class="ftr-v2-social nav-off">f</span>
+          <span class="ftr-v2-social nav-off">in</span>
+          <span class="ftr-v2-social nav-off">ig</span>
+        </div>
+      </div>
+      <div class="ftr-v2-col">
+        <h4>Destinations</h4>
+        <ul>
+          <li><a href="detail-tanzanie.html">Tanzanie &amp; Zanzibar</a></li>
+          <li><a href="detail-nepal.html">Népal</a></li>
+          <li><span class="nav-off">Maroc</span></li>
+          <li><span class="nav-off">Maldives</span></li>
+          <li><span class="nav-off">Japon</span></li>
+          <li><span class="nav-off">Pérou</span></li>
+        </ul>
+      </div>
+      <div class="ftr-v2-col">
+        <h4>L'agence</h4>
+        <ul>
+          <li><span class="nav-off">Qui sommes-nous</span></li>
+          <li><span class="nav-off">Notre équipe</span></li>
+          <li><span class="nav-off">Engagements</span></li>
+          <li><span class="nav-off">Presse</span></li>
+        </ul>
+      </div>
+      <div class="ftr-v2-col">
+        <h4>Services</h4>
+        <ul>
+          <li><span class="nav-off">Voyages sur mesure</span></li>
+          <li><span class="nav-off">Voyages groupe</span></li>
+          <li><span class="nav-off">Lune de miel</span></li>
+          <li><span class="nav-off">Voyages famille</span></li>
+        </ul>
+      </div>
+      <div class="ftr-v2-col">
+        <h4>Infos</h4>
+        <ul>
+          <li><span class="nav-off">Mentions légales</span></li>
+          <li><span class="nav-off">CGV</span></li>
+          <li><span class="nav-off">Confidentialité</span></li>
+          <li><span class="nav-off">Assurances</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ftr-v2-bottom">
+      <p class="ftr-v2-copyright">© 2025 Amplitudes — Tous droits réservés</p>
+      <div class="ftr-v2-logos">
+        <span class="ftr-v2-badge">Atout France</span>
+        <span class="ftr-v2-badge">APST</span>
+        <span class="ftr-v2-badge">IATA</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+(function () {
+  var selIds = ['f-dest', 'f-type', 'f-duree', 'f-mois'];
+  var sels   = selIds.map(function(id){ return document.getElementById(id); });
+  var cards  = document.querySelectorAll('#voy-grid .voy-card');
+  var counter = document.getElementById('voy-n');
+  var plural  = document.getElementById('voy-pl');
+  var empty   = document.getElementById('voy-empty');
+  var resetBtn = document.getElementById('voy-reset');
+  var resetBtn2 = document.getElementById('voy-reset-empty');
+
+  function apply() {
+    var dest  = sels[0].value;
+    var type  = sels[1].value;
+    var duree = sels[2].value;
+    var mois  = sels[3].value;
+    var n = 0;
+    cards.forEach(function(c) {
+      var ok =
+        (!dest  || c.dataset.dest.indexOf(dest)  > -1) &&
+        (!type  || c.dataset.type.indexOf(type)  > -1) &&
+        (!duree || c.dataset.duree === duree)           &&
+        (!mois  || c.dataset.mois.indexOf(mois)  > -1);
+      c.hidden = !ok;
+      if (ok) n++;
+    });
+    counter.textContent = n;
+    plural.textContent  = n > 1 ? 's' : '';
+    empty.hidden = n > 0;
+  }
+
+  function reset() {
+    sels.forEach(function(s){ s.value = ''; });
+    apply();
+  }
+
+  sels.forEach(function(s){ s.addEventListener('change', apply); });
+  resetBtn.addEventListener('click', reset);
+  if (resetBtn2) resetBtn2.addEventListener('click', reset);
+})();
+</script>
+</body>
+</html>

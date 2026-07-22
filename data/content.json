@@ -1,0 +1,479 @@
+{
+  "home": {
+    "hero": {
+      "eyebrow": "Product Designer · UX/UI ",
+      "titleLine1": "L'art de rendre",
+      "titleLine2": "le complexe, simple.",
+      "showGrid": true,
+      "showTechLines": false,
+      "showScrollArrow": true
+    },
+    "about": {
+      "greeting": "Hello !",
+      "role": "Anna Vignaud, Product Designer · UX/UI",
+      "bio1": "Diplômée d'un Bachelor Chef de projet digital puis d'un Master en UX Design, j'aime imaginer des produits centrés sur l'expérience utilisateur. Mon parcours m'a amenée à travailler sur des interfaces techniques notamment dans le secteur bancaire ou du retail.",
+      "bio2": "Ce qui me plaît le plus dans mon métier, c'est comprendre les utilisateurs, échanger avec les équipes et transformer des sujets parfois techniques en parcours simples, intuitifs et agréables à utiliser. \n",
+      "tools": [
+        "Figma",
+        "Git",
+        "GitHub",
+        "Claude",
+        "Flupa"
+      ]
+    },
+    "work": {
+      "label": "Projets sélectionnés",
+      "title": "Mes sujets favoris"
+    },
+    "contact": {
+      "titleLine1": "On travaille",
+      "titleLine2": "ensemble ?",
+      "body": "Disponible sur Toulouse ou en remote.",
+      "email": "vignaudanna87520@gmail.com",
+      "linkedinLabel": "LinkedIn",
+      "cvLabel": "Télécharger mon CV"
+    },
+    "footer": {
+      "left": "Anna V. · Product Designer UX/UI",
+      "right": "Toulouse, Remote, Disponible"
+    },
+    "projects": {
+      "paynow": {
+        "num": "01",
+        "label": "Refonte d'un back-office marchand",
+        "title": "Back-office paiement",
+        "desc": "J'ai travaillé sur ce projet dans le cadre de mon alternance. Le défi ? Lier la simplicité d'usage à l'exigence du domaine du paiement, sans jamais sacrifier l'une pour l'autre.",
+        "tags": [
+          "UX Research",
+          "B2B"
+        ]
+      },
+      "onboarding": {
+        "num": "02",
+        "label": "Définition d'un workflow pour un self-onboarding",
+        "title": "Self-onboarding marchands",
+        "desc": "Concevoir un parcours d'activation 100 % autonome pour les marchands : interviews multi-équipes, conformité KYB, workflow et design des écrans.",
+        "tags": [
+          "UX Research",
+          "KYB / KYC",
+          "B2B"
+        ]
+      },
+      "lcbft": {
+        "num": "03",
+        "label": "Logiciel conformité, 2026",
+        "title": "Création d'un logiciel de lutte anti-blanchiment (LCB FT)",
+        "desc": "Conception d'un outil de conformité réglementaire pour l'analyse de risque, le screening PEP/sanctions et le contrôle documentaire KYB.",
+        "tags": [
+          "UX Research",
+          "Conformité"
+        ]
+      }
+    }
+  },
+  "about": {
+    "hero": {
+      "greeting": "Bonjour,\nje suis Anna.",
+      "role": "Designer UX/UI & Développeuse Frontend",
+      "bio1": "Diplômée d'un Bachelor Chef de projet digital (2024) puis d'un Master UX Design (2026), j'ai développé une expertise dans les interfaces complexes, notamment dans le secteur bancaire, où performance, sécurité et simplicité d'usage doivent coexister.",
+      "bio2": "Je conçois des produits qui répondent aux objectifs métiers autant qu'aux attentes des utilisateurs. Curieuse, rigoureuse, j'aime travailler en équipes pluridisciplinaires.",
+      "tools": [
+        "Figma",
+        "Git",
+        "GitHub",
+        "Claude",
+        "Flupa"
+      ]
+    },
+    "parcours": [
+      {
+        "period": "2025 à aujourd'hui",
+        "type": "Formation",
+        "badgeColor": "blue",
+        "title": "[Nom de ta formation]",
+        "organization": "[École / Bootcamp / Organisme]",
+        "location": "[Ville, France]",
+        "description": "Spécialisation en UX/UI Design et développement Frontend, Next.js, TypeScript, Tailwind CSS, Figma, Apple Human Interface Guidelines. [Ajoute ici ce que tu fais concrètement.]",
+        "current": true
+      },
+      {
+        "period": "2026",
+        "type": "Projet",
+        "badgeColor": "purple",
+        "title": "Portfolio & Design System Apple HIG",
+        "organization": "Projet personnel",
+        "location": "Remote",
+        "description": "Conception et développement d'un design system complet inspiré des Human Interface Guidelines d'Apple. Tokens CSS, 15 composants réutilisables (Button, Card, Glass, NavBar, Toggle, Toast…), animations spring, mesh gradients et glass effects.",
+        "current": false
+      },
+      {
+        "period": "2024",
+        "type": "Projet",
+        "badgeColor": "green",
+        "title": "Application Mobile iOS",
+        "organization": "Projet académique",
+        "location": "France",
+        "description": "Design et développement d'une application mobile native-feel avec React Native et Expo. Parcours utilisateur centré iOS, animations Reanimated, gestion d'état avec Zustand.",
+        "current": false
+      },
+      {
+        "period": "2023",
+        "type": "Projet",
+        "badgeColor": "orange",
+        "title": "Dashboard Analytics",
+        "organization": "Projet académique",
+        "location": "France",
+        "description": "Interface de visualisation de données temps réel avec React, D3.js, GraphQL. Conception des filtres, graphiques interactifs et export PDF des rapports.",
+        "current": false
+      },
+      {
+        "period": "2022",
+        "type": "Diplôme",
+        "badgeColor": "neutral",
+        "title": "[Ton diplôme / Baccalauréat]",
+        "organization": "[Lycée / Université]",
+        "location": "[Ville, France]",
+        "description": "[Mention, spécialité, points forts.] Début de ma passion pour le design et le développement web, premiers projets HTML/CSS/JavaScript.",
+        "current": false
+      }
+    ]
+  },
+  "work": {
+    "hero": {
+      "eyebrow": "Expériences & Réalisations",
+      "word1": "Précise.",
+      "word2": "Élégante.",
+      "word3": "Mémorable.",
+      "subtitle": "Mon parcours en design et développement frontend, raconté projet par projet."
+    },
+    "experiences": [
+      {
+        "period": "2025 à aujourd'hui",
+        "type": "Formation",
+        "accent": "blue",
+        "title": "[Titre de ta formation]",
+        "organization": "[École / Bootcamp / Organisme]",
+        "achievement": "Livraison d'un design system complet Apple HIG : tokens CSS, 15 composants, glass effects et animations spring, en production dès la première session.",
+        "skills": [
+          "Next.js",
+          "TypeScript",
+          "Figma",
+          "Apple HIG",
+          "Tailwind v4"
+        ]
+      },
+      {
+        "period": "2026",
+        "type": "Projet",
+        "accent": "purple",
+        "title": "Portfolio Design System",
+        "organization": "Projet personnel",
+        "achievement": "Architecture d'un design system from scratch inspiré des HIG Apple : 15 composants atomiques réutilisables, tokens adaptatifs light/dark, glass morphism et mesh gradients.",
+        "skills": [
+          "Design System",
+          "Next.js 16",
+          "Tailwind CSS v4",
+          "TypeScript"
+        ]
+      },
+      {
+        "period": "2024",
+        "type": "Projet",
+        "accent": "green",
+        "title": "Application Mobile iOS",
+        "organization": "Projet académique",
+        "achievement": "Conception UX complète et développement d'une application mobile native-feel, animations Reanimated 60fps, parcours utilisateur pensé pour iOS.",
+        "skills": [
+          "React Native",
+          "Expo",
+          "Reanimated",
+          "UX Design"
+        ]
+      },
+      {
+        "period": "2023",
+        "type": "Projet",
+        "accent": "orange",
+        "title": "Dashboard Analytics",
+        "organization": "Projet académique",
+        "achievement": "Interface de visualisation temps réel avec graphiques D3.js interactifs, filtres dynamiques et export PDF, réduction du temps de lecture des rapports de 40%.",
+        "skills": [
+          "React",
+          "D3.js",
+          "GraphQL",
+          "PostgreSQL"
+        ]
+      },
+      {
+        "period": "2022",
+        "type": "Diplôme",
+        "accent": "teal",
+        "title": "[Ton Baccalauréat / Diplôme]",
+        "organization": "[Lycée / Université · Ville]",
+        "achievement": "[Ta mention, ta spécialité, et ce qui t'a poussée vers le design et le code.]",
+        "skills": [
+          "[Spécialité 1]",
+          "[Spécialité 2]"
+        ]
+      }
+    ],
+    "skillGroups": [
+      {
+        "category": "Design",
+        "accent": "purple",
+        "items": [
+          "Figma",
+          "Prototypage",
+          "Apple HIG",
+          "UX Research",
+          "Design System"
+        ]
+      },
+      {
+        "category": "Frontend",
+        "accent": "blue",
+        "items": [
+          "React",
+          "Next.js 16",
+          "TypeScript",
+          "Tailwind CSS v4",
+          "WCAG AA"
+        ]
+      },
+      {
+        "category": "Mobile",
+        "accent": "green",
+        "items": [
+          "React Native",
+          "Expo",
+          "iOS Design",
+          "Reanimated"
+        ]
+      },
+      {
+        "category": "Outils",
+        "accent": "orange",
+        "items": [
+          "Git / GitHub",
+          "Vercel",
+          "Node.js",
+          "GraphQL",
+          "Storybook"
+        ]
+      }
+    ]
+  },
+  "paynow": {
+    "hero": {
+      "badge": "Prototyper sur Figma, développé par Claude",
+      "titleLine1": "Refonte du back-office PSP",
+      "titleLine2": "",
+      "accentLine": "Un back-office métier repensé de zéro.",
+      "subtitle": "Pendant mon alternance, j'ai eu la chance de travailler sur la refonte de ce back-office de paiement. Disponible en plusieurs langues, vendu en marque blanche aux plus grandes entités bancaires, le logiciel couvre plusieurs dizaines d'écrans et de fonctionnalités. Il fonctionnait parfaitement, mais datait des années 2010.",
+      "tags": [
+        "Product Designer",
+        "User Research",
+        "Figma",
+        "Design System",
+        "WCAG AA / RGAA"
+      ],
+      "showBreadcrumb": true,
+      "showBadge": true,
+      "showGrid": true
+    },
+    "context": {
+      "badge": "Contexte & contraintes",
+      "title": "Un logiciel desktop vieilli et complexe",
+      "body": "Ce back-office permet avant tout de retrouver et suivre ses transactions, qu'elles soient en ligne ou physiques. Il donne également accès à toutes les pages de paiement du commerçant : formulaire embarqué sur son site, paiement MOTO (par téléphone ou e-mail), liens de paiement, et bien d'autres.",
+      "showBadge": true,
+      "showDivider": true
+    },
+    "constats": [
+      {
+        "tag": "Constat 1",
+        "title": "Interface vieillie et peu attractive",
+        "description": "Visuellement daté, sans cohérence UI, incapable de rivaliser avec Stripe ou Adyen.",
+        "accent": false
+      },
+      {
+        "tag": "Constat 2",
+        "title": "Trop technique pour ses utilisateurs",
+        "description": "Vocabulaire et parcours qui ne correspondaient pas aux modèles mentaux des commerçants.",
+        "accent": false
+      },
+      {
+        "tag": "Constat 3",
+        "title": "Obsolète face aux solutions concurrentes",
+        "description": "Des concurrents proposaient des interfaces modernes, simples, self-service.",
+        "accent": false
+      },
+      {
+        "tag": "Objectif",
+        "title": "Moderniser sans perdre la valeur métier",
+        "description": "Refondre l'expérience pour tous les profils, sans sacrifier les fonctionnalités power users.",
+        "accent": true
+      }
+    ],
+    "process": {
+      "badge": "Processus UX",
+      "title": "5 phases, Design Thinking appliqué à un contexte B2B.",
+      "body": "Cliquez sur une phase pour explorer les livrables, les méthodes et les décisions associés."
+    },
+    "solutions": {
+      "badge": "Solutions",
+      "title": "3 pages, 3 enjeux UX distincts.",
+      "body": "Efficacité opérationnelle, prise de décision, charge cognitive et accessibilité."
+    },
+    "cta": {
+      "badge": "PayNow · Back-office Design",
+      "title": "Un back-office",
+      "titleAccent": "redessiné pour les commerçants.",
+      "subtitle": "",
+      "buttonText": "Visiter le back-office",
+      "showBadge": true
+    },
+    "footer": {
+      "left": "Projet en alternance, 2026",
+      "right": "Créé sur Figma, développé par Claude",
+      "showDivider": true
+    }
+  },
+  "lcbft": {
+    "hero": {
+      "badge": "Prototyper sur Figma, développé par Claude",
+      "titleLine1": "Sentinelle",
+      "titleLine2": "LCB-FT",
+      "accentLine": "Un logiciel de conformité AML.",
+      "subtitle": "Dans le cadre de mon alternance, j'ai conçu un logiciel de conformité réglementaire LCB-FT pour les équipes compliance.",
+      "tags": [
+        "Compliance AML",
+        "LCB-FT",
+        "Figma",
+        "Design System",
+        "WCAG AA"
+      ],
+      "showBreadcrumb": true,
+      "showBadge": true,
+      "showGrid": true
+    },
+    "context": {
+      "badge": "Contexte & Contraintes",
+      "title": "Rigueur réglementaire, clarté opérationnelle",
+      "body": "Les équipes compliance traitaient les alertes LCB-FT via des tableurs Excel, sans priorisation, sans audit trail automatique, sans vue unifiée des risques. L'enjeu : concevoir un outil qui accélère le traitement tout en garantissant une conformité irréprochable face aux exigences de l'ACPR et TRACFIN."
+    },
+    "constats": [
+      {
+        "tag": "Constat 1",
+        "title": "Processus manuels chronophages",
+        "description": "Les alertes étaient traitées dans des tableurs Excel sans priorisation par risque. Une alerte critique pouvait rester plusieurs heures sans traitement.",
+        "accent": false
+      },
+      {
+        "tag": "Constat 2",
+        "title": "Aucun audit trail automatique",
+        "description": "Chaque décision de clôture était documentée manuellement dans des fichiers Word séparés. Non conforme aux exigences ACPR d'archivage 5 ans.",
+        "accent": false
+      },
+      {
+        "tag": "Constat 3",
+        "title": "Données de risque fragmentées",
+        "description": "Les signaux de risque provenaient de 4 sources différentes (core banking, SWIFT, transactions, listes PEP). Aucune vue consolidée pour les analystes.",
+        "accent": false
+      },
+      {
+        "tag": "Objectif",
+        "title": "Centraliser, prioriser, tracer",
+        "description": "Concevoir un outil unique qui priorise les alertes par criticité, consolide toutes les données de risque et génère l'audit trail réglementaire automatiquement.",
+        "accent": true
+      }
+    ],
+    "process": {
+      "badge": "Processus UX",
+      "title": "5 phases, de la recherche terrain au prototype testé.",
+      "body": "Cliquez sur une phase pour explorer les livrables, les méthodes et les décisions associées."
+    },
+    "screens": {
+      "badge": "Écrans clés",
+      "title": "Chaque écran, une intention UX précise.",
+      "body": "Trois vues principales, trois profils d'usage distincts. Naviguez entre les écrans pour explorer les décisions de design."
+    },
+    "cta": {
+      "badge": "Sentinelle · Logiciel LCB-FT",
+      "title": "Voir le dashboard",
+      "titleAccent": "en action.",
+      "subtitle": "Un logiciel de conformité réglementaire conçu pour les équipes compliance : dashboard analytique, gestion des alertes et audit trail intégrés.",
+      "buttonText": "Ouvrir le dashboard Sentinelle",
+      "showBadge": true
+    },
+    "footer": {
+      "left": "Projet professionnel · 2026",
+      "right": "Conformité  · LCB-FT / AML",
+      "showDivider": true
+    }
+  },
+  "onboarding": {
+    "hero": {
+      "badge": "Prototyper sur Figma, développé par Claude",
+      "titleLine1": "Self-onboarding",
+      "titleLine2": "marchands.",
+      "accentLine": "Un parcours d'activation autonome.",
+      "subtitle": "Dans le cadre de mon alternance, j'ai conçu un flow d'onboarding marchand autonome, réduisant le délai d'activation de plusieurs jours à moins de 15 minutes.",
+      "showBreadcrumb": true,
+      "showBadge": true,
+      "showGrid": true
+    },
+    "context": {
+      "badge": "Contexte du projet",
+      "title": "Un onboarding lent dans un marché qui s'accélère",
+      "body": "L'onboarding des marchands était intégralement géré à la main par l'administration des ventes. Résultat : un délai d'activation de plusieurs jours, une expérience frustrante côté marchands, et une charge opérationnelle non scalable côté équipe. Pendant ce temps, les concurrents proposaient une activation quasi-instantanée."
+    },
+    "problems": [
+      {
+        "tag": "Problème 1",
+        "title": "Un onboarding 100 % manuel via l'ADV",
+        "description": "Chaque nouveau marchand était activé manuellement par l'ADV (Administration des Ventes) : collecte des documents par email, vérification à la main, saisie dans le back-office. Les données ne remontaient dans le BO qu'une fois le dossier complet. Tant que l'ADV n'avait pas tout validé, le marchand ne pouvait encaisser aucune transaction. Un processus de plusieurs jours, non scalable et source d'erreurs.",
+        "accent": false
+      },
+      {
+        "tag": "Problème 2",
+        "title": "Un retard compétitif visible",
+        "description": "Les concurrents directs proposaient une activation en moins de 24h, parfois instantanée. Cet écart était un frein commercial identifié par les équipes partenariats et sales.",
+        "accent": false
+      },
+      {
+        "tag": "Contrainte",
+        "title": "Des données sensibles à manipuler avec soin",
+        "description": "SIRET, KBIS, pièce d'identité du dirigeant, RIB : les informations collectées sont sensibles. Le choix des outils, le stockage et l'affichage de ces données requiert une attention particulière à la sécurité et à la réglementation.",
+        "accent": false
+      },
+      {
+        "tag": "Objectif",
+        "title": "Un self-onboarding rapide, conforme et rassurant",
+        "description": "Concevoir un parcours d'activation autonome qui réduit le délai à moins de 15 minutes, sans intervention de l'ADV, en respectant les exigences KYB et en rassurant le marchand à chaque étape.",
+        "accent": true
+      }
+    ],
+    "process": {
+      "badge": "Processus Design Thinking",
+      "title": "Du terrain au prototype",
+      "body": "L'onboarding marchand touche à des enjeux commerciaux, opérationnels, réglementaires et UX. Chaque phase a produit des livrables concrets qui ont directement alimenté la phase suivante."
+    },
+    "screens": {
+      "badge": "Écrans clés",
+      "title": "Le parcours en 15 minutes chrono.",
+      "body": "Chaque étape guidée, chaque décision justifiée. Du premier email à l'activation du compte marchand."
+    },
+    "cta": {
+      "badge": "Onboarding Marchand · UX Design",
+      "title": "Un onboarding",
+      "titleAccent": "conçu pour accélérer.",
+      "subtitle": "Prototype Figma interactif : parcours complet du marchand en moins de 15 minutes, sans intervention de l'ADV.",
+      "buttonText": "Voir le flow d'onboarding",
+      "showBadge": true
+    },
+    "footer": {
+      "left": "Projet en alternance · 2026",
+      "showDivider": true
+    }
+  }
+}
