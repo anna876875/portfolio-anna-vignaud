@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useInView, AnimatePresence, useMotionValue } from "framer-motion";
-import { ArrowRight, ArrowUpRight, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, X, Monitor } from "lucide-react";
 import { PortfolioHeader } from "@/components/ui/PortfolioHeader";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -1306,11 +1306,12 @@ interface ProjectData {
   href?: string; siteHref?: string;
   x: number; y: number; width: number; rotation: number; zIndex: number;
   locked?: boolean;
+  desktopOnly?: boolean;
 }
 
 function ProjectWindow({
   id, num, label, title, desc, color, accentBg, visual, tags,
-  href, siteHref,
+  href, siteHref, desktopOnly,
   x: initX, y: initY, width, rotation, zIndex,
   onPointerDown, delay = 0, isMobile = false,
 }: ProjectData & {
@@ -1329,13 +1330,40 @@ function ProjectWindow({
       <Link href={href ?? "#"} style={{ textDecoration: "none", display: "block" }}>
         <motion.article
           initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-          whileHover={{ scale: 1.025, boxShadow: "0 16px 48px rgba(0,0,0,0.14), 0 4px 12px rgba(0,0,0,0.08)" }}
           transition={{ duration: 0.5, delay, ease: SP }}
           style={{ borderRadius: 12, overflow: "hidden", background: "#fff",
             border: "1px solid rgba(0,0,0,0.08)", cursor: "pointer",
-            boxShadow: "0 4px 16px rgba(0,0,0,0.08)" }}>
+            boxShadow: "0 4px 16px rgba(0,0,0,0.08)", position: "relative" }}>
           <VisualArea accentBg={accentBg} visual={visual} />
           <WindowInfo num={num} title={title} color={color} tags={tags} isMobile />
+          {desktopOnly && (
+            <div style={{
+              position: "absolute", inset: 0,
+              background: "rgba(255,255,255,0.88)",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
+              display: "flex", flexDirection: "column",
+              alignItems: "center", justifyContent: "center",
+              gap: 10, padding: 20,
+              pointerEvents: "none",
+            }}>
+              <Monitor size={24} strokeWidth={1.5} color={color} />
+              <p style={{ fontSize: 14, fontWeight: 700, color: INK,
+                margin: 0, textAlign: "center", lineHeight: 1.3 }}>
+                Expérience desktop
+              </p>
+              <p style={{ fontSize: 12, color: INK2, margin: 0,
+                textAlign: "center", lineHeight: 1.5, maxWidth: 200 }}>
+                Ouvre ce portfolio sur ordinateur pour accéder à la démo interactive
+              </p>
+              <span style={{ fontSize: 11, fontWeight: 600, color,
+                padding: "4px 12px", borderRadius: 100,
+                background: `color-mix(in srgb, ${color} 10%, transparent)`,
+                border: `1px solid color-mix(in srgb, ${color} 20%, transparent)` }}>
+                Voir le case study →
+              </span>
+            </div>
+          )}
         </motion.article>
       </Link>
     );
@@ -1800,6 +1828,7 @@ export default function HomePage() {
         visual: <PayNowMockupSVG />,
         tags: pn.tags,
         href: "/paynow", siteHref: "/paynow/dashboard",
+        desktopOnly: true,
         x: 10, y: 25, width: 300, rotation: -2, zIndex: 1,
       },
       {
@@ -1809,6 +1838,7 @@ export default function HomePage() {
         visual: <OnboardingMockupSVG />,
         tags: ob.tags,
         href: "/onboarding",
+        desktopOnly: true,
         x: 350, y: 10, width: 300, rotation: -1, zIndex: 2,
       },
       {
@@ -1819,6 +1849,7 @@ export default function HomePage() {
         tags: lc.tags,
         href: "/lcb-ft/description",
         siteHref: "/lcb-ft",
+        desktopOnly: true,
         x: 690, y: 20, width: 300, rotation: 1.5, zIndex: 3,
       },
       {
