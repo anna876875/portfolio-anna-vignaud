@@ -183,7 +183,8 @@ function FocusDashboard({ onOpen }: { onOpen: () => void }) {
         <FocusList items={FOCUS_ITEMS_DASHBOARD} />
       </div>
       <motion.div onHoverStart={()=>setHov(true)} onHoverEnd={()=>setHov(false)}
-        whileHover={{ y:-4 }} transition={{ duration:0.28, ease:SP }}>
+        whileHover={{ y:-4 }} transition={{ duration:0.28, ease:SP }}
+        className="cs-desktop-preview">
         <MacFrame>
           <div className="cs-iframe-wrap" style={{ position:"relative", overflow:"hidden", height:300 }}>
             <iframe src="/lcb-ft"
@@ -221,7 +222,8 @@ function FocusAlertes({ onOpen }: { onOpen: () => void }) {
         <FocusList items={FOCUS_ITEMS_ALERTES} />
       </div>
       <motion.div onHoverStart={()=>setHov(true)} onHoverEnd={()=>setHov(false)}
-        whileHover={{ y:-4 }} transition={{ duration:0.28, ease:SP }}>
+        whileHover={{ y:-4 }} transition={{ duration:0.28, ease:SP }}
+        className="cs-desktop-preview">
         <MacFrame>
           <div className="cs-iframe-wrap" style={{ position:"relative", overflow:"hidden", height:300 }}>
             <iframe src="/lcb-ft"
@@ -259,7 +261,8 @@ function FocusRisque({ onOpen }: { onOpen: () => void }) {
         <FocusList items={FOCUS_ITEMS_RISQUE} />
       </div>
       <motion.div onHoverStart={()=>setHov(true)} onHoverEnd={()=>setHov(false)}
-        whileHover={{ y:-4 }} transition={{ duration:0.28, ease:SP }}>
+        whileHover={{ y:-4 }} transition={{ duration:0.28, ease:SP }}
+        className="cs-desktop-preview">
         <MacFrame>
           <div className="cs-iframe-wrap" style={{ position:"relative", overflow:"hidden", height:300 }}>
             <iframe src="/lcb-ft"

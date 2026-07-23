@@ -385,7 +385,8 @@ function FocusDashboard() {
         ))}
       </div>
       <motion.div onHoverStart={()=>setHov(true)} onHoverEnd={()=>setHov(false)}
-        whileHover={{ y:-4 }} transition={{ duration:0.28, ease:SP }}>
+        whileHover={{ y:-4 }} transition={{ duration:0.28, ease:SP }}
+        className="cs-desktop-preview">
         <MacOSFrame url="app.paynow.fr/dashboard">
           <div className="cs-iframe-wrap" style={{ position:"relative", overflow:"hidden", height:300 }}>
             <iframe
@@ -435,7 +436,8 @@ function FocusParametres() {
         ))}
       </div>
       <motion.div onHoverStart={()=>setHov(true)} onHoverEnd={()=>setHov(false)}
-        whileHover={{ y:-4 }} transition={{ duration:0.28, ease:SP }}>
+        whileHover={{ y:-4 }} transition={{ duration:0.28, ease:SP }}
+        className="cs-desktop-preview">
         <MacOSFrame url="app.paynow.fr/parametres">
           <div className="cs-iframe-wrap" style={{ position:"relative", overflow:"hidden", height:300 }}>
             <iframe
@@ -485,7 +487,8 @@ function FocusPersonnalisation() {
         ))}
       </div>
       <motion.div onHoverStart={()=>setHov(true)} onHoverEnd={()=>setHov(false)}
-        whileHover={{ y:-4 }} transition={{ duration:0.28, ease:SP }}>
+        whileHover={{ y:-4 }} transition={{ duration:0.28, ease:SP }}
+        className="cs-desktop-preview">
         <MacOSFrame url="app.paynow.fr/personnalisation">
           <div className="cs-iframe-wrap" style={{ position:"relative", overflow:"hidden", height:300 }}>
             <iframe

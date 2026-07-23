@@ -2061,6 +2061,13 @@ body {
   /* MacOS Frame : URL bar adaptée */
   .mac-url-bar { max-width: 160px !important; width: auto !important; }
 
+  /* Livrables desktop non-redimensionnables — cachés sur mobile */
+  .cs-desktop-preview { display: none !important; }
+
+  /* Tab-switcher d'écrans — pleine largeur sur mobile */
+  .cs-tab-sw { display: flex !important; width: 100% !important; }
+  .cs-tab-sw > button { flex: 1 !important; text-align: center !important; }
+
   /* Espace pour la bottom nav (≈ 64px + safe area) */
   body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
 }

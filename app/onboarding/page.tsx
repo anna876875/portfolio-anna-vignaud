@@ -893,7 +893,7 @@ function FocusCompte() {
         </p>
         <OBFocusList items={OB_ITEMS_COMPTE} />
       </div>
-      <div style={{ borderRadius: "var(--r-lg)", overflow: "hidden", border: `1px solid ${BORD}`,
+      <div className="cs-desktop-preview" style={{ borderRadius: "var(--r-lg)", overflow: "hidden", border: `1px solid ${BORD}`,
         boxShadow: "0 4px 16px rgba(0,0,0,0.06)" }}>
         <div style={{ display: "flex", height: 300 }}>
           <ObSidebar step={1} />
@@ -913,7 +913,7 @@ function FocusDocuments() {
         </p>
         <OBFocusList items={OB_ITEMS_DOCUMENTS} />
       </div>
-      <div style={{ borderRadius: "var(--r-lg)", overflow: "hidden", border: `1px solid ${BORD}`,
+      <div className="cs-desktop-preview" style={{ borderRadius: "var(--r-lg)", overflow: "hidden", border: `1px solid ${BORD}`,
         boxShadow: "0 4px 16px rgba(0,0,0,0.06)" }}>
         <div style={{ display: "flex", height: 300 }}>
           <ObSidebar step={3} />
@@ -933,7 +933,7 @@ function FocusConfirmation() {
         </p>
         <OBFocusList items={OB_ITEMS_CONFIRMATION} />
       </div>
-      <div style={{ borderRadius: "var(--r-lg)", overflow: "hidden", border: `1px solid ${BORD}`,
+      <div className="cs-desktop-preview" style={{ borderRadius: "var(--r-lg)", overflow: "hidden", border: `1px solid ${BORD}`,
         boxShadow: "0 4px 16px rgba(0,0,0,0.06)" }}>
         <div style={{ display: "flex", height: 300 }}>
           <ObSidebar step={6} />
@@ -948,7 +948,7 @@ function OnboardingScreensSection() {
   const [active, setActive] = useState<"compte" | "documents" | "confirmation">("compte");
   return (
     <div>
-      <div style={{
+      <div className="cs-tab-sw" style={{
         display: "inline-flex", background: "var(--color-bg-secondary)",
         borderRadius: "var(--r-lg)", padding: 3,
         border: `1px solid ${BORD}`, marginBottom: "var(--sp-5)",
