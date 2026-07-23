@@ -94,32 +94,38 @@ export function PortfolioHeader() {
   /* ── Header mobile ─────────────────────────────────────────── */
   if (isMobile) {
     return (
-      <motion.header
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.28, ease: SP }}
-        style={{
-          position: "fixed", inset: "0 0 auto 0", zIndex: 100,
-          background: "rgba(255,255,255,0.92)",
-          backdropFilter: "blur(24px) saturate(200%)",
-          WebkitBackdropFilter: "blur(24px) saturate(200%)",
-          borderBottom: "1px solid rgba(0,0,0,0.07)",
-        }}>
-        {/* Rangée 1 — Logo centré */}
-        <div style={{
-          display: "flex", justifyContent: "center", alignItems: "center",
-          padding: "12px 20px 8px",
-          borderBottom: "1px solid rgba(0,0,0,0.05)",
-        }}>
+      <>
+        {/* Top bar — logo centré uniquement */}
+        <motion.header
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.28, ease: SP }}
+          style={{
+            position: "fixed", inset: "0 0 auto 0", zIndex: 100,
+            background: "rgba(255,255,255,0.92)",
+            backdropFilter: "blur(24px) saturate(200%)",
+            WebkitBackdropFilter: "blur(24px) saturate(200%)",
+            borderBottom: "1px solid rgba(0,0,0,0.07)",
+            display: "flex", justifyContent: "center", alignItems: "center",
+            height: 52,
+          }}>
           <Link href="/" style={{
             fontWeight: 700, fontSize: 16, color: INK,
             letterSpacing: "-0.02em", textDecoration: "none",
           }}>
             Anna V.
           </Link>
-        </div>
+        </motion.header>
 
-        {/* Rangée 2 — Nav avec icônes */}
-        <nav style={{ display: "flex", width: "100%" }}>
+        {/* Bottom nav — icônes + labels */}
+        <nav style={{
+          position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 100,
+          background: "rgba(255,255,255,0.92)",
+          backdropFilter: "blur(24px) saturate(200%)",
+          WebkitBackdropFilter: "blur(24px) saturate(200%)",
+          borderTop: "1px solid rgba(0,0,0,0.07)",
+          display: "flex",
+          paddingBottom: "env(safe-area-inset-bottom, 0px)",
+        }}>
           {MOB_NAV.map(({ label, href, Icon }) => {
             const on = isActive(href, pathname, activeSection);
             return (
@@ -131,7 +137,7 @@ export function PortfolioHeader() {
                 color: on ? ACC : INK3,
                 transition: "color 180ms",
               }}>
-                <Icon size={20} strokeWidth={on ? 2.2 : 1.6} />
+                <Icon size={22} strokeWidth={on ? 2.2 : 1.6} />
                 <span style={{
                   fontSize: 10, fontWeight: on ? 700 : 500,
                   lineHeight: 1, letterSpacing: "0.01em",
@@ -143,7 +149,7 @@ export function PortfolioHeader() {
             );
           })}
         </nav>
-      </motion.header>
+      </>
     );
   }
 

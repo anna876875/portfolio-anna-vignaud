@@ -1974,8 +1974,8 @@ body {
 
 @media (max-width: 767px) {
 
-  /* Hero homepage — padding top adapté à la hauteur du header mobile (~95px) */
-  .pf2-hero-pad { padding: 110px 24px 0 !important; }
+  /* Hero homepage — padding top adapté à la hauteur du header mobile (52px) */
+  .pf2-hero-pad { padding: 72px 24px 0 !important; }
 
   /* Sections about / grilles 2 cols → 1 col */
   .pf2-about-grid,
@@ -2061,7 +2061,8 @@ body {
   /* MacOS Frame : URL bar adaptée */
   .mac-url-bar { max-width: 160px !important; width: auto !important; }
 
-  body { padding-bottom: 20px; }
+  /* Espace pour la bottom nav (≈ 64px + safe area) */
+  body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
 }
 
 /* ─── Touch : hover → active/focus ────────────────────────────────────────
