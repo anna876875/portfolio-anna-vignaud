@@ -8,6 +8,7 @@ import { Menu, X, Home, User, Layers, Mail } from "lucide-react";
 const SP   = [0.22, 1, 0.36, 1] as const;
 const INK  = "var(--color-label)";
 const INK3 = "var(--color-label-3)";
+const ACC  = "#A259FF";
 
 const NAV = [
   { label: "Accueil",  href: "/"         },
@@ -16,14 +17,15 @@ const NAV = [
   { label: "Contact",  href: "/#contact" },
 ];
 
-const BOTTOM_NAV = [
+const MOB_NAV = [
   { label: "Accueil",  href: "/",         Icon: Home   },
   { label: "À propos", href: "/#about",   Icon: User   },
   { label: "Projets",  href: "/#work",    Icon: Layers },
   { label: "Contact",  href: "/#contact", Icon: Mail   },
 ];
 
-/* Sur les pages projet, active "Projets" */
+const BOTTOM_NAV = MOB_NAV;
+
 function isActive(href: string, pathname: string, activeSection: string): boolean {
   if (pathname === "/") {
     if (href === "/") return activeSection === "";
@@ -45,6 +47,15 @@ export function PortfolioHeader() {
   const [scrollY, setScrollY]             = useState(0);
   const [menuOpen, setMenuOpen]           = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [isMobile, setIsMobile]           = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setIsMobile(mq.matches);
+    const h = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", h);
+    return () => mq.removeEventListener("change", h);
+  }, []);
 
   useEffect(() => {
     const fn = () => setScrollY(window.scrollY);
@@ -52,7 +63,6 @@ export function PortfolioHeader() {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  /* Détecte la section visible sur la home page */
   useEffect(() => {
     if (pathname !== "/") return;
     const SECTIONS = [
@@ -76,12 +86,68 @@ export function PortfolioHeader() {
     return () => window.removeEventListener("scroll", update);
   }, [pathname]);
 
-  // Fermer le menu au scroll
   useEffect(() => {
     if (menuOpen) setMenuOpen(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scrollY]);
 
+  /* ── Header mobile ─────────────────────────────────────────── */
+  if (isMobile) {
+    return (
+      <motion.header
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.28, ease: SP }}
+        style={{
+          position: "fixed", inset: "0 0 auto 0", zIndex: 100,
+          background: "rgba(255,255,255,0.92)",
+          backdropFilter: "blur(24px) saturate(200%)",
+          WebkitBackdropFilter: "blur(24px) saturate(200%)",
+          borderBottom: "1px solid rgba(0,0,0,0.07)",
+        }}>
+        {/* Rangée 1 — Logo centré */}
+        <div style={{
+          display: "flex", justifyContent: "center", alignItems: "center",
+          padding: "12px 20px 8px",
+          borderBottom: "1px solid rgba(0,0,0,0.05)",
+        }}>
+          <Link href="/" style={{
+            fontWeight: 700, fontSize: 16, color: INK,
+            letterSpacing: "-0.02em", textDecoration: "none",
+          }}>
+            Anna V.
+          </Link>
+        </div>
+
+        {/* Rangée 2 — Nav avec icônes */}
+        <nav style={{ display: "flex", width: "100%" }}>
+          {MOB_NAV.map(({ label, href, Icon }) => {
+            const on = isActive(href, pathname, activeSection);
+            return (
+              <Link key={label} href={href} style={{
+                flex: 1, display: "flex", flexDirection: "column",
+                alignItems: "center", justifyContent: "center",
+                gap: 4, padding: "10px 4px 12px",
+                textDecoration: "none", minHeight: 52,
+                color: on ? ACC : INK3,
+                transition: "color 180ms",
+              }}>
+                <Icon size={20} strokeWidth={on ? 2.2 : 1.6} />
+                <span style={{
+                  fontSize: 10, fontWeight: on ? 700 : 500,
+                  lineHeight: 1, letterSpacing: "0.01em",
+                  fontFamily: "var(--font-sans)",
+                }}>
+                  {label}
+                </span>
+              </Link>
+            );
+          })}
+        </nav>
+      </motion.header>
+    );
+  }
+
+  /* ── Header desktop (inchangé) ─────────────────────────────── */
   return (
     <>
       <motion.header
@@ -101,7 +167,6 @@ export function PortfolioHeader() {
             Anna V.
           </Link>
 
-          {/* Nav desktop — cachée sur mobile via .pf-header-nav */}
           <nav className="pf-header-nav" style={{ display: "flex", gap: 28 }}>
             {NAV.map(({ label, href }) => (
               <Link key={label} href={href}
@@ -112,20 +177,17 @@ export function PortfolioHeader() {
             ))}
           </nav>
 
-          {/* Droit desktop */}
           <div className="pf-header-right" style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <div className="pf-header-status-dot" />
             <span className="hig-caption2" style={{ color: INK3 }}>Disponible</span>
           </div>
 
-          {/* Hamburger mobile — masqué quand bottom nav est présente */}
           <button className="pf-hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Menu">
             {menuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </motion.header>
 
-      {/* Menu mobile dropdown (fallback si bottom nav désactivée) */}
       <AnimatePresence>
         {menuOpen && (
           <motion.nav
@@ -148,7 +210,6 @@ export function PortfolioHeader() {
         )}
       </AnimatePresence>
 
-      {/* Bottom tab bar mobile */}
       <nav className="pf-bottom-nav" aria-label="Navigation principale">
         {BOTTOM_NAV.map(({ label, href, Icon }) => (
           <Link

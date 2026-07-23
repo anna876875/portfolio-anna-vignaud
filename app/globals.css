@@ -1974,8 +1974,8 @@ body {
 
 @media (max-width: 767px) {
 
-  /* Hero homepage — réduire le padding top */
-  .pf2-hero-pad { padding: 100px 24px 0 !important; }
+  /* Hero homepage — padding top adapté à la hauteur du header mobile (~95px) */
+  .pf2-hero-pad { padding: 110px 24px 0 !important; }
 
   /* Sections about / grilles 2 cols → 1 col */
   .pf2-about-grid,
@@ -2006,11 +2006,7 @@ body {
   .hig-largetitle { font-size: clamp(26px, 6vw, 34px) !important; }
   .hig-title1     { font-size: clamp(22px, 5vw, 28px) !important; }
 
-  /* Nav identique au desktop — liens toujours visibles */
-  .pf-header-nav { display: flex !important; gap: 0 !important; }
-  .pf-header-nav-btn { font-size: 11px !important; padding: 4px 7px !important; }
-
-  /* Masquer hamburger (nav est déjà visible) */
+  /* Masquer hamburger (nav mobile gérée par JS) */
   .pf-hamburger { display: none !important; }
 
   /* Hero — hauteur réduite sur mobile */
