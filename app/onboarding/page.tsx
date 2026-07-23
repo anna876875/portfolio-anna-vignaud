@@ -1065,6 +1065,7 @@ export default function OnboardingPage() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ delay: 0.4, duration: 0.9, ease: SP }}
                 whileHover={{ y: -6 }}
+                className="cs-perspective-wrap"
                 style={{ transform: "perspective(1200px) rotateY(-3deg) rotateX(1deg)" }}>
                 <div style={{
                   borderRadius: 14, overflow: "hidden",
@@ -1090,7 +1091,7 @@ export default function OnboardingPage() {
                     <div style={{ width:54 }} />
                   </div>
                   {/* Écran */}
-                  <div style={{ display:"flex", height:340 }}>
+                  <div className="cs-iframe-wrap" style={{ display:"flex", height:340 }}>
                     <ObSidebar step={1} />
                     <ObAccount />
                   </div>

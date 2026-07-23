@@ -417,9 +417,10 @@ export default function LcbFtDescriptionPage() {
                 transition={{ delay:0.4, duration:0.9, ease:SP }}>
                 <motion.div onHoverStart={()=>setPreviewHov(true)} onHoverEnd={()=>setPreviewHov(false)}
                   whileHover={{ y:-6 }} transition={{ duration:0.35, ease:SP }}
+                  className="cs-perspective-wrap"
                   style={{ transform:"perspective(1200px) rotateY(-4deg) rotateX(2deg)" }}>
                   <MacFrame>
-                    <div style={{ position:"relative", overflow:"hidden", height:340 }}>
+                    <div className="cs-iframe-wrap" style={{ position:"relative", overflow:"hidden", height:340 }}>
                       <iframe src="/lcb-ft"
                         style={{ width:"222%", height:756, transform:"scale(0.45)",
                           transformOrigin:"top left", border:"none", pointerEvents:"none" }} />

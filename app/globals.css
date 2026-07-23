@@ -321,6 +321,7 @@ html {
   text-size-adjust: 100%;
   color-scheme: light !important;
   background-color: #ffffff !important;
+  overflow-x: hidden;
 }
 
 body {
@@ -331,6 +332,7 @@ body {
   background-color: #ffffff !important;
   color-scheme: light !important;
   min-height: 100dvh;
+  overflow-x: hidden;
 }
 
 /* Apple-style focus ring — keyboard nav only, not on mouse click */
@@ -2037,22 +2039,31 @@ body {
     --sp-10: 20px;
   }
 
-  /* ── Pages projets — miniatures & layout ── */
+  /* ── Auto layout — tout tient dans la largeur écran ── */
+  *, *::before, *::after { box-sizing: border-box; }
+  img, video, svg { max-width: 100% !important; height: auto; }
+
+  /* Sections projets : padding horizontal réduit */
+  section { padding-left: 20px !important; padding-right: 20px !important; }
+
+  /* ── Miniatures projets — perspective → flat sur mobile ── */
+  .cs-perspective-wrap {
+    transform: none !important;
+    width: 100% !important;
+  }
+
+  /* Iframe scaled : largeur 100%, hauteur réduite */
+  .cs-iframe-wrap {
+    width: 100% !important;
+    height: 200px !important;
+    overflow: hidden !important;
+  }
 
   /* Grille légendes callouts : N cols → max 2 cols */
   .sc-callouts { grid-template-columns: 1fr 1fr !important; }
 
-  /* MacOS Frame : URL bar ne déborde pas */
-  .mac-url-bar { max-width: 180px !important; width: auto !important; }
-
-  /* Iframe scaled : contraindre la hauteur conteneur */
-  .cs-iframe-wrap { height: 200px !important; }
-  .cs-iframe-wrap iframe {
-    transform-origin: top left !important;
-  }
-
-  /* Sections projets : padding horizontal réduit */
-  section { padding-left: 20px !important; padding-right: 20px !important; }
+  /* MacOS Frame : URL bar adaptée */
+  .mac-url-bar { max-width: 160px !important; width: auto !important; }
 
   body { padding-bottom: 20px; }
 }

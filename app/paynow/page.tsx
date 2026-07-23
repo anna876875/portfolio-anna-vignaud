@@ -626,9 +626,10 @@ export default function PayNowCaseStudy() {
               transition={{ delay:0.5, duration:0.7, ease:SP }}>
               <motion.div whileHover={{ y:-6 }}
                 transition={{ duration:0.35, ease:SP }}
+                className="cs-perspective-wrap"
                 style={{ transform:"perspective(1200px) rotateY(-4deg) rotateX(2deg)" }}>
                 <MacOSFrame url="app.paynow.fr/dashboard">
-                  <div style={{ overflow:"hidden", height:350 }}>
+                  <div className="cs-iframe-wrap" style={{ overflow:"hidden", height:350 }}>
                     <iframe
                       src="/paynow/dashboard"
                       style={{ width:"222%", height:778, transform:"scale(0.45)", transformOrigin:"top left", border:"none", pointerEvents:"none" }}
