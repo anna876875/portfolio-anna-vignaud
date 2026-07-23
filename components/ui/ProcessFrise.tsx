@@ -28,11 +28,11 @@ export function ProcessFrise({
   return (
     <div>
       {/* Stepper */}
-      <div style={{ display: "flex", alignItems: "center", marginBottom: "var(--sp-6)" }}>
+      <div className="pf-frise-stepper" style={{ display: "flex", alignItems: "center", marginBottom: "var(--sp-6)" }}>
         {phases.map((p, i) => {
           const on = active === p.id;
           return (
-            <div key={p.id} style={{ display: "flex", alignItems: "center", flex: 1 }}>
+            <div key={p.id} className="pf-frise-item" style={{ display: "flex", alignItems: "center", flex: 1 }}>
               <motion.button
                 onClick={() => setActive(p.id)}
                 whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.95 }}
@@ -75,7 +75,7 @@ export function ProcessFrise({
                 </span>
               </motion.button>
               {i < phases.length - 1 && (
-                <div style={{
+                <div className="pf-frise-line" style={{
                   height: 1, width: 32, flexShrink: 0, marginBottom: 28,
                   background: "var(--color-sep-opaque)",
                 }} />
