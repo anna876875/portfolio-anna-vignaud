@@ -2011,6 +2011,21 @@ body {
   /* Masquer hamburger (nav est déjà visible) */
   .pf-hamburger { display: none !important; }
 
+  /* Hero — hauteur réduite sur mobile */
+  .pf2-hero-section { min-height: 80dvh !important; }
+
+  /* Hero CTAs — pleine largeur, empilés verticalement */
+  .pf2-hero-ctas {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+  .pf2-hero-ctas > button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
   body { padding-bottom: 20px; }
 }
 

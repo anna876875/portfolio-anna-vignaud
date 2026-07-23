@@ -1391,7 +1391,7 @@ function LockedProjectWindow({
   const x = useMotionValue(initX);
   const y = useMotionValue(initY);
   const [dragging, setDragging] = useState(false);
-  const [hovered, setHovered] = useState(false);
+  const [hovered, setHovered] = useState(isMobile);
 
   const inner = (
     <div style={{ position: "relative" }}>
@@ -1483,14 +1483,10 @@ function LockedProjectWindow({
       <motion.div
         initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay, ease: SP }}
-        onHoverStart={() => setHovered(true)}
-        onHoverEnd={() => setHovered(false)}
-        onTouchStart={() => setHovered(h => !h)}
         style={{
           borderRadius: 12, overflow: "hidden", background: "#fff",
           border: "1px solid rgba(0,0,0,0.08)",
           boxShadow: "0 4px 16px rgba(0,0,0,0.06)",
-          cursor: "pointer",
         }}>
         {inner}
       </motion.div>
@@ -1866,6 +1862,7 @@ export default function HomePage() {
         du canvas à l'intérieur de la section (ne descend pas derrière le body).
       */}
       <section ref={heroRef as React.RefObject<HTMLElement>}
+        className="pf2-hero-section"
         style={{
           minHeight: "100dvh", display: "flex", flexDirection: "column",
           justifyContent: "flex-start", overflow: "hidden",
@@ -1933,6 +1930,7 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.0, duration: 0.6, ease: SP }}
+            className="pf2-hero-ctas"
             style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
             <motion.button className="pf2-btn-primary"
               onClick={() => scrollTo("work")}
