@@ -46,7 +46,7 @@ function MacFrame({ children }: { children: React.ReactNode }) {
             ))}
         </div>
         <div style={{ flex:1, display:"flex", justifyContent:"center" }}>
-          <div style={{ padding:"2px 14px", background:"rgba(255,255,255,0.88)",
+          <div className="mac-url-bar" style={{ padding:"2px 14px", background:"rgba(255,255,255,0.88)",
             border:"1px solid rgba(0,0,0,0.10)", borderRadius:6,
             display:"flex", alignItems:"center" }}>
             <span style={{ fontFamily:"monospace", fontSize:11, color:"rgba(0,0,0,0.38)" }}>
@@ -185,7 +185,7 @@ function FocusDashboard({ onOpen }: { onOpen: () => void }) {
       <motion.div onHoverStart={()=>setHov(true)} onHoverEnd={()=>setHov(false)}
         whileHover={{ y:-4 }} transition={{ duration:0.28, ease:SP }}>
         <MacFrame>
-          <div style={{ position:"relative", overflow:"hidden", height:300 }}>
+          <div className="cs-iframe-wrap" style={{ position:"relative", overflow:"hidden", height:300 }}>
             <iframe src="/lcb-ft"
               style={{ width:"222%", height:667, transform:"scale(0.45)", transformOrigin:"top left",
                 border:"none", pointerEvents:"none" }} />
@@ -223,7 +223,7 @@ function FocusAlertes({ onOpen }: { onOpen: () => void }) {
       <motion.div onHoverStart={()=>setHov(true)} onHoverEnd={()=>setHov(false)}
         whileHover={{ y:-4 }} transition={{ duration:0.28, ease:SP }}>
         <MacFrame>
-          <div style={{ position:"relative", overflow:"hidden", height:300 }}>
+          <div className="cs-iframe-wrap" style={{ position:"relative", overflow:"hidden", height:300 }}>
             <iframe src="/lcb-ft"
               style={{ width:"222%", height:667, transform:"scale(0.45)", transformOrigin:"top left",
                 border:"none", pointerEvents:"none" }} />
@@ -261,7 +261,7 @@ function FocusRisque({ onOpen }: { onOpen: () => void }) {
       <motion.div onHoverStart={()=>setHov(true)} onHoverEnd={()=>setHov(false)}
         whileHover={{ y:-4 }} transition={{ duration:0.28, ease:SP }}>
         <MacFrame>
-          <div style={{ position:"relative", overflow:"hidden", height:300 }}>
+          <div className="cs-iframe-wrap" style={{ position:"relative", overflow:"hidden", height:300 }}>
             <iframe src="/lcb-ft"
               style={{ width:"222%", height:667, transform:"scale(0.45)", transformOrigin:"top left",
                 border:"none", pointerEvents:"none" }} />

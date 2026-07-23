@@ -2026,6 +2026,34 @@ body {
     justify-content: center !important;
   }
 
+  /* Masquer TweaksDrawer sur mobile */
+  .tw-fab { display: none !important; }
+
+  /* ── Tokens spacing réduits sur mobile ── */
+  :root {
+    --sp-20: 48px;
+    --sp-16: 32px;
+    --sp-12: 24px;
+    --sp-10: 20px;
+  }
+
+  /* ── Pages projets — miniatures & layout ── */
+
+  /* Grille légendes callouts : N cols → max 2 cols */
+  .sc-callouts { grid-template-columns: 1fr 1fr !important; }
+
+  /* MacOS Frame : URL bar ne déborde pas */
+  .mac-url-bar { max-width: 180px !important; width: auto !important; }
+
+  /* Iframe scaled : contraindre la hauteur conteneur */
+  .cs-iframe-wrap { height: 200px !important; }
+  .cs-iframe-wrap iframe {
+    transform-origin: top left !important;
+  }
+
+  /* Sections projets : padding horizontal réduit */
+  section { padding-left: 20px !important; padding-right: 20px !important; }
+
   body { padding-bottom: 20px; }
 }
 

@@ -122,7 +122,7 @@ function MacOSFrame({ children, url = "app.paynow.fr" }: { children: React.React
         </div>
         {/* URL bar centré */}
         <div style={{ flex:1, display:"flex", justifyContent:"center" }}>
-          <div style={{
+          <div className="mac-url-bar" style={{
             width:240, height:22,
             background:"rgba(255,255,255,0.88)",
             border:"1px solid rgba(0,0,0,0.10)",
@@ -188,7 +188,7 @@ function ScreenCapture({ title, src, callouts, href }: {
           <span className="hig-caption1" style={{ fontWeight:700, color:VIO, letterSpacing:"0.1em",
             textTransform:"uppercase", fontFamily:MONO }}>{title}</span>
         </div>
-        <div style={{ display:"grid", gridTemplateColumns:`repeat(${callouts.length},1fr)`, gap:10 }}>
+        <div className="sc-callouts" style={{ display:"grid", gridTemplateColumns:`repeat(${callouts.length},1fr)`, gap:10 }}>
           {callouts.map(c=>(
             <div key={c.n} style={{ display:"flex", gap:7, alignItems:"flex-start" }}>
               <div style={{ width:16, height:16, borderRadius:"50%", background:VIO, flexShrink:0, marginTop:1,
@@ -387,7 +387,7 @@ function FocusDashboard() {
       <motion.div onHoverStart={()=>setHov(true)} onHoverEnd={()=>setHov(false)}
         whileHover={{ y:-4 }} transition={{ duration:0.28, ease:SP }}>
         <MacOSFrame url="app.paynow.fr/dashboard">
-          <div style={{ position:"relative", overflow:"hidden", height:300 }}>
+          <div className="cs-iframe-wrap" style={{ position:"relative", overflow:"hidden", height:300 }}>
             <iframe
               src="/paynow/dashboard"
               style={{ width:"222%", height:667, transform:"scale(0.45)", transformOrigin:"top left", border:"none", pointerEvents:"none" }}
@@ -437,7 +437,7 @@ function FocusParametres() {
       <motion.div onHoverStart={()=>setHov(true)} onHoverEnd={()=>setHov(false)}
         whileHover={{ y:-4 }} transition={{ duration:0.28, ease:SP }}>
         <MacOSFrame url="app.paynow.fr/parametres">
-          <div style={{ position:"relative", overflow:"hidden", height:300 }}>
+          <div className="cs-iframe-wrap" style={{ position:"relative", overflow:"hidden", height:300 }}>
             <iframe
               src="/paynow/parametres"
               style={{ width:"222%", height:667, transform:"scale(0.45)", transformOrigin:"top left", border:"none", pointerEvents:"none" }}
@@ -487,7 +487,7 @@ function FocusPersonnalisation() {
       <motion.div onHoverStart={()=>setHov(true)} onHoverEnd={()=>setHov(false)}
         whileHover={{ y:-4 }} transition={{ duration:0.28, ease:SP }}>
         <MacOSFrame url="app.paynow.fr/personnalisation">
-          <div style={{ position:"relative", overflow:"hidden", height:300 }}>
+          <div className="cs-iframe-wrap" style={{ position:"relative", overflow:"hidden", height:300 }}>
             <iframe
               src="/paynow/personnalisation/identite"
               style={{ width:"222%", height:667, transform:"scale(0.45)", transformOrigin:"top left", border:"none", pointerEvents:"none" }}
