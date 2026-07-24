@@ -2058,10 +2058,12 @@ export default function HomePage() {
             <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
               {[
                 { href:`mailto:${CH.contact.email}`, label: CH.contact.email,       dim:false },
-                { href:"#",                          label: CH.contact.linkedinLabel, dim:true  },
+                { href:"https://www.linkedin.com/in/anna-vignaud-559367208", label: CH.contact.linkedinLabel, dim:true  },
                 { href:"#",                          label: CH.contact.cvLabel,       dim:true  },
               ].map((link) => (
                 <a key={link.label} href={link.href} className="pf2-contact-link"
+                  target={link.href.startsWith("http") ? "_blank" : undefined}
+                  rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                   style={{ fontSize:"clamp(18px,2.8vw,36px)", fontWeight:300,
                     color: link.dim ? "rgba(255,255,255,0.55)" : "#FAFAFA",
                     letterSpacing:"-0.025em" }}>

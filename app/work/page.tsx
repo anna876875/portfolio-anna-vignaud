@@ -434,9 +434,11 @@ export default function WorkPage() {
               ["Accueil",  "/"],
               ["À propos", "/about"],
               ["GitHub",   "#"],
-              ["LinkedIn", "#"],
+              ["LinkedIn", "https://www.linkedin.com/in/anna-vignaud-559367208"],
             ] as [string, string][]).map(([label, href]) => (
-              <a key={label} href={href} className="hig-caption2 footer-link">
+              <a key={label} href={href} className="hig-caption2 footer-link"
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}>
                 {label}
               </a>
             ))}

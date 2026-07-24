@@ -23,7 +23,7 @@ export function CaseContactFooter({ footerLeft, footerRight }: CaseContactFooter
 
   const links = [
     { href: `mailto:${ct.email}`, label: ct.email, dim: false },
-    { href: "#", label: ct.linkedinLabel, dim: true },
+    { href: "https://www.linkedin.com/in/anna-vignaud-559367208", label: ct.linkedinLabel, dim: true },
     { href: "#", label: ct.cvLabel, dim: true },
   ];
 
@@ -54,6 +54,8 @@ export function CaseContactFooter({ footerLeft, footerRight }: CaseContactFooter
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               {links.map((link) => (
                 <a key={link.label} href={link.href} className="pf2-contact-link"
+                  target={link.href.startsWith("http") ? "_blank" : undefined}
+                  rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                   style={{
                     fontSize: "clamp(18px,2.8vw,36px)", fontWeight: 300,
                     color: link.dim ? "rgba(255,255,255,0.55)" : "#FAFAFA",
