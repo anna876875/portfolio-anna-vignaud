@@ -1416,18 +1416,10 @@ function LockedProjectWindow({
   delay?: number;
   isMobile?: boolean;
 }) {
-  const x = useMotionValue(initX);
-  const y = useMotionValue(initY);
-  const [dragging, setDragging] = useState(false);
-  const [hovered, setHovered] = useState(isMobile);
-
   const inner = (
-    <div style={{ position: "relative" }}>
-      {/* Contenu flouté */}
-      <div style={{
-        filter: hovered ? "blur(4px) brightness(0.85)" : "blur(1.5px) grayscale(0.35)",
-        transition: "filter 0.25s ease",
-      }}>
+    <div style={{ position: "relative", pointerEvents: "none" }}>
+      {/* Contenu flouté en permanence */}
+      <div style={{ filter: "blur(3px) brightness(0.88) grayscale(0.2)" }}>
         <VisualArea accentBg={accentBg} visual={visual} />
         <div style={{ padding: "10px 14px 13px", borderTop: "1px solid rgba(0,0,0,0.06)",
           display: "flex", flexDirection: "column", gap: 8, background: "#fff" }}>
@@ -1450,59 +1442,48 @@ function LockedProjectWindow({
         </div>
       </div>
 
-      {/* Overlay hover */}
-      <AnimatePresence>
-        {hovered && (
-          <motion.div
-            key="wip"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            style={{
-              position: "absolute", inset: 0,
-              background: "rgba(255,255,255,0.72)",
-              backdropFilter: "blur(14px)",
-              WebkitBackdropFilter: "blur(14px)",
-              display: "flex", flexDirection: "column",
-              alignItems: "center", justifyContent: "center", gap: 8,
-              padding: "16px",
-              pointerEvents: "none",
-            }}>
-            <div style={{ display: "flex", gap: 5 }}>
-              <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.08em",
-                textTransform: "uppercase", color: INK3,
-                padding: "2px 7px", borderRadius: 100,
-                background: "rgba(0,0,0,0.05)" }}>UI Design</span>
-              <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.08em",
-                textTransform: "uppercase", color,
-                padding: "2px 7px", borderRadius: 100,
-                background: `color-mix(in srgb, ${color} 10%, transparent)` }}>En cours</span>
-            </div>
-            <p style={{ fontSize: 13, fontWeight: 700, color: INK,
-              letterSpacing: "-0.01em", textAlign: "center", lineHeight: 1.3, margin: 0 }}>
-              {title}
-            </p>
-            <p style={{ fontSize: 11, color: INK2, textAlign: "center",
-              lineHeight: 1.5, margin: 0, maxWidth: 190 }}>
-              {desc}
-            </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 4, justifyContent: "center" }}>
-              {tags.map(t => (
-                <span key={t} style={{ fontSize: 9, fontWeight: 500,
-                  padding: "2px 7px", borderRadius: 100,
-                  background: `color-mix(in srgb, ${color} 8%, transparent)`,
-                  color, border: `1px solid color-mix(in srgb, ${color} 18%, transparent)` }}>
-                  {t}
-                </span>
-              ))}
-            </div>
-            <span style={{ fontSize: 9, color: INK3, letterSpacing: "0.03em" }}>
-              Disponible début août
+      {/* Overlay permanent */}
+      <div style={{
+        position: "absolute", inset: 0,
+        background: "rgba(255,255,255,0.72)",
+        backdropFilter: "blur(14px)",
+        WebkitBackdropFilter: "blur(14px)",
+        display: "flex", flexDirection: "column",
+        alignItems: "center", justifyContent: "center", gap: 8,
+        padding: "16px",
+      }}>
+        <div style={{ display: "flex", gap: 5 }}>
+          <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.08em",
+            textTransform: "uppercase", color: INK3,
+            padding: "2px 7px", borderRadius: 100,
+            background: "rgba(0,0,0,0.05)" }}>UI Design</span>
+          <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.08em",
+            textTransform: "uppercase", color,
+            padding: "2px 7px", borderRadius: 100,
+            background: `color-mix(in srgb, ${color} 10%, transparent)` }}>En cours</span>
+        </div>
+        <p style={{ fontSize: 13, fontWeight: 700, color: INK,
+          letterSpacing: "-0.01em", textAlign: "center", lineHeight: 1.3, margin: 0 }}>
+          {title}
+        </p>
+        <p style={{ fontSize: 11, color: INK2, textAlign: "center",
+          lineHeight: 1.5, margin: 0, maxWidth: 190 }}>
+          {desc}
+        </p>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 4, justifyContent: "center" }}>
+          {tags.map(t => (
+            <span key={t} style={{ fontSize: 9, fontWeight: 500,
+              padding: "2px 7px", borderRadius: 100,
+              background: `color-mix(in srgb, ${color} 8%, transparent)`,
+              color, border: `1px solid color-mix(in srgb, ${color} 18%, transparent)` }}>
+              {t}
             </span>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          ))}
+        </div>
+        <span style={{ fontSize: 9, color: INK3, letterSpacing: "0.03em" }}>
+          Disponible début août
+        </span>
+      </div>
     </div>
   );
 
@@ -1515,6 +1496,7 @@ function LockedProjectWindow({
           borderRadius: 12, overflow: "hidden", background: "#fff",
           border: "1px solid rgba(0,0,0,0.08)",
           boxShadow: "0 4px 16px rgba(0,0,0,0.06)",
+          cursor: "default",
         }}>
         {inner}
       </motion.div>
@@ -1522,29 +1504,22 @@ function LockedProjectWindow({
   }
 
   return (
-    <motion.article
-      drag dragMomentum={false} dragElastic={0}
-      onPointerDown={onPointerDown}
-      onDragStart={() => setDragging(true)}
-      onDragEnd={() => setDragging(false)}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
+    <motion.div
       initial={{ opacity: 0, scale: 0.93 }}
       animate={{ opacity: 0.82, scale: 1,
         boxShadow: "0 8px 32px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.05)" }}
       transition={{ duration: 0.5, delay, ease: SP }}
       style={{
-        position: "absolute", left: 0, top: 0,
-        x, y, rotate: rotation, width, zIndex,
+        position: "absolute", left: initX, top: initY,
+        rotate: rotation, width, zIndex,
         borderRadius: 14, overflow: "hidden",
         background: "#fff",
         border: "1px solid rgba(0,0,0,0.09)",
-        cursor: dragging ? "grabbing" : "grab",
+        cursor: "default",
         userSelect: "none",
-        willChange: "transform",
       }}>
       {inner}
-    </motion.article>
+    </motion.div>
   );
 }
 
