@@ -7,7 +7,7 @@ import { PortfolioHeader } from "@/components/ui/PortfolioHeader";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import _C from "@/data/content.json";
-const CH = _C.home;
+import { useLang } from "@/components/ui/LanguageContext";
 
 /* ═══════════════════════════════════════════════════════════════════
    CONSTANTS
@@ -440,6 +440,7 @@ function FloatCard({ icon, stat, label, sub, delay = 0, floatDelay = 0 }: {
    SKILL DIAGRAM — cartographie compétences style circuit / sequencer
    ═══════════════════════════════════════════════════════════════════ */
 function SkillDiagram() {
+  const { lang } = useLang();
   const tracks = [
     {
       label: "UX RESEARCH",
@@ -448,7 +449,9 @@ function SkillDiagram() {
       dotColor:  "rgba(37,99,235,1)",
       ringColor: "rgba(37,99,235,0.1)",
       y: 100,
-      skills: ["Recherche", "Entretiens", "Personas", "Tests util.", "User flows", "Architecture"],
+      skills: lang === "en"
+        ? ["Research", "Interviews", "Personas", "Usability tests", "User flows", "Architecture"]
+        : ["Recherche", "Entretiens", "Personas", "Tests util.", "User flows", "Architecture"],
     },
     {
       label: "UI DESIGN",
@@ -457,7 +460,9 @@ function SkillDiagram() {
       dotColor:  "rgba(124,58,237,1)",
       ringColor: "rgba(124,58,237,0.1)",
       y: 195,
-      skills: ["Design System", "Figma", "Typographie", "Prototypage", "WCAG AA", "Micro-anim."],
+      skills: lang === "en"
+        ? ["Design System", "Figma", "Typography", "Prototyping", "WCAG AA", "Micro-anim."]
+        : ["Design System", "Figma", "Typographie", "Prototypage", "WCAG AA", "Micro-anim."],
     },
     {
       label: "FRONTEND",
@@ -1324,6 +1329,7 @@ function ProjectWindow({
   const [dragging, setDragging] = useState(false);
   const didDrag = useRef(false);
   const router = useRouter();
+  const { lang } = useLang();
 
   if (isMobile) {
     return (
@@ -1350,17 +1356,19 @@ function ProjectWindow({
               <Monitor size={24} strokeWidth={1.5} color={color} />
               <p style={{ fontSize: 14, fontWeight: 700, color: INK,
                 margin: 0, textAlign: "center", lineHeight: 1.3 }}>
-                Expérience desktop
+                {lang === "en" ? "Desktop experience" : "Expérience desktop"}
               </p>
               <p style={{ fontSize: 12, color: INK2, margin: 0,
                 textAlign: "center", lineHeight: 1.5, maxWidth: 200 }}>
-                Ouvre ce portfolio sur ordinateur pour accéder à la démo interactive
+                {lang === "en"
+                  ? "Open this portfolio on a computer to access the interactive demo"
+                  : "Ouvre ce portfolio sur ordinateur pour accéder à la démo interactive"}
               </p>
               <span style={{ fontSize: 11, fontWeight: 600, color,
                 padding: "4px 12px", borderRadius: 100,
                 background: `color-mix(in srgb, ${color} 10%, transparent)`,
                 border: `1px solid color-mix(in srgb, ${color} 20%, transparent)` }}>
-                Voir le case study →
+                {lang === "en" ? "View case study →" : "Voir le case study →"}
               </span>
             </div>
           )}
@@ -1416,6 +1424,7 @@ function LockedProjectWindow({
   delay?: number;
   isMobile?: boolean;
 }) {
+  const { lang } = useLang();
   const inner = (
     <div style={{ position: "relative", pointerEvents: "none" }}>
       {/* Contenu flouté en permanence */}
@@ -1460,7 +1469,7 @@ function LockedProjectWindow({
           <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.08em",
             textTransform: "uppercase", color,
             padding: "2px 7px", borderRadius: 100,
-            background: `color-mix(in srgb, ${color} 10%, transparent)` }}>En cours</span>
+            background: `color-mix(in srgb, ${color} 10%, transparent)` }}>{lang === "en" ? "In progress" : "En cours"}</span>
         </div>
         <p style={{ fontSize: 13, fontWeight: 700, color: INK,
           letterSpacing: "-0.01em", textAlign: "center", lineHeight: 1.3, margin: 0 }}>
@@ -1481,7 +1490,7 @@ function LockedProjectWindow({
           ))}
         </div>
         <span style={{ fontSize: 9, color: INK3, letterSpacing: "0.03em" }}>
-          Disponible début août
+          {lang === "en" ? "Available early August" : "Disponible début août"}
         </span>
       </div>
     </div>
@@ -1790,6 +1799,8 @@ function GridCanvas({ heroRef }: { heroRef: React.RefObject<HTMLElement> }) {
 export default function HomePage() {
   const heroRef  = useRef<HTMLElement>(null);
   const isMobile = useIsMobile();
+  const { lang } = useLang();
+  const CH = lang === "en" ? _C.homeEn : _C.home;
 
   const PROJECTS: ProjectData[] = useMemo(() => {
     const pn = CH.projects.paynow;
@@ -1827,28 +1838,9 @@ export default function HomePage() {
         desktopOnly: true,
         x: 690, y: 20, width: 300, rotation: 1.5, zIndex: 3,
       },
-      {
-        id: "brand", num: "04", label: "Brand workshop, 2026",
-        title: "Choix de la marque",
-        desc: "Ateliers et itération sur le libellé d'un formulaire de paiement conformément aux nouvelles lois.",
-        color: "#FF9500", accentBg: "rgba(255,149,0,0.04)",
-        visual: <BrandMockupSVG />,
-        tags: ["UX Writing", "Ateliers", "DSP2", "Conformité"],
-        locked: true,
-        x: 180, y: 415, width: 300, rotation: -1.5, zIndex: 4,
-      },
-      {
-        id: "revision", num: "05", label: "Application mobile, 2024",
-        title: "App Révision · tous niveaux",
-        desc: "Application iOS de révision gamifiée : quiz adaptatifs, parcours de cours, classements et profil apprenant.",
-        color: "#EC4899", accentBg: "rgba(236,72,153,0.04)",
-        visual: <RevisionMockupSVG />,
-        tags: ["iOS Design", "UX Research", "Gamification", "React Native"],
-        locked: true,
-        x: 530, y: 405, width: 300, rotation: 1.5, zIndex: 5,
-      },
     ];
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [CH]);
 
   const scrollTo = (id: string) =>
     id === "hero"
@@ -1941,13 +1933,13 @@ export default function HomePage() {
             <motion.button className="pf2-btn-primary"
               onClick={() => scrollTo("work")}
               whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
-              Voir les projets
+              {lang === "en" ? "View projects" : "Voir les projets"}
             </motion.button>
             <button onClick={() => scrollTo("contact")}
               style={{ background: "none", border: "none", cursor: "pointer", padding: 0,
                 fontSize: 15, fontWeight: 500, color: BLUE, letterSpacing: "-0.01em",
                 display: "flex", alignItems: "center", gap: 6 }}>
-              Me contacter <ArrowRight size={15} strokeWidth={1.5} />
+              {lang === "en" ? "Contact me" : "Me contacter"} <ArrowRight size={15} strokeWidth={1.5} />
             </button>
           </motion.div>
         </div>
@@ -1961,7 +1953,7 @@ export default function HomePage() {
         <div className="pf2-section-pad pf2-about-grid" style={{ maxWidth: 1152, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "center" }}>
 
           <Reveal>
-            <SectionLabel>À propos</SectionLabel>
+            <SectionLabel>{lang === "en" ? "About" : "À propos"}</SectionLabel>
             <p style={{ fontSize: "clamp(30px,3.8vw,52px)", fontWeight: 300,
               letterSpacing: "var(--ls-title2)", color: INK, marginBottom: 16, lineHeight: 1.1 }}>
               {CH.about.greeting}
@@ -1980,10 +1972,22 @@ export default function HomePage() {
 
           <div className="cs-two-col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
             {([
-              { icon: <IconResearch />,  stat: "UX Research", label: "Recherche utilisateur", sub: "Entretiens · Tests util. · Personas",  delay: 0,   floatDelay: 0   },
-              { icon: <IconDesign />,    stat: "UI Design",   label: "Design de produit",     sub: "Figma · Design System · Prototypage", delay: 80,  floatDelay: 0.9 },
-              { icon: <IconDesign />,    stat: "Design System", label: "Composants & tokens",   sub: "Atoms · Variables · Documentation",   delay: 160, floatDelay: 1.8 },
-              { icon: <IconFormation />, stat: "Design Thinking", label: "Approche centrée humain", sub: "Empathie · Idéation · Test",        delay: 240, floatDelay: 2.7 },
+              { icon: <IconResearch />,  stat: "UX Research",
+                label: lang === "en" ? "User research"            : "Recherche utilisateur",
+                sub:   lang === "en" ? "Interviews · Usability · Personas" : "Entretiens · Tests util. · Personas",
+                delay: 0,   floatDelay: 0   },
+              { icon: <IconDesign />,    stat: "UI Design",
+                label: lang === "en" ? "Product design"           : "Design de produit",
+                sub:   lang === "en" ? "Figma · Design System · Prototyping" : "Figma · Design System · Prototypage",
+                delay: 80,  floatDelay: 0.9 },
+              { icon: <IconDesign />,    stat: "Design System",
+                label: lang === "en" ? "Components & tokens"      : "Composants & tokens",
+                sub:   "Atoms · Variables · Documentation",
+                delay: 160, floatDelay: 1.8 },
+              { icon: <IconFormation />, stat: "Design Thinking",
+                label: lang === "en" ? "Human-centered approach"  : "Approche centrée humain",
+                sub:   lang === "en" ? "Empathy · Ideation · Test": "Empathie · Idéation · Test",
+                delay: 240, floatDelay: 2.7 },
             ] as const).map((card, i) => (
               <FloatCard key={i} icon={card.icon} stat={card.stat} label={card.label} sub={card.sub} delay={card.delay} floatDelay={card.floatDelay} />
             ))}
@@ -2009,6 +2013,66 @@ export default function HomePage() {
 
           <ProjectCanvas projects={PROJECTS} isMobile={isMobile} />
 
+          <Reveal>
+            <div style={{
+              marginTop: 24,
+              padding: "40px 48px",
+              borderRadius: 20,
+              background: "linear-gradient(135deg, rgba(162,89,255,0.06) 0%, rgba(26,188,254,0.06) 100%)",
+              border: `1px solid rgba(162,89,255,0.15)`,
+              display: "flex", alignItems: "center", justifyContent: "space-between",
+              flexWrap: "wrap", gap: 24,
+            }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
+                <svg width="36" height="54" viewBox="0 0 38 57" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
+                  <path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/>
+                  <path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z" fill="#0ACF83"/>
+                  <path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z" fill="#FF7262"/>
+                  <path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/>
+                  <path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/>
+                </svg>
+                <div>
+                  <p style={{ margin: 0, fontSize: 18, fontWeight: 600, color: INK, letterSpacing: "-0.02em" }}>
+                    {lang === "en" ? "Explore my Figma creations" : "Mes créations sur Figma"}
+                  </p>
+                  <p style={{ margin: "4px 0 0", fontSize: 14, color: INK3, fontWeight: 400 }}>
+                    {lang === "en"
+                      ? "Prototypes, design systems and UI explorations"
+                      : "Prototypes, design systems et explorations UI"}
+                  </p>
+                </div>
+              </div>
+              <a
+                href="https://www.figma.com/@anavignaud"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "inline-flex", alignItems: "center", gap: 8,
+                  padding: "13px 28px", borderRadius: 100,
+                  background: BLUE,
+                  color: "#fff", textDecoration: "none",
+                  fontSize: 14, fontWeight: 600,
+                  letterSpacing: "-0.01em",
+                  boxShadow: `0 4px 20px color-mix(in srgb, ${BLUE} 35%, transparent)`,
+                  transition: "opacity 180ms, box-shadow 180ms, transform 180ms",
+                  flexShrink: 0,
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.opacity = "0.88";
+                  (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-1px)";
+                  (e.currentTarget as HTMLAnchorElement).style.boxShadow = `0 8px 28px color-mix(in srgb, ${BLUE} 45%, transparent)`;
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.opacity = "1";
+                  (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)";
+                  (e.currentTarget as HTMLAnchorElement).style.boxShadow = `0 4px 20px color-mix(in srgb, ${BLUE} 35%, transparent)`;
+                }}
+              >
+                {lang === "en" ? "View my Figma" : "Voir mon Figma"}
+                <ArrowUpRight size={15} strokeWidth={1.8} />
+              </a>
+            </div>
+          </Reveal>
 
         </div>
       </section>

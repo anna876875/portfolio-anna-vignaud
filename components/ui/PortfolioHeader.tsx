@@ -4,27 +4,40 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Home, User, Layers, Mail } from "lucide-react";
+import { useLang } from "@/components/ui/LanguageContext";
 
 const SP   = [0.22, 1, 0.36, 1] as const;
 const INK  = "var(--color-label)";
 const INK3 = "var(--color-label-3)";
 const ACC  = "#A259FF";
 
-const NAV = [
+const NAV_FR = [
   { label: "Accueil",  href: "/"         },
   { label: "À propos", href: "/#about"   },
   { label: "Projets",  href: "/#work"    },
   { label: "Contact",  href: "/#contact" },
 ];
 
-const MOB_NAV = [
+const NAV_EN = [
+  { label: "Home",    href: "/"         },
+  { label: "About",   href: "/#about"   },
+  { label: "Work",    href: "/#work"    },
+  { label: "Contact", href: "/#contact" },
+];
+
+const MOB_NAV_FR = [
   { label: "Accueil",  href: "/",         Icon: Home   },
   { label: "À propos", href: "/#about",   Icon: User   },
   { label: "Projets",  href: "/#work",    Icon: Layers },
   { label: "Contact",  href: "/#contact", Icon: Mail   },
 ];
 
-const BOTTOM_NAV = MOB_NAV;
+const MOB_NAV_EN = [
+  { label: "Home",    href: "/",         Icon: Home   },
+  { label: "About",   href: "/#about",   Icon: User   },
+  { label: "Work",    href: "/#work",    Icon: Layers },
+  { label: "Contact", href: "/#contact", Icon: Mail   },
+];
 
 function isActive(href: string, pathname: string, activeSection: string): boolean {
   if (pathname === "/") {
@@ -42,12 +55,71 @@ function isActive(href: string, pathname: string, activeSection: string): boolea
   return false;
 }
 
+function LangToggle() {
+  const { lang, setLang } = useLang();
+  return (
+    <div
+      role="group"
+      aria-label="Langue / Language"
+      style={{
+        display: "flex",
+        background: "rgba(0,0,0,0.06)",
+        borderRadius: 8,
+        padding: 2,
+      }}
+    >
+      {(["fr", "en"] as const).map((l) => (
+        <button
+          key={l}
+          onClick={() => setLang(l)}
+          aria-pressed={lang === l}
+          style={{
+            position: "relative",
+            background: "transparent",
+            border: "none",
+            borderRadius: 6,
+            padding: "3px 10px",
+            cursor: "pointer",
+            fontSize: 11,
+            fontWeight: 700,
+            letterSpacing: "0.06em",
+            color: lang === l ? INK : INK3,
+            transition: "color 200ms",
+            textTransform: "uppercase",
+            fontFamily: "var(--font-sans)",
+            minWidth: 34,
+          }}
+        >
+          {lang === l && (
+            <motion.div
+              layoutId="lang-active-pill"
+              style={{
+                position: "absolute",
+                inset: 0,
+                background: "#ffffff",
+                borderRadius: 6,
+                boxShadow: "0 1px 4px rgba(0,0,0,0.13)",
+              }}
+              transition={{ type: "spring", stiffness: 420, damping: 32 }}
+            />
+          )}
+          <span style={{ position: "relative", zIndex: 1 }}>{l.toUpperCase()}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export function PortfolioHeader() {
   const pathname    = usePathname();
+  const { lang }    = useLang();
   const [scrollY, setScrollY]             = useState(0);
   const [menuOpen, setMenuOpen]           = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [isMobile, setIsMobile]           = useState(false);
+
+  const NAV     = lang === "en" ? NAV_EN     : NAV_FR;
+  const MOB_NAV = lang === "en" ? MOB_NAV_EN : MOB_NAV_FR;
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
@@ -114,6 +186,9 @@ export function PortfolioHeader() {
           }}>
             Anna V.
           </Link>
+          <div style={{ position: "absolute", right: 16 }}>
+            <LangToggle />
+          </div>
         </motion.header>
 
         {/* Bottom nav — icônes + labels */}
@@ -183,9 +258,14 @@ export function PortfolioHeader() {
             ))}
           </nav>
 
-          <div className="pf-header-right" style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div className="pf-header-status-dot" />
-            <span className="hig-caption2" style={{ color: INK3 }}>Disponible</span>
+          <div className="pf-header-right" style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <LangToggle />
+            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <div className="pf-header-status-dot" />
+              <span className="hig-caption2" style={{ color: INK3 }}>
+                {lang === "en" ? "Available" : "Disponible"}
+              </span>
+            </div>
           </div>
 
           <button className="pf-hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Menu">
@@ -217,7 +297,7 @@ export function PortfolioHeader() {
       </AnimatePresence>
 
       <nav className="pf-bottom-nav" aria-label="Navigation principale">
-        {BOTTOM_NAV.map(({ label, href, Icon }) => (
+        {MOB_NAV.map(({ label, href, Icon }) => (
           <Link
             key={label}
             href={href}

@@ -1917,7 +1917,7 @@ body {
   text-decoration: none; transition: color 200ms ease;
   display: inline-flex; align-items: center; gap: 10px;
 }
-.pf2-contact-link:hover { color: #FFD600 !important; }
+.pf2-contact-link:hover { color: #34C759 !important; }
 
 /* ── Dot pulsant (disponible) ── */
 @keyframes pf2-pulse {
@@ -2094,7 +2094,7 @@ body {
 .ftr-btn:active .ftr-btn-arrow { transform: translateX(4px); color: #22D3EE; }
 .bubble-card:active { border-color: var(--color-blue); box-shadow: 0 4px 24px rgba(59,130,246,0.12); }
 .exp-card:active    { border-left-color: var(--color-blue); }
-.pf2-contact-link:active { color: #FFD600 !important; }
+.pf2-contact-link:active { color: #34C759 !important; }
 .pf2-btn-primary:active  { opacity: 0.85; }
 .btn-tinted:active:not(:disabled) { background-color: var(--color-accent-tint-hover); }
 

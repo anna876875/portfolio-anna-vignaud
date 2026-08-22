@@ -1,4 +1,60 @@
 {
+  "homeEn": {
+    "hero": {
+      "eyebrow": "Product Designer · UX/UI",
+      "titleLine1": "The art of making",
+      "titleLine2": "complexity, simple.",
+      "showGrid": true,
+      "showTechLines": false,
+      "showScrollArrow": true
+    },
+    "about": {
+      "greeting": "Hello!",
+      "role": "Anna Vignaud, Product Designer · UX/UI",
+      "bio1": "With a Bachelor's in Digital Project Management and a Master's in UX Design, I love creating user-centered products. My career has led me to work on complex interfaces, particularly in the banking and retail sectors.",
+      "bio2": "What I enjoy most in my work is understanding users, collaborating with teams, and turning complex topics into simple, intuitive, and pleasant journeys.",
+      "tools": ["Figma", "Git", "GitHub", "Claude", "Flupa"]
+    },
+    "work": {
+      "label": "Selected projects",
+      "title": "My favorite topics"
+    },
+    "contact": {
+      "titleLine1": "Let's work",
+      "titleLine2": "together?",
+      "body": "Available in Toulouse or remote.",
+      "email": "vignaudanna87520@gmail.com",
+      "linkedinLabel": "LinkedIn",
+      "cvLabel": "Download my CV"
+    },
+    "footer": {
+      "left": "Anna V. · Product Designer UX/UI",
+      "right": "Toulouse, Remote, Available"
+    },
+    "projects": {
+      "paynow": {
+        "num": "01",
+        "label": "Redesign of a merchant back-office",
+        "title": "Payment back-office",
+        "desc": "I worked on this project during my apprenticeship. The challenge? Combining ease of use with the demands of the payment industry, without ever sacrificing one for the other.",
+        "tags": ["UX Research", "B2B"]
+      },
+      "onboarding": {
+        "num": "02",
+        "label": "Designing a self-onboarding workflow",
+        "title": "Merchant self-onboarding",
+        "desc": "Designing a 100% autonomous activation journey for merchants: multi-team interviews, KYB compliance, workflow and screen design.",
+        "tags": ["UX Research", "KYB / KYC", "B2B"]
+      },
+      "lcbft": {
+        "num": "03",
+        "label": "Compliance software, 2026",
+        "title": "Anti-money laundering compliance software (AML)",
+        "desc": "Design of a regulatory compliance tool for risk analysis, PEP/sanctions screening and KYB document control.",
+        "tags": ["UX Research", "Compliance"]
+      }
+    }
+  },
   "home": {
     "hero": {
       "eyebrow": "Product Designer · UX/UI ",
