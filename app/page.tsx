@@ -5,6 +5,7 @@ import { motion, useInView, AnimatePresence, useMotionValue } from "framer-motio
 import { ArrowRight, ArrowUpRight, X, Monitor } from "lucide-react";
 import { PortfolioHeader } from "@/components/ui/PortfolioHeader";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import _C from "@/data/content.json";
 import { useLang } from "@/components/ui/LanguageContext";
@@ -21,9 +22,7 @@ const SURF  = "var(--color-bg-secondary)";
 const BORD  = "var(--color-sep-opaque)";
 const BLUE   = "#A259FF";
 const NAVY   = "#1e3a8a";
-const GRN    = "#34C759";
 const FGRN   = "#A8D400";
-const INDIGO = "#4F46E5";
 
 function useIsMobile(bp = 768) {
   const [m, setM] = useState(false);
@@ -466,10 +465,10 @@ function SkillDiagram() {
     },
     {
       label: "FRONTEND",
-      textColor: "rgba(10,207,131,0.75)",
-      lineColor: "rgba(10,207,131,0.18)",
-      dotColor:  "#0ACF83",
-      ringColor: "rgba(10,207,131,0.12)",
+      textColor: "rgba(52,199,89,0.75)",
+      lineColor: "rgba(52,199,89,0.18)",
+      dotColor:  "#34C759",
+      ringColor: "rgba(52,199,89,0.12)",
       y: 280,
       skills: ["React / Next.js", "TypeScript", "Tailwind CSS", "CSS anim.", "Framer Motion", "Vercel"],
     },
@@ -851,359 +850,6 @@ function LcbftMockupSVG() {
     </svg>
   );
 }
-
-
-function RevisionMockupSVG() {
-  const PINK  = "#EC4899";
-  const PINKL = "#FCF0F9";
-  const BG    = "#F7EEF9";
-  const WHITE = "#FFFFFF";
-  const BORD  = "#EDE0F0";
-  const INK   = "#1A1A2E";
-  const INK2  = "#9B7BB8";
-  const INK3  = "#C4A8D8";
-  const GRN   = "#10B981";
-  const SF    = "system-ui, sans-serif";
-  const SW    = 73;
-  const SH    = 158;
-  const X     = [7, 85, 163, 241, 319] as const;
-
-  const tabLabels = ["Accueil", "Cours", "Stats", "Profil"];
-  const TabBar = ({ i, active }: { i: number; active: number }) => (
-    <g>
-      <rect x={0} y={138} width={SW} height={20} fill={WHITE} />
-      <line x1={0} y1={138} x2={SW} y2={138} stroke={BORD} strokeWidth={0.4} />
-      {tabLabels.map((t, j) => {
-        const tx = 9 + j * 18;
-        const on = j === active;
-        return (
-          <g key={t}>
-            <text x={tx} y={SH - 5} fontFamily={SF} fontSize={3}
-              fill={on ? PINK : INK3} textAnchor="middle" fontWeight={on ? "700" : "400"}>{t}</text>
-            {on && <circle cx={tx} cy={SH - 2} r={1.5} fill={PINK} />}
-          </g>
-        );
-      })}
-    </g>
-  );
-
-  const Header = ({ title, sub }: { title: string; sub: string }) => (
-    <g>
-      <circle cx={8.5} cy={9} r={5} fill={PINK} opacity={0.22} />
-      <circle cx={8.5} cy={9} r={2.5} fill={PINK} opacity={0.55} />
-      <text x={16} y={8.5} fontFamily={SF} fontSize={4.5} fontWeight="700" fill={INK}>{title}</text>
-      <text x={16} y={14.5} fontFamily={SF} fontSize={3} fill={INK3}>{sub}</text>
-      <line x1={0} y1={18} x2={SW} y2={18} stroke={BORD} strokeWidth={0.5} />
-    </g>
-  );
-
-  return (
-    <svg viewBox="0 0 400 190" fill="none" aria-hidden="true" style={{ width: "100%" }}>
-      <defs>
-        {X.map((_, i) => (
-          <clipPath key={i} id={`rev-phone-${i}`}>
-            <rect x={0} y={0} width={SW} height={SH} rx={8} />
-          </clipPath>
-        ))}
-      </defs>
-
-      {/* Background */}
-      <rect width="400" height="190" fill={BG} />
-
-      {/* Top bar */}
-      <rect x="0" y="0" width="400" height="20" fill={WHITE} />
-      <line x1="0" y1="20" x2="400" y2="20" stroke={BORD} strokeWidth="0.8" />
-      <rect x="7" y="6" width="7" height="7" rx="2" fill={PINK} />
-      <text x="18" y="14" fontFamily={SF} fontSize="7" fontWeight="700" fill={INK}>App Révision · iOS</text>
-      <text x="116" y="14" fontFamily={SF} fontSize="5.5" fill={INK2}>5 écrans · Design complet</text>
-
-      {/* ── Screen 0 : Leçon active / Quiz ── */}
-      <g transform={`translate(${X[0]}, 22)`} clipPath="url(#rev-phone-0)">
-        <rect width={SW} height={SH} rx={8} fill={PINKL} />
-        <Header title="Leçon · Quiz" sub="ethan@gmail.com" />
-        {/* Progress bar */}
-        <rect x={0} y={19} width={SW} height={3} fill={BORD} />
-        <rect x={0} y={19} width={22} height={3} fill={PINK} />
-        <text x={SW - 2} y={26} fontFamily={SF} fontSize={3} fill={INK3} textAnchor="end">Q3/10</text>
-        {/* Quiz card */}
-        <rect x={5} y={28} width={63} height={46} rx={5} fill={WHITE} stroke={BORD} strokeWidth={0.6} />
-        <text x={36.5} y={38} fontFamily={SF} fontSize={3} fill={INK3} textAnchor="middle" letterSpacing="0.05em">TRADUISEZ LE MOT SUIVANT</text>
-        <text x={36.5} y={47} fontFamily={SF} fontSize={5} fontWeight="700" fill={INK} textAnchor="middle">Comment dit-on</text>
-        <text x={36.5} y={54} fontFamily={SF} fontSize={5} fontWeight="700" fill={INK} textAnchor="middle">{"« bonjour » ?"}</text>
-        <line x1={22} y1={57} x2={51} y2={57} stroke={PINK} strokeWidth={0.7} opacity={0.5} />
-        {/* Options */}
-        {(["Hello", "Goodbye", "Please", "Thank you"] as const).map((opt, i) => {
-          const oy = 78 + i * 13;
-          const sel = i === 0;
-          return (
-            <g key={opt}>
-              <rect x={5} y={oy} width={63} height={11} rx={3}
-                fill={sel ? PINKL : WHITE}
-                stroke={sel ? PINK : BORD}
-                strokeWidth={sel ? 0.8 : 0.5} />
-              <text x={11} y={oy + 7.5} fontFamily={SF} fontSize={4} fontWeight={sel ? "600" : "400"} fill={INK}>{opt}</text>
-              <circle cx={62} cy={oy + 5.5} r={3} fill={sel ? PINK : WHITE} stroke={sel ? PINK : INK3} strokeWidth={0.6} />
-              {sel && <>
-                <line x1={60} y1={oy + 5.5} x2={61.5} y2={oy + 7} stroke={WHITE} strokeWidth={0.9} strokeLinecap="round" />
-                <line x1={61.5} y1={oy + 7} x2={64.5} y2={oy + 3.5} stroke={WHITE} strokeWidth={0.9} strokeLinecap="round" />
-              </>}
-            </g>
-          );
-        })}
-        {/* CTA */}
-        <rect x={5} y={131} width={63} height={10} rx={4} fill={PINK} />
-        <text x={36.5} y={138} fontFamily={SF} fontSize={3.5} fontWeight="700" fill={WHITE} textAnchor="middle">Valider la réponse</text>
-        <TabBar i={0} active={1} />
-      </g>
-
-      {/* ── Screen 1 : Cours détail ── */}
-      <g transform={`translate(${X[1]}, 22)`} clipPath="url(#rev-phone-1)">
-        <rect width={SW} height={SH} rx={8} fill={PINKL} />
-        <Header title="Cours d'Anglais" sub="ethan@gmail.com" />
-        {/* Badge vocabulaire */}
-        <rect x={5} y={21} width={32} height={6} rx={3} fill={`${PINK}1A`} />
-        <text x={21} y={26} fontFamily={SF} fontSize={3} fontWeight="600" fill={PINK} textAnchor="middle">VOCABULAIRE</text>
-        {/* Title */}
-        <text x={5} y={35} fontFamily={SF} fontSize={5} fontWeight="700" fill={INK}>Élargissez votre</text>
-        <text x={5} y={42} fontFamily={SF} fontSize={5} fontWeight="700" fill={INK}>vocabulaire anglais</text>
-        {/* Progress */}
-        <text x={5} y={51} fontFamily={SF} fontSize={3} fill={INK3}>Progression globale</text>
-        <text x={SW - 4} y={51} fontFamily={SF} fontSize={3} fontWeight="700" fill={PINK} textAnchor="end">65%</text>
-        <rect x={5} y={53} width={63} height={3} rx={1.5} fill={BORD} />
-        <rect x={5} y={53} width={41} height={3} rx={1.5} fill={PINK} />
-        {/* Lessons label */}
-        <text x={5} y={63} fontFamily={SF} fontSize={3} fill={INK3} letterSpacing="0.06em">LEÇONS DU MODULE</text>
-        {/* Lesson rows */}
-        {[
-          { label:"Leçon 1: Les salutations", sub:"Complétée · 10 questions", done:true,   active:false, locked:false },
-          { label:"Leçon 2: La famille",      sub:"Complétée · 8 questions",  done:true,   active:false, locked:false },
-          { label:"Leçon 3: Les couleurs",    sub:"En cours de lecture",       done:false,  active:true,  locked:false },
-          { label:"Leçon 4: Les nombres",     sub:"Verrouillée",               done:false,  active:false, locked:true  },
-        ].map(({ label, sub, done, active, locked }, i) => {
-          const ly = 67 + i * 17;
-          const ic = done ? "✓" : active ? "▶" : "🔒";
-          const icFill = done ? GRN : active ? `${PINK}28` : BORD;
-          const icTextFill = done ? WHITE : active ? PINK : INK3;
-          return (
-            <g key={i}>
-              <rect x={5} y={ly} width={63} height={14} rx={3.5}
-                fill={WHITE} stroke={active ? PINK : BORD} strokeWidth={active ? 0.9 : 0.5} />
-              <circle cx={13} cy={ly + 7} r={4.5} fill={icFill} />
-              <text x={13} y={ly + 9.5} fontFamily={SF} fontSize={locked ? 5 : 4} fill={icTextFill} textAnchor="middle">{ic}</text>
-              <text x={21} y={ly + 7} fontFamily={SF} fontSize={3.5} fontWeight="600" fill={locked ? INK3 : INK}>{label.slice(0, 20)}</text>
-              <text x={21} y={ly + 12} fontFamily={SF} fontSize={2.8} fill={INK3}>{sub}</text>
-            </g>
-          );
-        })}
-        {/* CTA */}
-        <rect x={5} y={131} width={63} height={10} rx={4} fill={INK} />
-        <text x={36.5} y={138} fontFamily={SF} fontSize={3.5} fontWeight="700" fill={WHITE} textAnchor="middle">Continuer le module</text>
-        <TabBar i={1} active={1} />
-      </g>
-
-      {/* ── Screen 2 : Profil ── */}
-      <g transform={`translate(${X[2]}, 22)`} clipPath="url(#rev-phone-2)">
-        <rect width={SW} height={SH} rx={8} fill={PINKL} />
-        <Header title="Mon Profil" sub="Niveau 12 · Apprenant" />
-        {/* Avatar */}
-        <circle cx={36.5} cy={38} r={15} fill={BORD} />
-        <circle cx={36.5} cy={38} r={15} fill="none" stroke={PINK} strokeWidth={1.5} />
-        <circle cx={36.5} cy={34} r={5} fill={INK2} />
-        <ellipse cx={36.5} cy={47} rx={9} ry={5} fill={INK2} />
-        {/* Name */}
-        <text x={36.5} y={60} fontFamily={SF} fontSize={5} fontWeight="700" fill={INK} textAnchor="middle">Ethan Hall</text>
-        <text x={36.5} y={66} fontFamily={SF} fontSize={3} fill={INK3} textAnchor="middle">Membre depuis octobre 2024</text>
-        {/* Edit button */}
-        <rect x={17} y={69} width={39} height={8} rx={3.5} fill={INK} />
-        <text x={36.5} y={75} fontFamily={SF} fontSize={3.2} fontWeight="600" fill={WHITE} textAnchor="middle">Modifier le profil</text>
-        {/* Stats */}
-        <rect x={5} y={81} width={63} height={22} rx={5} fill={WHITE} stroke={BORD} strokeWidth={0.5} />
-        {[
-          { val:"12",  label:"Cours suivis",   x:16   },
-          { val:"48h", label:"Temps d'étude",  x:36.5 },
-          { val:"15🔥",label:"Jrs de série",   x:57   },
-        ].map(({ val, label, x: tx }, i) => (
-          <g key={i}>
-            {i > 0 && <line x1={5 + i * 21} y1={84} x2={5 + i * 21} y2={101} stroke={BORD} strokeWidth={0.5} />}
-            <text x={tx} y={93} fontFamily={SF} fontSize={6} fontWeight="800" fill={INK} textAnchor="middle">{val}</text>
-            <text x={tx} y={100} fontFamily={SF} fontSize={2.8} fill={INK3} textAnchor="middle">{label}</text>
-          </g>
-        ))}
-        {/* Badges */}
-        <text x={5} y={111} fontFamily={SF} fontSize={3} fill={INK3} letterSpacing="0.05em">MES BADGES OBTENUS</text>
-        {[
-          { e:"🏆", name:"Pionnier", x:16  },
-          { e:"🎯", name:"Sniper",   x:36.5},
-          { e:"⚡", name:"Sérieux",  x:57  },
-        ].map(({ e, name, x: tx }) => (
-          <g key={name}>
-            <rect x={tx - 10} y={115} width={20} height={18} rx={5} fill={WHITE} stroke={BORD} strokeWidth={0.5} />
-            <text x={tx} y={128} fontFamily={SF} fontSize={10} textAnchor="middle">{e}</text>
-            <text x={tx} y={138} fontFamily={SF} fontSize={3} fill={INK3} textAnchor="middle">{name}</text>
-          </g>
-        ))}
-        <TabBar i={2} active={3} />
-      </g>
-
-      {/* ── Screen 3 : Classement ── */}
-      <g transform={`translate(${X[3]}, 22)`} clipPath="url(#rev-phone-3)">
-        <rect width={SW} height={SH} rx={8} fill={PINKL} />
-        <Header title="Classement" sub="ethan@gmail.com" />
-        {/* Tabs */}
-        <rect x={5} y={21} width={63} height={9} rx={4.5} fill={WHITE} stroke={BORD} strokeWidth={0.5} />
-        <rect x={5} y={21} width={23} height={9} rx={4.5} fill={INK} />
-        <text x={16.5} y={27.5} fontFamily={SF} fontSize={3.2} fontWeight="700" fill={WHITE} textAnchor="middle">Semaine</text>
-        <text x={36.5} y={27.5} fontFamily={SF} fontSize={3.2} fill={INK3} textAnchor="middle">Mois</text>
-        <text x={55} y={27.5} fontFamily={SF} fontSize={3.2} fill={INK3} textAnchor="middle">Tous</text>
-        {/* Podium */}
-        {/* 2nd — Charlotte */}
-        <circle cx={15} cy={60} r={12} fill="#F9A8D4" stroke={BORD} strokeWidth={0.6} />
-        <circle cx={15} cy={56} r={4} fill={INK2} />
-        <ellipse cx={15} cy={66} rx={6} ry={4} fill={INK2} />
-        <text x={15} y={78} fontFamily={SF} fontSize={3} fontWeight="700" fill={INK} textAnchor="middle">Charlotte</text>
-        <text x={15} y={84} fontFamily={SF} fontSize={4.5} fontWeight="800" fill={INK2} textAnchor="middle">2</text>
-        {/* 1st — Sophia (bigger + crown) */}
-        <text x={36.5} y={40} fontFamily={SF} fontSize={9} textAnchor="middle">👑</text>
-        <circle cx={36.5} cy={59} r={13} fill={PINK} stroke={`${PINK}44`} strokeWidth={2} />
-        <circle cx={36.5} cy={55} r={4.5} fill={WHITE} opacity={0.85} />
-        <ellipse cx={36.5} cy={66} rx={7} ry={4.5} fill={WHITE} opacity={0.85} />
-        <text x={36.5} y={78} fontFamily={SF} fontSize={3} fontWeight="700" fill={INK} textAnchor="middle">Sophia B.</text>
-        <text x={36.5} y={84} fontFamily={SF} fontSize={5} fontWeight="800" fill={PINK} textAnchor="middle">1</text>
-        {/* 3rd — Moi */}
-        <circle cx={58} cy={62} r={11} fill="#C4B5FD" stroke={BORD} strokeWidth={0.6} />
-        <circle cx={58} cy={58} r={3.8} fill={INK2} />
-        <ellipse cx={58} cy={68} rx={5.5} ry={3.5} fill={INK2} />
-        <text x={58} y={78} fontFamily={SF} fontSize={3} fontWeight="700" fill={INK} textAnchor="middle">Moi (Ethan)</text>
-        <text x={58} y={84} fontFamily={SF} fontSize={4.5} fontWeight="800" fill={INK2} textAnchor="middle">3</text>
-        {/* List */}
-        <rect x={5} y={88} width={63} height={25} rx={5} fill={WHITE} stroke={BORD} strokeWidth={0.5} />
-        {[{ rank:"4", name:"Jack Brown", pct:"42%" }, { rank:"5", name:"Liam Johnson", pct:"33%" }].map(({ rank, name, pct }, i) => {
-          const ly = 93 + i * 12;
-          return (
-            <g key={i}>
-              {i > 0 && <line x1={5} y1={ly - 2} x2={68} y2={ly - 2} stroke={BORD} strokeWidth={0.4} />}
-              <text x={10} y={ly + 5} fontFamily={SF} fontSize={4} fontWeight="700" fill={INK2}>{rank}</text>
-              <circle cx={19} cy={ly + 3} r={4} fill={BORD} />
-              <text x={26} y={ly + 5} fontFamily={SF} fontSize={3.5} fill={INK}>{name}</text>
-              <text x={63} y={ly + 5} fontFamily={SF} fontSize={3.5} fontWeight="700" fill={INK2} textAnchor="end">{pct}</text>
-            </g>
-          );
-        })}
-        <TabBar i={3} active={2} />
-      </g>
-
-      {/* ── Screen 4 : Paramètres ── */}
-      <g transform={`translate(${X[4]}, 22)`} clipPath="url(#rev-phone-4)">
-        <rect width={SW} height={SH} rx={8} fill={PINKL} />
-        <Header title="Paramètres" sub="ethan@gmail.com" />
-        {/* Profile card */}
-        <rect x={5} y={21} width={63} height={22} rx={5} fill={WHITE} stroke={BORD} strokeWidth={0.5} />
-        <circle cx={15} cy={32} r={8} fill={BORD} />
-        <circle cx={15} cy={29} r={3} fill={INK2} />
-        <ellipse cx={15} cy={37} rx={5.5} ry={3} fill={INK2} />
-        <text x={27} y={29} fontFamily={SF} fontSize={4.5} fontWeight="700" fill={INK}>Ethan Hall</text>
-        <text x={27} y={35} fontFamily={SF} fontSize={3} fill={INK3}>ID d'utilisateur</text>
-        <text x={27} y={40} fontFamily={SF} fontSize={3} fontWeight="600" fill={INK2}>#52899</text>
-        {/* Pref label */}
-        <text x={5} y={50} fontFamily={SF} fontSize={3} fill={INK3} letterSpacing="0.05em">PRÉFÉRENCES DE L'APPLICATION</text>
-        {/* Rows */}
-        {[
-          { icon:"🔔", label:"Notifications push", on:true,  val:undefined as string|undefined },
-          { icon:"📅", label:"Rappels quotidiens",  on:true,  val:undefined },
-          { icon:"🌙", label:"Mode sombre",          on:false, val:undefined },
-          { icon:"🌐", label:"Langue de l'app",      on:false, val:"Français" },
-        ].map(({ icon, label, on, val }, i) => {
-          const ry = 54 + i * 15;
-          return (
-            <g key={i}>
-              <rect x={5} y={ry} width={63} height={12} rx={3.5} fill={WHITE} stroke={BORD} strokeWidth={0.4} />
-              <text x={10} y={ry + 8.5} fontFamily={SF} fontSize={6}>{icon}</text>
-              <text x={20} y={ry + 8} fontFamily={SF} fontSize={3.5} fill={INK}>{label}</text>
-              {val ? (
-                <text x={63} y={ry + 8} fontFamily={SF} fontSize={3} fontWeight="600" fill={PINK} textAnchor="end">{val} ›</text>
-              ) : (
-                <g>
-                  <rect x={53} y={ry + 3.5} width={12} height={6} rx={3} fill={on ? PINK : BORD} />
-                  <circle cx={on ? 61 : 56} cy={ry + 6.5} r={2.5} fill={WHITE} />
-                </g>
-              )}
-            </g>
-          );
-        })}
-        {/* Se déconnecter */}
-        <rect x={5} y={118} width={63} height={10} rx={4} fill="none" stroke={PINK} strokeWidth={1} />
-        <text x={36.5} y={125} fontFamily={SF} fontSize={3.5} fontWeight="600" fill={PINK} textAnchor="middle">Se déconnecter</text>
-        <TabBar i={4} active={3} />
-      </g>
-    </svg>
-  );
-}
-
-function BrandMockupSVG() {
-  const ACC  = "#FF9500";
-  const BRD  = "#E2E8F0";
-  const INK_ = "#1C1C1E";
-  const INK2_= "#636366";
-  const INK3_= "#AEAEB2";
-  const SF   = "system-ui, sans-serif";
-  return (
-    <svg viewBox="0 0 400 190" fill="none" aria-hidden="true" style={{ width: "100%" }}>
-      <rect width="400" height="190" fill="#F5F5F7" />
-      {/* Topbar */}
-      <rect x="0" y="0" width="400" height="26" fill="white" />
-      <line x1="0" y1="26" x2="400" y2="26" stroke={BRD} strokeWidth="0.8" />
-      <rect x="8" y="9" width="8" height="8" rx="2" fill={ACC} />
-      <text x="22" y="19" fontFamily={SF} fontSize="7" fontWeight="700" fill={INK_}>Brand workshop · Libellés formulaire</text>
-      <rect x="320" y="8" width="70" height="10" rx="3" fill="rgba(255,149,0,0.12)" />
-      <text x="355" y="16" fontFamily={SF} fontSize="5.5" fontWeight="600" fill={ACC} textAnchor="middle">EN COURS</text>
-
-      {/* V1 */}
-      <rect x="10" y="34" width="118" height="150" rx="7" fill="white" stroke={BRD} strokeWidth="0.7" />
-      <text x="18" y="47" fontFamily={SF} fontSize="5.5" fill={INK3_} letterSpacing="0.08em">VERSION 1</text>
-      <rect x="18" y="52" width="102" height="56" rx="4" fill="#F8FAFC" stroke={BRD} strokeWidth="0.6" />
-      <text x="25" y="65" fontFamily={SF} fontSize="6" fill={INK2_}>Montant à payer</text>
-      <text x="25" y="79" fontFamily={SF} fontSize="13" fontWeight="700" fill={INK_}>24,90 €</text>
-      <rect x="25" y="87" width="89" height="11" rx="3.5" fill={ACC} />
-      <text x="69" y="95.5" fontFamily={SF} fontSize="6" fontWeight="700" fill="white" textAnchor="middle">Payer maintenant</text>
-      <line x1="69" y1="116" x2="69" y2="126" stroke="#DC2626" strokeWidth="0.6" strokeDasharray="2 2" />
-      <circle cx="69" cy="113" r="5" fill="#FEE2E2" stroke="#DC2626" strokeWidth="0.6" />
-      <text x="69" y="116.5" fontFamily={SF} fontSize="7" fill="#DC2626" textAnchor="middle">✕</text>
-      <text x="69" y="135" fontFamily={SF} fontSize="5.5" fill="#DC2626" textAnchor="middle">Trop directif</text>
-      <text x="69" y="145" fontFamily={SF} fontSize="5" fill={INK3_} textAnchor="middle">DSP2 · art. 24</text>
-
-      {/* V2 — sélectionnée */}
-      <rect x="141" y="34" width="118" height="150" rx="7" fill="white" stroke={ACC} strokeWidth="1.5" />
-      <rect x="141" y="34" width="118" height="16" rx="7" fill={ACC} />
-      <rect x="141" y="41" width="118" height="9" fill={ACC} />
-      <text x="200" y="46" fontFamily={SF} fontSize="5.5" fontWeight="700" fill="white" textAnchor="middle">V2 · Retenue</text>
-      <rect x="149" y="52" width="102" height="56" rx="4" fill="#F8FAFC" stroke={BRD} strokeWidth="0.6" />
-      <text x="156" y="65" fontFamily={SF} fontSize="6" fill={INK2_}>Récapitulatif commande</text>
-      <text x="156" y="79" fontFamily={SF} fontSize="13" fontWeight="700" fill={INK_}>24,90 €</text>
-      <rect x="156" y="87" width="89" height="11" rx="3.5" fill={INK_} />
-      <text x="200" y="95.5" fontFamily={SF} fontSize="6" fontWeight="700" fill="white" textAnchor="middle">Confirmer le paiement</text>
-      <line x1="200" y1="116" x2="200" y2="126" stroke="#16A34A" strokeWidth="0.6" strokeDasharray="2 2" />
-      <circle cx="200" cy="113" r="5" fill="#DCFCE7" stroke="#16A34A" strokeWidth="0.6" />
-      <text x="200" y="116.5" fontFamily={SF} fontSize="7" fill="#16A34A" textAnchor="middle">✓</text>
-      <text x="200" y="135" fontFamily={SF} fontSize="5.5" fill="#16A34A" textAnchor="middle">Conforme DSP2</text>
-      <text x="200" y="145" fontFamily={SF} fontSize="5" fill={INK3_} textAnchor="middle">Testé · 5 participants</text>
-
-      {/* V3 */}
-      <rect x="272" y="34" width="118" height="150" rx="7" fill="white" stroke={BRD} strokeWidth="0.7" />
-      <text x="280" y="47" fontFamily={SF} fontSize="5.5" fill={INK3_} letterSpacing="0.08em">VERSION 3</text>
-      <rect x="280" y="52" width="102" height="56" rx="4" fill="#F8FAFC" stroke={BRD} strokeWidth="0.6" />
-      <text x="287" y="65" fontFamily={SF} fontSize="6" fill={INK2_}>Votre paiement sécurisé</text>
-      <text x="287" y="79" fontFamily={SF} fontSize="13" fontWeight="700" fill={INK_}>24,90 €</text>
-      <rect x="287" y="87" width="89" height="11" rx="3.5" fill="#64748B" />
-      <text x="331" y="95.5" fontFamily={SF} fontSize="6" fontWeight="700" fill="white" textAnchor="middle">Valider ma commande</text>
-      <line x1="331" y1="116" x2="331" y2="126" stroke={INK3_} strokeWidth="0.6" strokeDasharray="2 2" />
-      <circle cx="331" cy="113" r="5" fill="#F1F5F9" stroke={INK3_} strokeWidth="0.6" />
-      <text x="331" y="117" fontFamily={SF} fontSize="7" fill={INK3_} textAnchor="middle">?</text>
-      <text x="331" y="135" fontFamily={SF} fontSize="5.5" fill={INK3_} textAnchor="middle">À tester</text>
-      <text x="331" y="145" fontFamily={SF} fontSize="5" fill={INK3_} textAnchor="middle">Session 2 prévue</text>
-    </svg>
-  );
-}
-
 function ProjectCard({ num, label, title, desc, color, accentBg, visual, tags, href, siteHref }: {
   num: string; label: string; title: string; desc: string;
   color: string; accentBg: string;
@@ -2014,63 +1660,149 @@ export default function HomePage() {
           <ProjectCanvas projects={PROJECTS} isMobile={isMobile} />
 
           <Reveal>
-            <div style={{
-              marginTop: 24,
-              padding: "40px 48px",
-              borderRadius: 20,
-              background: "linear-gradient(135deg, rgba(162,89,255,0.06) 0%, rgba(26,188,254,0.06) 100%)",
-              border: `1px solid rgba(162,89,255,0.15)`,
-              display: "flex", alignItems: "center", justifyContent: "space-between",
-              flexWrap: "wrap", gap: 24,
-            }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-                <svg width="36" height="54" viewBox="0 0 38 57" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
-                  <path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/>
-                  <path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z" fill="#0ACF83"/>
-                  <path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z" fill="#FF7262"/>
-                  <path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/>
-                  <path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/>
-                </svg>
-                <div>
-                  <p style={{ margin: 0, fontSize: 18, fontWeight: 600, color: INK, letterSpacing: "-0.02em" }}>
-                    {lang === "en" ? "Explore my Figma creations" : "Mes créations sur Figma"}
-                  </p>
-                  <p style={{ margin: "4px 0 0", fontSize: 14, color: INK3, fontWeight: 400 }}>
-                    {lang === "en"
-                      ? "Prototypes, design systems and UI explorations"
-                      : "Prototypes, design systems et explorations UI"}
-                  </p>
+            <div style={{ marginTop: 24 }}>
+
+              {/* ── Header section ── */}
+              <div style={{
+                display: "flex", alignItems: "center", justifyContent: "space-between",
+                flexWrap: "wrap", gap: 16, marginBottom: 28,
+              }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <svg width="24" height="36" viewBox="0 0 38 57" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
+                    <path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/>
+                    <path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z" fill="#0ACF83"/>
+                    <path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z" fill="#FF7262"/>
+                    <path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/>
+                    <path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/>
+                  </svg>
+                  <div>
+                    <p style={{ margin: 0, fontSize: 17, fontWeight: 600, color: INK, letterSpacing: "-0.02em" }}>
+                      {lang === "en" ? "My Figma creations" : "Mes créations Figma"}
+                    </p>
+                    <p style={{ margin: "2px 0 0", fontSize: 13, color: INK3 }}>
+                      {lang === "en" ? "Prototypes, design systems and UI explorations" : "Prototypes, design systems et explorations UI"}
+                    </p>
+                  </div>
                 </div>
+                <a
+                  href="https://www.figma.com/@anavignaud"
+                  target="_blank" rel="noopener noreferrer"
+                  style={{
+                    display: "inline-flex", alignItems: "center", gap: 6,
+                    padding: "8px 18px", borderRadius: 100,
+                    border: `1px solid ${BORD}`,
+                    color: INK3, textDecoration: "none",
+                    fontSize: 13, fontWeight: 500,
+                    transition: "border-color 180ms, color 180ms",
+                  }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = BLUE;
+                    (e.currentTarget as HTMLAnchorElement).style.color = BLUE;
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = BORD;
+                    (e.currentTarget as HTMLAnchorElement).style.color = INK3;
+                  }}
+                >
+                  {lang === "en" ? "See all projects" : "Voir les autres projets"}
+                  <ArrowUpRight size={13} strokeWidth={1.5} />
+                </a>
               </div>
-              <a
-                href="https://www.figma.com/@anavignaud"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: "inline-flex", alignItems: "center", gap: 8,
-                  padding: "13px 28px", borderRadius: 100,
-                  background: BLUE,
-                  color: "#fff", textDecoration: "none",
-                  fontSize: 14, fontWeight: 600,
-                  letterSpacing: "-0.01em",
-                  boxShadow: `0 4px 20px color-mix(in srgb, ${BLUE} 35%, transparent)`,
-                  transition: "opacity 180ms, box-shadow 180ms, transform 180ms",
-                  flexShrink: 0,
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLAnchorElement).style.opacity = "0.88";
-                  (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-1px)";
-                  (e.currentTarget as HTMLAnchorElement).style.boxShadow = `0 8px 28px color-mix(in srgb, ${BLUE} 45%, transparent)`;
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLAnchorElement).style.opacity = "1";
-                  (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)";
-                  (e.currentTarget as HTMLAnchorElement).style.boxShadow = `0 4px 20px color-mix(in srgb, ${BLUE} 35%, transparent)`;
-                }}
-              >
-                {lang === "en" ? "View my Figma" : "Voir mon Figma"}
-                <ArrowUpRight size={15} strokeWidth={1.8} />
-              </a>
+
+              {/* ── Cards ── */}
+              <div style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+                gap: 20,
+              }}>
+                {[
+                  {
+                    title: "Mobile app — design",
+                    href: "https://www.figma.com/community/file/1672975154087606867",
+                    img: "/figma/project-1.png",
+                  },
+                  {
+                    title: "Dashboard + Mobile app — Full medical app",
+                    href: "https://www.figma.com/community/file/1672954127897387498",
+                    img: "/figma/project-2.png",
+                  },
+                  {
+                    title: "WEB / Responsive — School website",
+                    href: "https://www.figma.com/community/file/1672968757199015472",
+                    img: "/figma/project-3.png",
+                  },
+                  {
+                    title: "Mobile app — Health care",
+                    href: "https://www.figma.com/community/file/1672654429665508615",
+                    img: "/figma/project-4.png",
+                  },
+                  {
+                    title: "Holy — UI Kit",
+                    href: "https://www.figma.com/community/file/1672963772588846617",
+                    img: "/figma/project-5.png",
+                  },
+                ].map((project) => (
+                  <motion.a
+                    key={project.href}
+                    href={project.href}
+                    target="_blank" rel="noopener noreferrer"
+                    whileHover={{ y: -4, boxShadow: "0 16px 40px rgba(0,0,0,0.12)" }}
+                    transition={{ duration: 0.22, ease: SP }}
+                    style={{
+                      display: "flex", flexDirection: "column",
+                      borderRadius: 16,
+                      border: `1px solid ${BORD}`,
+                      overflow: "hidden",
+                      background: "#fff",
+                      textDecoration: "none",
+                      boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
+                    }}
+                  >
+                    {/* Thumbnail */}
+                    <div style={{ position: "relative", aspectRatio: "16/9", overflow: "hidden", background: SURF }}>
+                      <Image
+                        src={project.img}
+                        alt={project.title}
+                        fill
+                        style={{ objectFit: "cover" }}
+                        sizes="(max-width: 768px) 100vw, 400px"
+                      />
+                    </div>
+
+                    {/* Footer card */}
+                    <div style={{
+                      display: "flex", alignItems: "center", justifyContent: "space-between",
+                      padding: "14px 16px", gap: 12,
+                    }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
+                        <svg width="14" height="21" viewBox="0 0 38 57" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
+                          <path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/>
+                          <path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z" fill="#0ACF83"/>
+                          <path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z" fill="#FF7262"/>
+                          <path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/>
+                          <path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/>
+                        </svg>
+                        <span style={{
+                          fontSize: 13, fontWeight: 600, color: INK,
+                          letterSpacing: "-0.01em",
+                          overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
+                        }}>
+                          {project.title}
+                        </span>
+                      </div>
+                      <span style={{
+                        display: "inline-flex", alignItems: "center", gap: 4,
+                        fontSize: 12, fontWeight: 600, color: BLUE,
+                        flexShrink: 0, whiteSpace: "nowrap",
+                      }}>
+                        {lang === "en" ? "Open in Figma" : "Voir sur Figma"}
+                        <ArrowUpRight size={12} strokeWidth={2} />
+                      </span>
+                    </div>
+                  </motion.a>
+                ))}
+              </div>
+
             </div>
           </Reveal>
 
