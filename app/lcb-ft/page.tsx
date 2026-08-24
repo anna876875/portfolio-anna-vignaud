@@ -8,6 +8,8 @@ import {
   Filter, Download, Plus, X, Maximize2, MessageSquare,
   ArrowUpRight, TrendingUp,
 } from "lucide-react";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { DesktopOnlyModal } from "@/components/ui";
 
 /* ─── Tokens ─────────────────────────────────────────────────── */
@@ -1922,9 +1924,27 @@ export default function LcbFtDashboard() {
   const [openAlertId, setOpenAlertId]     = useState<string | null>(null);
   return (
     <div style={{
-      display: "flex", fontFamily: "Inter, system-ui, sans-serif",
+      display: "flex", flexDirection: "column", fontFamily: "Inter, system-ui, sans-serif",
       background: C.bg, minHeight: "100vh", colorScheme: "light",
     }}>
+      {/* Bandeau retour portfolio */}
+      <div style={{ borderBottom: `1px solid ${C.brd}`, background: C.card, flexShrink: 0 }}>
+        <div style={{ padding: "0 24px" }}>
+          <Link href="/" style={{
+            display: "inline-flex", alignItems: "center", gap: 6,
+            padding: "10px 0", fontSize: 13, fontWeight: 500, color: C.ink3,
+            textDecoration: "none", transition: "color 150ms",
+          }}
+            onMouseEnter={e => (e.currentTarget.style.color = C.ink)}
+            onMouseLeave={e => (e.currentTarget.style.color = C.ink3)}
+          >
+            <ArrowLeft size={14} strokeWidth={2} />
+            Retour au portfolio
+          </Link>
+        </div>
+      </div>
+
+      <div style={{ display: "flex", flex: 1 }}>
       <Sidebar activeView={activeView} onNav={(v) => { setActiveView(v); setOpenAlertId(null); }} />
       <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column" }}>
         <TopBar />
@@ -1935,6 +1955,7 @@ export default function LcbFtDashboard() {
           {activeView === "criteres"  && <WIPView viewId="criteres" />}
           {activeView === "listes"    && <WIPView viewId="listes" />}
         </main>
+      </div>
       </div>
 
       {openAlertId && (
