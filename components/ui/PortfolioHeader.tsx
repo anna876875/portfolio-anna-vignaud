@@ -173,9 +173,7 @@ export function PortfolioHeader() {
           transition={{ duration: 0.28, ease: SP }}
           style={{
             position: "fixed", inset: "0 0 auto 0", zIndex: 100,
-            background: "rgba(255,255,255,0.92)",
-            backdropFilter: "blur(24px) saturate(200%)",
-            WebkitBackdropFilter: "blur(24px) saturate(200%)",
+            background: "#ffffff",
             borderBottom: "1px solid rgba(0,0,0,0.07)",
             display: "flex", justifyContent: "center", alignItems: "center",
             height: 52,
@@ -194,9 +192,7 @@ export function PortfolioHeader() {
         {/* Bottom nav — icônes + labels */}
         <nav style={{
           position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 100,
-          background: "rgba(255,255,255,0.92)",
-          backdropFilter: "blur(24px) saturate(200%)",
-          WebkitBackdropFilter: "blur(24px) saturate(200%)",
+          background: "#ffffff",
           borderTop: "1px solid rgba(0,0,0,0.07)",
           display: "flex",
           paddingBottom: "env(safe-area-inset-bottom, 0px)",
