@@ -1019,7 +1019,7 @@ function ProjectWindow({
             <Link href={href} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
               style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
                 padding: "9px 14px", borderRadius: 10, fontSize: 13, fontWeight: 600,
-                background: color, color: "#fff",
+                background: BLUE, color: "#fff",
                 textDecoration: "none", whiteSpace: "nowrap" }}>
               {lang === "en" ? "Case study" : "Voir le processus"} <ArrowUpRight size={13} strokeWidth={2} />
             </Link>
@@ -1028,8 +1028,8 @@ function ProjectWindow({
             <Link href={siteHref} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
               style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
                 padding: "9px 14px", borderRadius: 10, fontSize: 13, fontWeight: 600,
-                background: `color-mix(in srgb, ${color} 8%, transparent)`,
-                color, border: `1px solid color-mix(in srgb, ${color} 22%, transparent)`,
+                background: "rgba(162,89,255,0.08)",
+                color: BLUE, border: "1px solid rgba(162,89,255,0.22)",
                 textDecoration: "none", whiteSpace: "nowrap" }}>
               {lang === "en" ? "View demo" : "Voir la démo"} <ArrowUpRight size={13} strokeWidth={2} />
             </Link>
@@ -1038,7 +1038,7 @@ function ProjectWindow({
             <a href={href} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
               style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
                 padding: "9px 14px", borderRadius: 10, fontSize: 13, fontWeight: 600,
-                background: color, color: "#fff",
+                background: BLUE, color: "#fff",
                 textDecoration: "none", whiteSpace: "nowrap" }}>
               {lang === "en" ? "Visit the site" : "Visiter le site"} <ArrowUpRight size={13} strokeWidth={2} />
             </a>
