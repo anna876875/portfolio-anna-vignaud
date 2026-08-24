@@ -1006,7 +1006,7 @@ function ProjectWindow({
       {/* Footer */}
       <div style={{ padding: "14px 16px 16px", borderTop: `1px solid ${BORD}`, display: "flex", flexDirection: "column", gap: 12 }}>
         <div style={{ minWidth: 0 }}>
-          <span style={{ fontSize: 11, fontWeight: 700, color, textTransform: "uppercase", letterSpacing: "0.06em" }}>
+          <span style={{ fontSize: 11, fontWeight: 700, color: BLUE, textTransform: "uppercase", letterSpacing: "0.06em" }}>
             {num}
           </span>
           <p style={{ fontSize: 13, fontWeight: 600, color: INK, margin: "2px 0 0",
