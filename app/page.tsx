@@ -1031,7 +1031,7 @@ function ProjectWindow({
                 background: `color-mix(in srgb, ${color} 8%, transparent)`,
                 color, border: `1px solid color-mix(in srgb, ${color} 22%, transparent)`,
                 textDecoration: "none", whiteSpace: "nowrap" }}>
-              {lang === "en" ? "Visit SaaS" : "Visiter le SaaS"} <ArrowUpRight size={13} strokeWidth={2} />
+              {lang === "en" ? "View demo" : "Voir la démo"} <ArrowUpRight size={13} strokeWidth={2} />
             </Link>
           )}
           {href && isExternal && (
@@ -1449,6 +1449,7 @@ export default function HomePage() {
         visual: <OnboardingMockupSVG />,
         tags: ob.tags,
         href: "/onboarding",
+        siteHref: "/onboarding/flow",
         desktopOnly: true,
         x: 350, y: 10, width: 300, rotation: -1, zIndex: 2,
       },
