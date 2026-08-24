@@ -600,10 +600,28 @@ export default function OnboardingFlow() {
 
   return (
     <div style={{
-      display: "flex", minHeight: "100vh",
+      display: "flex", flexDirection: "column", minHeight: "100vh",
       fontFamily: "Inter, system-ui, sans-serif",
       background: C.bg, colorScheme: "light",
     }}>
+      {/* Bandeau retour portfolio */}
+      <div style={{ borderBottom: `1px solid ${C.brd}`, background: C.white, flexShrink: 0 }}>
+        <div style={{ padding: "0 24px" }}>
+          <Link href="/" style={{
+            display: "inline-flex", alignItems: "center", gap: 6,
+            padding: "10px 0", fontSize: 13, fontWeight: 500, color: C.ink3,
+            textDecoration: "none", transition: "color 150ms",
+          }}
+            onMouseEnter={e => (e.currentTarget.style.color = C.ink)}
+            onMouseLeave={e => (e.currentTarget.style.color = C.ink3)}
+          >
+            <ArrowLeft size={14} strokeWidth={2} />
+            Retour au portfolio
+          </Link>
+        </div>
+      </div>
+
+      <div style={{ display: "flex", flex: 1 }}>
       <LeftPanel current={step} />
 
       <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0 }}>
@@ -687,6 +705,7 @@ export default function OnboardingFlow() {
             )}
           </div>
         </div>
+      </div>
       </div>
       <DesktopOnlyModal backHref="/onboarding" backLabel="Retour au case study" />
     </div>
