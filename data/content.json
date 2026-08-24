@@ -52,6 +52,13 @@
         "title": "Anti-money laundering compliance software (AML)",
         "desc": "Design of a regulatory compliance tool for risk analysis, PEP/sanctions screening and KYB document control.",
         "tags": ["UX Research", "Compliance"]
+      },
+      "livreBlanc": {
+        "num": "04",
+        "label": "White paper, 2026",
+        "title": "Accessibility in payments",
+        "desc": "A white paper exploring how to design inclusive payment experiences that go beyond regulatory compliance — rethinking forms, flows and error states for all users.",
+        "tags": ["Accessibility", "UX Writing", "WCAG AA"]
       }
     }
   },
@@ -123,6 +130,17 @@
         "tags": [
           "UX Research",
           "Conformité"
+        ]
+      },
+      "livreBlanc": {
+        "num": "04",
+        "label": "Livre blanc, 2026",
+        "title": "L'accessibilité dans le paiement",
+        "desc": "Un livre blanc sur la conception d'expériences de paiement inclusives, au-delà du réglementaire — formulaires, parcours et états d'erreur repensés pour tous.",
+        "tags": [
+          "Accessibilité",
+          "UX Writing",
+          "WCAG AA"
         ]
       }
     }

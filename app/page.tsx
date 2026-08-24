@@ -549,6 +549,77 @@ function SkillDiagram() {
    UI ATOMS
    ═══════════════════════════════════════════════════════════════════ */
 
+function LivreBlanMockupSVG() {
+  const TEAL  = "#0D9488";
+  const T10   = "rgba(13,148,136,0.10)";
+  const T20   = "rgba(13,148,136,0.20)";
+  const GY    = "rgba(0,0,0,0.06)";
+  const GY2   = "rgba(0,0,0,0.12)";
+  return (
+    <svg viewBox="0 0 400 190" fill="none" aria-hidden="true" style={{ width: "100%" }}>
+      {/* bg grid */}
+      {[0,1,2,3,4].map(i => (
+        <line key={i} x1="0" y1={38*i} x2="400" y2={38*i} stroke={GY} strokeWidth="0.5" />
+      ))}
+
+      {/* Nav bar */}
+      <rect x="0" y="0" width="400" height="22" fill={TEAL} />
+      <circle cx="12" cy="11" r="4" fill="rgba(255,255,255,0.3)" />
+      <rect x="22" y="7" width="60" height="8" rx="2" fill="rgba(255,255,255,0.9)" />
+      {[110,145,178].map(x => (
+        <rect key={x} x={x} y="8" width="28" height="6" rx="1.5" fill="rgba(255,255,255,0.35)" />
+      ))}
+      <rect x="340" y="6" width="48" height="10" rx="5" fill="rgba(255,255,255,0.25)" />
+
+      {/* Hero band */}
+      <rect x="0" y="22" width="400" height="52" fill={T10} />
+      <rect x="24" y="32" width="180" height="10" rx="2" fill={TEAL} opacity="0.7" />
+      <rect x="24" y="46" width="240" height="7" rx="1.5" fill={GY2} />
+      <rect x="24" y="57" width="180" height="7" rx="1.5" fill={GY2} />
+      <rect x="24" y="66" width="90" height="14" rx="7" fill={TEAL} />
+      <rect x="300" y="28" width="80" height="40" rx="6" fill={T20} />
+      <circle cx="340" cy="48" r="12" fill={TEAL} opacity="0.2" />
+      <text x="334" y="52" fontSize="10" fill={TEAL} fontWeight="700">A11Y</text>
+
+      {/* Body — 2 colonnes */}
+      {/* Col 1 */}
+      <rect x="24" y="88" width="170" height="8" rx="2" fill={GY2} />
+      <rect x="24" y="100" width="170" height="5" rx="1.5" fill={GY} />
+      <rect x="24" y="108" width="140" height="5" rx="1.5" fill={GY} />
+      <rect x="24" y="116" width="155" height="5" rx="1.5" fill={GY} />
+      <rect x="24" y="128" width="60" height="9" rx="2" fill={T10} />
+      <rect x="26" y="130" width="3" height="5" rx="1" fill={TEAL} />
+      <rect x="32" y="131" width="50" height="4" rx="1" fill={GY2} />
+      <rect x="24" y="142" width="60" height="9" rx="2" fill={T10} />
+      <rect x="26" y="144" width="3" height="5" rx="1" fill={TEAL} />
+      <rect x="32" y="145" width="45" height="4" rx="1" fill={GY2} />
+      <rect x="24" y="156" width="60" height="9" rx="2" fill={T10} />
+      <rect x="26" y="158" width="3" height="5" rx="1" fill={TEAL} />
+      <rect x="32" y="159" width="52" height="4" rx="1" fill={GY2} />
+
+      {/* Col 2 — stat cards */}
+      <rect x="210" y="88" width="76" height="46" rx="8" fill={T10} stroke={T20} strokeWidth="1" />
+      <text x="248" y="108" textAnchor="middle" fontSize="14" fontWeight="800" fill={TEAL}>92%</text>
+      <rect x="224" y="112" width="48" height="4" rx="1" fill={T20} />
+      <rect x="228" y="120" width="40" height="4" rx="1" fill={GY} />
+
+      <rect x="298" y="88" width="76" height="46" rx="8" fill="rgba(99,102,241,0.07)" stroke="rgba(99,102,241,0.18)" strokeWidth="1" />
+      <text x="336" y="108" textAnchor="middle" fontSize="14" fontWeight="800" fill="#6366F1">4.5:1</text>
+      <rect x="310" y="112" width="52" height="4" rx="1" fill="rgba(99,102,241,0.2)" />
+      <rect x="316" y="120" width="40" height="4" rx="1" fill={GY} />
+
+      <rect x="210" y="142" width="164" height="5" rx="1.5" fill={GY} />
+      <rect x="210" y="151" width="140" height="5" rx="1.5" fill={GY} />
+      <rect x="210" y="160" width="100" height="5" rx="1.5" fill={GY} />
+
+      {/* Footer */}
+      <rect x="0" y="178" width="400" height="12" fill={GY} />
+      <rect x="24" y="181" width="60" height="4" rx="1" fill={GY2} />
+      <rect x="320" y="181" width="60" height="4" rx="1" fill={TEAL} opacity="0.4" />
+    </svg>
+  );
+}
+
 /* Schéma technique décoratif — Hero homepage */
 function HeroTechLines() {
   return (
@@ -1452,6 +1523,7 @@ export default function HomePage() {
     const pn = CH.projects.paynow;
     const ob = CH.projects.onboarding;
     const lc = CH.projects.lcbft;
+    const lb = CH.projects.livreBlanc;
     return [
       {
         id: "paynow", num: pn.num, label: pn.label,
@@ -1483,6 +1555,16 @@ export default function HomePage() {
         siteHref: "/lcb-ft",
         desktopOnly: true,
         x: 690, y: 20, width: 300, rotation: 1.5, zIndex: 3,
+      },
+      {
+        id: "livreBlanc", num: lb.num, label: lb.label,
+        title: lb.title, desc: lb.desc,
+        color: "#0D9488", accentBg: "rgba(13,148,136,0.04)",
+        visual: <LivreBlanMockupSVG />,
+        tags: lb.tags,
+        href: "https://accessibilite-paiement-ux-design.netlify.app/",
+        desktopOnly: false,
+        x: 350, y: 415, width: 300, rotation: -1, zIndex: 4,
       },
     ];
   // eslint-disable-next-line react-hooks/exhaustive-deps
