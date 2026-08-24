@@ -1876,8 +1876,8 @@ export default function HomePage() {
                   </p>
                   <p style={{ margin: 0, fontSize: 14, color: INK3, lineHeight: 1.6, maxWidth: 600 }}>
                     {lang === "en"
-                      ? "A research paper exploring how to design truly inclusive payment experiences — rethinking forms, flows and error states for all users."
-                      : "Une réflexion sur la conception d'expériences de paiement réellement inclusives : formulaires, parcours et états d'erreur repensés pour tous."}
+                      ? "A white paper on digital accessibility in payment services and how companies can integrate it into their design and development processes — from WCAG standards to inclusive UX decisions."
+                      : "Un livre blanc sur l'accessibilité numérique dans les services de paiement et comment l'intégrer concrètement en entreprise, de la conformité WCAG aux décisions de design inclusif."}
                   </p>
                   <div style={{ display: "flex", gap: 6, marginTop: 14, flexWrap: "wrap" }}>
                     {["Accessibilité", "UX Writing", "WCAG AA", "Paiement"].map(tag => (
