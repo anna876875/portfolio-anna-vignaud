@@ -1003,12 +1003,9 @@ function ProjectWindow({
         )}
       </div>
 
-      {/* Footer — identique aux cards Figma */}
-      <div style={{
-        display: "flex", alignItems: "center", justifyContent: "space-between",
-        padding: "14px 16px", gap: 12, borderTop: `1px solid ${BORD}`,
-      }}>
-        <div style={{ minWidth: 0, flex: 1 }}>
+      {/* Footer */}
+      <div style={{ padding: "14px 16px 16px", borderTop: `1px solid ${BORD}`, display: "flex", flexDirection: "column", gap: 12 }}>
+        <div style={{ minWidth: 0 }}>
           <span style={{ fontSize: 11, fontWeight: 700, color, textTransform: "uppercase", letterSpacing: "0.06em" }}>
             {num}
           </span>
@@ -1017,26 +1014,33 @@ function ProjectWindow({
             {title}
           </p>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 5, flexShrink: 0, alignItems: "flex-end" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {href && !isExternal && (
             <Link href={href} onClick={e => e.stopPropagation()}
-              style={{ display: "inline-flex", alignItems: "center", gap: 4,
-                fontSize: 12, fontWeight: 600, color, textDecoration: "none", whiteSpace: "nowrap" }}>
-              {lang === "en" ? "Case study" : "Voir le processus"} <ArrowUpRight size={12} strokeWidth={2} />
+              style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
+                padding: "9px 14px", borderRadius: 10, fontSize: 13, fontWeight: 600,
+                background: color, color: "#fff",
+                textDecoration: "none", whiteSpace: "nowrap" }}>
+              {lang === "en" ? "Case study" : "Voir le processus"} <ArrowUpRight size={13} strokeWidth={2} />
             </Link>
           )}
           {siteHref && (
             <Link href={siteHref} onClick={e => e.stopPropagation()}
-              style={{ display: "inline-flex", alignItems: "center", gap: 4,
-                fontSize: 12, fontWeight: 600, color: INK3, textDecoration: "none", whiteSpace: "nowrap" }}>
-              {lang === "en" ? "Visit SaaS" : "Visiter le SaaS"} <ArrowUpRight size={12} strokeWidth={2} />
+              style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
+                padding: "9px 14px", borderRadius: 10, fontSize: 13, fontWeight: 600,
+                background: `color-mix(in srgb, ${color} 8%, transparent)`,
+                color, border: `1px solid color-mix(in srgb, ${color} 22%, transparent)`,
+                textDecoration: "none", whiteSpace: "nowrap" }}>
+              {lang === "en" ? "Visit SaaS" : "Visiter le SaaS"} <ArrowUpRight size={13} strokeWidth={2} />
             </Link>
           )}
           {href && isExternal && (
             <a href={href} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
-              style={{ display: "inline-flex", alignItems: "center", gap: 4,
-                fontSize: 12, fontWeight: 600, color, textDecoration: "none", whiteSpace: "nowrap" }}>
-              {lang === "en" ? "Visit the site" : "Visiter le site"} <ArrowUpRight size={12} strokeWidth={2} />
+              style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
+                padding: "9px 14px", borderRadius: 10, fontSize: 13, fontWeight: 600,
+                background: color, color: "#fff",
+                textDecoration: "none", whiteSpace: "nowrap" }}>
+              {lang === "en" ? "Visit the site" : "Visiter le site"} <ArrowUpRight size={13} strokeWidth={2} />
             </a>
           )}
         </div>
