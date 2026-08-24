@@ -1058,7 +1058,7 @@ function ProjectWindow({
             border: "1px solid rgba(0,0,0,0.08)", cursor: "pointer",
             boxShadow: "0 4px 16px rgba(0,0,0,0.08)", position: "relative" }}>
           <VisualArea accentBg={accentBg} visual={visual} />
-          <WindowInfo num={num} title={title} color={color} tags={tags} isMobile />
+          <WindowInfo num={num} title={title} color={color} tags={tags} href={href} siteHref={siteHref} isMobile />
           {desktopOnly && (
             <div style={{
               position: "absolute", inset: 0,
@@ -1127,7 +1127,7 @@ function ProjectWindow({
       }}>
       <VisualArea accentBg={accentBg} visual={visual} />
       <WindowInfo num={num} title={title}
-        color={color} tags={tags} href={href} />
+        color={color} tags={tags} href={href} siteHref={siteHref} />
     </motion.article>
   );
 }
@@ -1289,10 +1289,14 @@ function VisualArea({ accentBg, visual }: { accentBg: string; visual: React.Reac
 }
 
 /* Barre d'info sous la fenêtre */
-function WindowInfo({ num, title, color, tags, href, isMobile }: {
+function WindowInfo({ num, title, color, tags, href, siteHref, isMobile }: {
   num: string; title: string; color: string;
-  tags: string[]; href?: string; isMobile?: boolean;
+  tags: string[]; href?: string; siteHref?: string; isMobile?: boolean;
 }) {
+  const { lang } = useLang();
+  const isExternal = href?.startsWith("http");
+  const fs = isMobile ? 12 : 9;
+  const pad = isMobile ? "9px 10px" : "5px 8px";
   return (
     <div style={{ padding: isMobile ? "14px 16px 16px" : "10px 14px 13px", borderTop: "1px solid rgba(0,0,0,0.06)",
       display: "flex", flexDirection: "column", gap: isMobile ? 10 : 8, background: "#fff" }}>
@@ -1308,17 +1312,42 @@ function WindowInfo({ num, title, color, tags, href, isMobile }: {
           </span>
         ))}
       </div>
-      {href && (
-        <Link href={href}
-          style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 4,
-            padding: isMobile ? "10px 0" : "6px 0", borderRadius: 6, fontSize: isMobile ? 13 : 10, fontWeight: 600,
-            background: `color-mix(in srgb, ${color} 7%, transparent)`,
-            color, border: `1px solid color-mix(in srgb, ${color} 22%, transparent)`,
-            textDecoration: "none", width: "100%" }}
-          onClick={e => e.stopPropagation()}>
-          Voir le projet <ArrowUpRight size={isMobile ? 12 : 9} strokeWidth={2} />
-        </Link>
-      )}
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        {href && !isExternal && (
+          <Link href={href}
+            style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 4,
+              padding: pad, borderRadius: 6, fontSize: fs, fontWeight: 600,
+              background: `color-mix(in srgb, ${color} 7%, transparent)`,
+              color, border: `1px solid color-mix(in srgb, ${color} 22%, transparent)`,
+              textDecoration: "none", whiteSpace: "nowrap" }}
+            onClick={e => e.stopPropagation()}>
+            {lang === "en" ? "Creation process" : "Voir le processus"}
+            <ArrowUpRight size={isMobile ? 11 : 8} strokeWidth={2} />
+          </Link>
+        )}
+        {siteHref && (
+          <Link href={siteHref}
+            style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 4,
+              padding: pad, borderRadius: 6, fontSize: fs, fontWeight: 600,
+              background: color, color: "#fff",
+              textDecoration: "none", whiteSpace: "nowrap" }}
+            onClick={e => e.stopPropagation()}>
+            {lang === "en" ? "Visit the SaaS" : "Visiter le SaaS"}
+            <ArrowUpRight size={isMobile ? 11 : 8} strokeWidth={2} />
+          </Link>
+        )}
+        {href && isExternal && (
+          <a href={href} target="_blank" rel="noopener noreferrer"
+            style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 4,
+              padding: pad, borderRadius: 6, fontSize: fs, fontWeight: 600,
+              background: color, color: "#fff",
+              textDecoration: "none", whiteSpace: "nowrap" }}
+            onClick={e => e.stopPropagation()}>
+            {lang === "en" ? "Visit the site" : "Visiter le site"}
+            <ArrowUpRight size={isMobile ? 11 : 8} strokeWidth={2} />
+          </a>
+        )}
+      </div>
     </div>
   );
 }
@@ -1885,6 +1914,74 @@ export default function HomePage() {
                 ))}
               </div>
 
+            </div>
+          </Reveal>
+
+          {/* ── Livre blanc ───────────────────────────────────────── */}
+          <Reveal>
+            <div style={{ marginTop: 48, paddingTop: 40, borderTop: `1px solid ${BORD}` }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
+                <span style={{
+                  fontSize: 11, fontWeight: 700, letterSpacing: "0.08em",
+                  textTransform: "uppercase", color: "#0D9488",
+                  padding: "3px 10px", borderRadius: 100,
+                  background: "rgba(13,148,136,0.08)",
+                  border: "1px solid rgba(13,148,136,0.2)",
+                }}>
+                  {lang === "en" ? "White paper" : "Livre blanc"}
+                </span>
+                <span style={{ fontSize: 13, color: INK3 }}>2026</span>
+              </div>
+
+              <motion.a
+                href="https://accessibilite-paiement-ux-design.netlify.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -3, boxShadow: "0 12px 32px rgba(0,0,0,0.10)" }}
+                transition={{ duration: 0.22, ease: SP }}
+                style={{
+                  display: "flex", alignItems: "center", justifyContent: "space-between",
+                  flexWrap: "wrap", gap: 20,
+                  padding: "28px 32px",
+                  borderRadius: 16,
+                  border: "1px solid rgba(13,148,136,0.2)",
+                  background: "linear-gradient(135deg, rgba(13,148,136,0.04) 0%, rgba(13,148,136,0.01) 100%)",
+                  textDecoration: "none",
+                  boxShadow: "0 2px 12px rgba(0,0,0,0.04)",
+                }}
+              >
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{ margin: "0 0 6px", fontSize: 18, fontWeight: 600, color: INK, letterSpacing: "-0.02em" }}>
+                    {lang === "en"
+                      ? "Inclusion beyond regulations — Accessibility in payments"
+                      : "Inclure au-delà du réglementaire — L'accessibilité dans le paiement"}
+                  </p>
+                  <p style={{ margin: 0, fontSize: 14, color: INK3, lineHeight: 1.6, maxWidth: 600 }}>
+                    {lang === "en"
+                      ? "A research paper exploring how to design truly inclusive payment experiences — rethinking forms, flows and error states for all users."
+                      : "Une réflexion sur la conception d'expériences de paiement réellement inclusives — formulaires, parcours et états d'erreur repensés pour tous."}
+                  </p>
+                  <div style={{ display: "flex", gap: 6, marginTop: 14, flexWrap: "wrap" }}>
+                    {["Accessibilité", "UX Writing", "WCAG AA", "Paiement"].map(tag => (
+                      <span key={tag} style={{
+                        fontSize: 11, fontWeight: 500, padding: "3px 10px", borderRadius: 100,
+                        background: "rgba(13,148,136,0.08)", color: "#0D9488",
+                        border: "1px solid rgba(13,148,136,0.2)",
+                      }}>{tag}</span>
+                    ))}
+                  </div>
+                </div>
+                <span style={{
+                  display: "inline-flex", alignItems: "center", gap: 6,
+                  padding: "11px 22px", borderRadius: 100,
+                  background: "#0D9488", color: "#fff",
+                  fontSize: 13, fontWeight: 600, flexShrink: 0,
+                  whiteSpace: "nowrap",
+                }}>
+                  {lang === "en" ? "Read the white paper" : "Lire le livre blanc"}
+                  <ArrowUpRight size={14} strokeWidth={1.8} />
+                </span>
+              </motion.a>
             </div>
           </Reveal>
 
