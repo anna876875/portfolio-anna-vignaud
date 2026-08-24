@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { motion, useInView, AnimatePresence, useMotionValue } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowUpRight, X, Monitor } from "lucide-react";
 import { PortfolioHeader } from "@/components/ui/PortfolioHeader";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import _C from "@/data/content.json";
 import { useLang } from "@/components/ui/LanguageContext";
 
@@ -961,102 +960,87 @@ interface ProjectData {
 }
 
 function ProjectWindow({
-  id, num, label, title, desc, color, accentBg, visual, tags,
+  num, title, color, accentBg, visual, tags,
   href, siteHref, desktopOnly,
-  x: initX, y: initY, width, rotation, zIndex,
-  onPointerDown, delay = 0, isMobile = false,
-}: ProjectData & {
-  onPointerDown: () => void;
-  delay?: number;
-  isMobile?: boolean;
-}) {
-  const x = useMotionValue(initX);
-  const y = useMotionValue(initY);
-  const [dragging, setDragging] = useState(false);
-  const didDrag = useRef(false);
-  const router = useRouter();
+  delay = 0, isMobile = false,
+}: ProjectData & { delay?: number; isMobile?: boolean }) {
   const { lang } = useLang();
-
-  if (isMobile) {
-    return (
-      <Link href={href ?? "#"} style={{ textDecoration: "none", display: "block" }}>
-        <motion.article
-          initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay, ease: SP }}
-          style={{ borderRadius: 12, overflow: "hidden", background: "#fff",
-            border: "1px solid rgba(0,0,0,0.08)", cursor: "pointer",
-            boxShadow: "0 4px 16px rgba(0,0,0,0.08)", position: "relative" }}>
-          <VisualArea accentBg={accentBg} visual={visual} />
-          <WindowInfo num={num} title={title} color={color} tags={tags} href={href} siteHref={siteHref} isMobile />
-          {desktopOnly && (
-            <div style={{
-              position: "absolute", inset: 0,
-              background: "rgba(255,255,255,0.88)",
-              backdropFilter: "blur(12px)",
-              WebkitBackdropFilter: "blur(12px)",
-              display: "flex", flexDirection: "column",
-              alignItems: "center", justifyContent: "center",
-              gap: 10, padding: 20,
-              pointerEvents: "none",
-            }}>
-              <Monitor size={24} strokeWidth={1.5} color={color} />
-              <p style={{ fontSize: 14, fontWeight: 700, color: INK,
-                margin: 0, textAlign: "center", lineHeight: 1.3 }}>
-                {lang === "en" ? "Desktop experience" : "Expérience desktop"}
-              </p>
-              <p style={{ fontSize: 12, color: INK2, margin: 0,
-                textAlign: "center", lineHeight: 1.5, maxWidth: 200 }}>
-                {lang === "en"
-                  ? "Open this portfolio on a computer to access the interactive demo"
-                  : "Ouvre ce portfolio sur ordinateur pour accéder à la démo interactive"}
-              </p>
-              <span style={{ fontSize: 11, fontWeight: 600, color,
-                padding: "4px 12px", borderRadius: 100,
-                background: `color-mix(in srgb, ${color} 10%, transparent)`,
-                border: `1px solid color-mix(in srgb, ${color} 20%, transparent)` }}>
-                {lang === "en" ? "View case study →" : "Voir le case study →"}
-              </span>
-            </div>
-          )}
-        </motion.article>
-      </Link>
-    );
-  }
+  const isExternal = href?.startsWith("http");
 
   return (
     <motion.article
-      drag dragMomentum={false} dragElastic={0}
-      onPointerDown={() => { onPointerDown(); didDrag.current = false; }}
-      onDragStart={() => { setDragging(true); didDrag.current = true; }}
-      onDragEnd={() => setDragging(false)}
-      onClick={() => { if (!didDrag.current && href) router.push(href); }}
-      initial={{ opacity: 0, scale: 0.93 }}
-      animate={{
-        opacity: 1, scale: 1,
-        boxShadow: "0 8px 32px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06)",
-      }}
-      whileHover={{
-        scale: 1.03,
-        boxShadow: "0 24px 60px rgba(0,0,0,0.18), 0 6px 20px rgba(0,0,0,0.10)",
-      }}
-      whileDrag={{
-        scale: 1.05,
-        boxShadow: "0 36px 80px rgba(0,0,0,0.26), 0 10px 28px rgba(0,0,0,0.14)",
-      }}
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay, ease: SP }}
+      whileHover={{ y: -4, boxShadow: "0 16px 40px rgba(0,0,0,0.12)" }}
       style={{
-        position: "absolute", left: 0, top: 0,
-        x, y, rotate: rotation, width, zIndex,
-        borderRadius: 14, overflow: "hidden",
+        display: "flex", flexDirection: "column",
+        borderRadius: 16,
+        border: `1px solid ${BORD}`,
+        overflow: "hidden",
         background: "#fff",
-        border: "1px solid rgba(0,0,0,0.09)",
-        cursor: dragging ? "grabbing" : "pointer",
-        userSelect: "none",
-        willChange: "transform",
+        boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
+      }}
+    >
+      {/* Thumbnail */}
+      <div style={{ position: "relative" }}>
+        <VisualArea accentBg={accentBg} visual={visual} />
+        {desktopOnly && isMobile && (
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "rgba(255,255,255,0.88)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            display: "flex", flexDirection: "column",
+            alignItems: "center", justifyContent: "center",
+            gap: 8, pointerEvents: "none",
+          }}>
+            <Monitor size={20} strokeWidth={1.5} color={color} />
+            <p style={{ fontSize: 12, fontWeight: 600, color: INK, margin: 0, textAlign: "center" }}>
+              {lang === "en" ? "Desktop experience" : "Expérience desktop"}
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* Footer — identique aux cards Figma */}
+      <div style={{
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+        padding: "14px 16px", gap: 12, borderTop: `1px solid ${BORD}`,
       }}>
-      <VisualArea accentBg={accentBg} visual={visual} />
-      <WindowInfo num={num} title={title}
-        color={color} tags={tags} href={href} siteHref={siteHref} />
+        <div style={{ minWidth: 0, flex: 1 }}>
+          <span style={{ fontSize: 11, fontWeight: 700, color, textTransform: "uppercase", letterSpacing: "0.06em" }}>
+            {num}
+          </span>
+          <p style={{ fontSize: 13, fontWeight: 600, color: INK, margin: "2px 0 0",
+            overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", letterSpacing: "-0.01em" }}>
+            {title}
+          </p>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 5, flexShrink: 0, alignItems: "flex-end" }}>
+          {href && !isExternal && (
+            <Link href={href} onClick={e => e.stopPropagation()}
+              style={{ display: "inline-flex", alignItems: "center", gap: 4,
+                fontSize: 12, fontWeight: 600, color, textDecoration: "none", whiteSpace: "nowrap" }}>
+              {lang === "en" ? "Case study" : "Voir le processus"} <ArrowUpRight size={12} strokeWidth={2} />
+            </Link>
+          )}
+          {siteHref && (
+            <Link href={siteHref} onClick={e => e.stopPropagation()}
+              style={{ display: "inline-flex", alignItems: "center", gap: 4,
+                fontSize: 12, fontWeight: 600, color: INK3, textDecoration: "none", whiteSpace: "nowrap" }}>
+              {lang === "en" ? "Visit SaaS" : "Visiter le SaaS"} <ArrowUpRight size={12} strokeWidth={2} />
+            </Link>
+          )}
+          {href && isExternal && (
+            <a href={href} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
+              style={{ display: "inline-flex", alignItems: "center", gap: 4,
+                fontSize: 12, fontWeight: 600, color, textDecoration: "none", whiteSpace: "nowrap" }}>
+              {lang === "en" ? "Visit the site" : "Visiter le site"} <ArrowUpRight size={12} strokeWidth={2} />
+            </a>
+          )}
+        </div>
+      </div>
     </motion.article>
   );
 }
@@ -1281,54 +1265,16 @@ function WindowInfo({ num, title, color, tags, href, siteHref, isMobile }: {
   );
 }
 
-/* Conteneur de la scène 2D */
 function ProjectCanvas({ projects, isMobile }: { projects: ProjectData[]; isMobile: boolean }) {
-  const [zMap, setZMap] = useState<Record<string, number>>(
-    () => Object.fromEntries(projects.map(p => [p.id, p.zIndex]))
-  );
-  const zMax = useRef(projects.reduce((a, p) => Math.max(a, p.zIndex), 0));
-
-  const bringToFront = (id: string) => {
-    zMax.current += 1;
-    setZMap(prev => ({ ...prev, [id]: zMax.current }));
-  };
-
-  if (isMobile) {
-    return (
-      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-        {projects.map((p, i) =>
-          p.locked
-            ? <LockedProjectWindow key={p.id} {...p} zIndex={zMap[p.id]}
-                onPointerDown={() => bringToFront(p.id)} delay={i * 0.1} isMobile />
-            : <ProjectWindow key={p.id} {...p} zIndex={zMap[p.id]}
-                onPointerDown={() => bringToFront(p.id)} delay={i * 0.1} isMobile />
-        )}
-      </div>
-    );
-  }
-
-  const canvasW = projects.reduce((max, p) => Math.max(max, p.x + p.width), 0) + 40;
-  const canvasH = projects.reduce((max, p) => {
-    const approxH = p.width * (10 / 16) + 185;
-    return Math.max(max, p.y + approxH + 40);
-  }, 400);
-
   return (
     <div style={{
-      position: "relative",
-      width: canvasW,
-      maxWidth: "100%",
-      minHeight: canvasH,
-      overflow: "visible",
-      margin: "0 auto",
+      display: "grid",
+      gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fill, minmax(300px, 1fr))",
+      gap: 20,
     }}>
-      {projects.map((p, i) =>
-        p.locked
-          ? <LockedProjectWindow key={p.id} {...p} zIndex={zMap[p.id]}
-              onPointerDown={() => bringToFront(p.id)} delay={i * 0.12} />
-          : <ProjectWindow key={p.id} {...p} zIndex={zMap[p.id]}
-              onPointerDown={() => bringToFront(p.id)} delay={i * 0.12} />
-      )}
+      {projects.map((p, i) => (
+        <ProjectWindow key={p.id} {...p} delay={i * 0.1} isMobile={isMobile} />
+      ))}
     </div>
   );
 }
