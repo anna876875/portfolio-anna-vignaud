@@ -1016,7 +1016,7 @@ function ProjectWindow({
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {href && !isExternal && (
-            <Link href={href} onClick={e => e.stopPropagation()}
+            <Link href={href} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
               style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
                 padding: "9px 14px", borderRadius: 10, fontSize: 13, fontWeight: 600,
                 background: color, color: "#fff",
@@ -1025,7 +1025,7 @@ function ProjectWindow({
             </Link>
           )}
           {siteHref && (
-            <Link href={siteHref} onClick={e => e.stopPropagation()}
+            <Link href={siteHref} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
               style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
                 padding: "9px 14px", borderRadius: 10, fontSize: 13, fontWeight: 600,
                 background: `color-mix(in srgb, ${color} 8%, transparent)`,
