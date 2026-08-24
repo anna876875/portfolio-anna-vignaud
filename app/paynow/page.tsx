@@ -5,7 +5,7 @@ import Link from "next/link";
 import { PortfolioHeader } from "@/components/ui/PortfolioHeader";
 import { Badge, Button, Reveal, CaseBreadcrumb, ProcessFrise, CaseContactFooter } from "@/components/ui";
 import type { FrisePhase } from "@/components/ui";
-import { ArrowUpRight, ExternalLink, CheckCircle, Users, Lightbulb, Target, Shield, Database } from "lucide-react";
+import { ArrowUpRight, ExternalLink, CheckCircle, Users, Lightbulb, Target, Shield, Database, ArrowLeft } from "lucide-react";
 import _C from "@/data/content.json";
 const C = _C.paynow;
 
@@ -577,6 +577,23 @@ export default function PayNowCaseStudy() {
       `}</style>
       <PortfolioHeader />
       <div style={{ paddingTop:60 }}>
+
+        {/* ── Bandeau retour portfolio ── */}
+        <div style={{ borderBottom:`1px solid ${BORD}`, background:SURF }}>
+          <div style={{ maxWidth:1160, margin:"0 auto", padding:"0 32px" }}>
+            <Link href="/" style={{
+              display:"inline-flex", alignItems:"center", gap:6,
+              padding:"10px 0", fontSize:13, fontWeight:500, color:INK3,
+              textDecoration:"none", transition:"color 150ms",
+            }}
+              onMouseEnter={e => (e.currentTarget.style.color = INK)}
+              onMouseLeave={e => (e.currentTarget.style.color = INK3)}
+            >
+              <ArrowLeft size={14} strokeWidth={2} />
+              Retour au portfolio
+            </Link>
+          </div>
+        </div>
 
         {/* ══ 1. HERO ══════════════════════════════════════════════════ */}
         <section style={{ padding:"var(--sp-20) var(--sp-8) 72px", borderBottom:`1px solid ${BORD}`,

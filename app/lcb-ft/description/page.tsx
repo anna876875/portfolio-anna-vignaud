@@ -2,10 +2,11 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ArrowUpRight, ExternalLink,
+  ArrowUpRight, ExternalLink, ArrowLeft,
   Shield, Database, Clock,
   Users, FileText, Target, Lock, AlertTriangle,
 } from "lucide-react";
+import Link from "next/link";
 import { PortfolioHeader } from "@/components/ui/PortfolioHeader";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -356,6 +357,23 @@ export default function LcbFtDescriptionPage() {
       backgroundColor:BG, color:INK, colorScheme:"light" }}>
       <PortfolioHeader />
       <div style={{ paddingTop:60 }}>
+
+        {/* ── Bandeau retour portfolio ── */}
+        <div style={{ borderBottom:`1px solid ${BORD}`, background:SURF }}>
+          <div style={{ maxWidth:1160, margin:"0 auto", padding:"0 32px" }}>
+            <Link href="/" style={{
+              display:"inline-flex", alignItems:"center", gap:6,
+              padding:"10px 0", fontSize:13, fontWeight:500, color:INK3,
+              textDecoration:"none", transition:"color 150ms",
+            }}
+              onMouseEnter={e => (e.currentTarget.style.color = INK)}
+              onMouseLeave={e => (e.currentTarget.style.color = INK3)}
+            >
+              <ArrowLeft size={14} strokeWidth={2} />
+              Retour au portfolio
+            </Link>
+          </div>
+        </div>
 
         {/* ── HERO ─────────────────────────────────────────────────── */}
         <section style={{ backgroundColor:BG, borderBottom:`1px solid ${BORD}`,
