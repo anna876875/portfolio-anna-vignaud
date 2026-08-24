@@ -1635,7 +1635,7 @@ export default function HomePage() {
           <ProjectCanvas projects={PROJECTS} isMobile={isMobile} />
 
           <Reveal>
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginTop: 72 }}>
 
               {/* ── Header section ── */}
               <div style={{
