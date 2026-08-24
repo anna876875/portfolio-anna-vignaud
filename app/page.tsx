@@ -1871,8 +1871,8 @@ export default function HomePage() {
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <p style={{ margin: "0 0 6px", fontSize: 18, fontWeight: 600, color: INK, letterSpacing: "-0.02em" }}>
                     {lang === "en"
-                      ? "Inclusion beyond regulations — Accessibility in payments"
-                      : "Inclure au-delà du réglementaire — L'accessibilité dans le paiement"}
+                      ? "Inclusion beyond regulations: Accessibility in payments"
+                      : "Inclure au-delà du réglementaire : l'accessibilité dans le paiement"}
                   </p>
                   <p style={{ margin: 0, fontSize: 14, color: INK3, lineHeight: 1.6, maxWidth: 600 }}>
                     {lang === "en"
