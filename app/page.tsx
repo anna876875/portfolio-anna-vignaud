@@ -23,6 +23,117 @@ const BLUE   = "#A259FF";
 const NAVY   = "#1e3a8a";
 const FGRN   = "#A8D400";
 
+const UI_STRINGS = {
+  fr: {
+    desktopExp:    "Expérience desktop",
+    caseStudy:     "Voir le processus",
+    viewDemo:      "Voir la démo",
+    visitSite:     "Visiter le site",
+    visitSaas:     "Visiter le SaaS",
+    inProgress:    "En cours",
+    availableAug:  "Disponible début août",
+    creationProc:  "Voir le processus",
+    viewProjects:  "Voir les projets",
+    contactMe:     "Me contacter",
+    aboutLabel:    "À propos",
+    uxSkills:      ["Recherche", "Entretiens", "Personas", "Tests util.", "User flows", "Architecture"],
+    uiSkills:      ["Design System", "Figma", "Typographie", "Prototypage", "WCAG AA", "Micro-anim."],
+    sk1:    "Recherche utilisateur",      sk1sub: "Entretiens · Tests util. · Personas",
+    sk2:    "Design de produit",          sk2sub: "Figma · Design System · Prototypage",
+    sk3:    "Composants & tokens",
+    sk4:    "Approche centrée humain",    sk4sub: "Empathie · Idéation · Test",
+    figmaCreations: "Mes créations Figma",
+    figmaSub:       "Prototypes, design systems et explorations UI",
+    seeAllProjects: "Voir les autres projets",
+    openInFigma:    "Voir sur Figma",
+    whitePaper:     "Livre blanc",
+    wpTitle:        "Inclure au-delà du réglementaire : l'accessibilité dans le paiement",
+    wpDesc:         "Un livre blanc sur l'accessibilité numérique dans les services de paiement et comment l'intégrer concrètement en entreprise, de la conformité WCAG aux décisions de design inclusif.",
+    readWP:         "Lire le livre blanc",
+  },
+  en: {
+    desktopExp:    "Desktop experience",
+    caseStudy:     "Case study",
+    viewDemo:      "View demo",
+    visitSite:     "Visit the site",
+    visitSaas:     "Visit the SaaS",
+    inProgress:    "In progress",
+    availableAug:  "Available early August",
+    creationProc:  "Creation process",
+    viewProjects:  "View projects",
+    contactMe:     "Contact me",
+    aboutLabel:    "About",
+    uxSkills:      ["Research", "Interviews", "Personas", "Usability tests", "User flows", "Architecture"],
+    uiSkills:      ["Design System", "Figma", "Typography", "Prototyping", "WCAG AA", "Micro-anim."],
+    sk1:    "User research",              sk1sub: "Interviews · Usability · Personas",
+    sk2:    "Product design",             sk2sub: "Figma · Design System · Prototyping",
+    sk3:    "Components & tokens",
+    sk4:    "Human-centered approach",    sk4sub: "Empathy · Ideation · Test",
+    figmaCreations: "My Figma creations",
+    figmaSub:       "Prototypes, design systems and UI explorations",
+    seeAllProjects: "See all projects",
+    openInFigma:    "Open in Figma",
+    whitePaper:     "White paper",
+    wpTitle:        "Inclusion beyond regulations: Accessibility in payments",
+    wpDesc:         "A white paper on digital accessibility in payment services and how companies can integrate it into their design and development processes — from WCAG standards to inclusive UX decisions.",
+    readWP:         "Read the white paper",
+  },
+  es: {
+    desktopExp:    "Experiencia desktop",
+    caseStudy:     "Ver el proceso",
+    viewDemo:      "Ver la demo",
+    visitSite:     "Visitar el sitio",
+    visitSaas:     "Visitar el SaaS",
+    inProgress:    "En progreso",
+    availableAug:  "Disponible a principios de agosto",
+    creationProc:  "Ver el proceso",
+    viewProjects:  "Ver proyectos",
+    contactMe:     "Contáctame",
+    aboutLabel:    "Sobre mí",
+    uxSkills:      ["Investigación", "Entrevistas", "Personas", "Tests util.", "User flows", "Arquitectura"],
+    uiSkills:      ["Design System", "Figma", "Tipografía", "Prototipado", "WCAG AA", "Micro-anim."],
+    sk1:    "Investigación de usuarios",  sk1sub: "Entrevistas · Usabilidad · Personas",
+    sk2:    "Diseño de producto",         sk2sub: "Figma · Design System · Prototipado",
+    sk3:    "Componentes & tokens",
+    sk4:    "Enfoque centrado en el humano", sk4sub: "Empatía · Ideación · Test",
+    figmaCreations: "Mis creaciones en Figma",
+    figmaSub:       "Prototipos, design systems y exploraciones UI",
+    seeAllProjects: "Ver todos los proyectos",
+    openInFigma:    "Ver en Figma",
+    whitePaper:     "Libro blanco",
+    wpTitle:        "Inclusión más allá de las normas: la accesibilidad en los pagos",
+    wpDesc:         "Un libro blanco sobre accesibilidad digital en servicios de pago y cómo integrarla concretamente en las empresas, desde el cumplimiento WCAG hasta las decisiones de diseño inclusivo.",
+    readWP:         "Leer el libro blanco",
+  },
+  de: {
+    desktopExp:    "Desktop-Erlebnis",
+    caseStudy:     "Zum Prozess",
+    viewDemo:      "Demo ansehen",
+    visitSite:     "Website besuchen",
+    visitSaas:     "SaaS besuchen",
+    inProgress:    "In Arbeit",
+    availableAug:  "Verfügbar Anfang August",
+    creationProc:  "Zum Prozess",
+    viewProjects:  "Projekte ansehen",
+    contactMe:     "Kontakt aufnehmen",
+    aboutLabel:    "Über mich",
+    uxSkills:      ["Recherche", "Interviews", "Personas", "Usability-Tests", "User Flows", "Architektur"],
+    uiSkills:      ["Design System", "Figma", "Typografie", "Prototyping", "WCAG AA", "Micro-Anim."],
+    sk1:    "User Research",              sk1sub: "Interviews · Usability · Personas",
+    sk2:    "Produktdesign",              sk2sub: "Figma · Design System · Prototyping",
+    sk3:    "Komponenten & Tokens",
+    sk4:    "Menschzentrierter Ansatz",   sk4sub: "Empathie · Ideation · Test",
+    figmaCreations: "Meine Figma-Kreationen",
+    figmaSub:       "Prototypen, Design Systeme und UI-Explorationen",
+    seeAllProjects: "Alle Projekte ansehen",
+    openInFigma:    "In Figma öffnen",
+    whitePaper:     "Weißbuch",
+    wpTitle:        "Inklusion jenseits von Vorschriften: Barrierefreiheit im Zahlungsverkehr",
+    wpDesc:         "Ein Weißbuch über digitale Barrierefreiheit in Zahlungsdiensten und wie Unternehmen sie in ihre Design- und Entwicklungsprozesse integrieren können — von WCAG-Standards bis zu inklusiven UX-Entscheidungen.",
+    readWP:         "Weißbuch lesen",
+  },
+};
+
 function useIsMobile(bp = 768) {
   const [m, setM] = useState(false);
   useEffect(() => {
@@ -439,6 +550,7 @@ function FloatCard({ icon, stat, label, sub, delay = 0, floatDelay = 0 }: {
    ═══════════════════════════════════════════════════════════════════ */
 function SkillDiagram() {
   const { lang } = useLang();
+  const UI = UI_STRINGS[lang];
   const tracks = [
     {
       label: "UX RESEARCH",
@@ -447,9 +559,7 @@ function SkillDiagram() {
       dotColor:  "rgba(37,99,235,1)",
       ringColor: "rgba(37,99,235,0.1)",
       y: 100,
-      skills: lang === "en"
-        ? ["Research", "Interviews", "Personas", "Usability tests", "User flows", "Architecture"]
-        : ["Recherche", "Entretiens", "Personas", "Tests util.", "User flows", "Architecture"],
+      skills: UI.uxSkills,
     },
     {
       label: "UI DESIGN",
@@ -458,9 +568,7 @@ function SkillDiagram() {
       dotColor:  "rgba(124,58,237,1)",
       ringColor: "rgba(124,58,237,0.1)",
       y: 195,
-      skills: lang === "en"
-        ? ["Design System", "Figma", "Typography", "Prototyping", "WCAG AA", "Micro-anim."]
-        : ["Design System", "Figma", "Typographie", "Prototypage", "WCAG AA", "Micro-anim."],
+      skills: UI.uiSkills,
     },
     {
       label: "FRONTEND",
@@ -997,7 +1105,7 @@ function ProjectWindow({
           }}>
             <Monitor size={20} strokeWidth={1.5} color={color} />
             <p style={{ fontSize: 12, fontWeight: 600, color: INK, margin: 0, textAlign: "center" }}>
-              {lang === "en" ? "Desktop experience" : "Expérience desktop"}
+              {UI_STRINGS[lang].desktopExp}
             </p>
           </div>
         )}
@@ -1021,7 +1129,7 @@ function ProjectWindow({
                 padding: "9px 14px", borderRadius: 10, fontSize: 13, fontWeight: 600,
                 background: BLUE, color: "#fff",
                 textDecoration: "none", whiteSpace: "nowrap" }}>
-              {lang === "en" ? "Case study" : "Voir le processus"} <ArrowUpRight size={13} strokeWidth={2} />
+              {UI_STRINGS[lang].caseStudy} <ArrowUpRight size={13} strokeWidth={2} />
             </Link>
           )}
           {siteHref && (
@@ -1031,7 +1139,7 @@ function ProjectWindow({
                 background: "rgba(162,89,255,0.08)",
                 color: BLUE, border: "1px solid rgba(162,89,255,0.22)",
                 textDecoration: "none", whiteSpace: "nowrap" }}>
-              {lang === "en" ? "View demo" : "Voir la démo"} <ArrowUpRight size={13} strokeWidth={2} />
+              {UI_STRINGS[lang].viewDemo} <ArrowUpRight size={13} strokeWidth={2} />
             </Link>
           )}
           {href && isExternal && (
@@ -1040,7 +1148,7 @@ function ProjectWindow({
                 padding: "9px 14px", borderRadius: 10, fontSize: 13, fontWeight: 600,
                 background: BLUE, color: "#fff",
                 textDecoration: "none", whiteSpace: "nowrap" }}>
-              {lang === "en" ? "Visit the site" : "Visiter le site"} <ArrowUpRight size={13} strokeWidth={2} />
+              {UI_STRINGS[lang].visitSite} <ArrowUpRight size={13} strokeWidth={2} />
             </a>
           )}
         </div>
@@ -1103,7 +1211,7 @@ function LockedProjectWindow({
           <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: "0.08em",
             textTransform: "uppercase", color,
             padding: "2px 7px", borderRadius: 100,
-            background: `color-mix(in srgb, ${color} 10%, transparent)` }}>{lang === "en" ? "In progress" : "En cours"}</span>
+            background: `color-mix(in srgb, ${color} 10%, transparent)` }}>{UI_STRINGS[lang].inProgress}</span>
         </div>
         <p style={{ fontSize: 13, fontWeight: 700, color: INK,
           letterSpacing: "-0.01em", textAlign: "center", lineHeight: 1.3, margin: 0 }}>
@@ -1124,7 +1232,7 @@ function LockedProjectWindow({
           ))}
         </div>
         <span style={{ fontSize: 9, color: INK3, letterSpacing: "0.03em" }}>
-          {lang === "en" ? "Available early August" : "Disponible début août"}
+          {UI_STRINGS[lang].availableAug}
         </span>
       </div>
     </div>
@@ -1238,7 +1346,7 @@ function WindowInfo({ num, title, color, tags, href, siteHref, isMobile }: {
               color, border: `1px solid color-mix(in srgb, ${color} 22%, transparent)`,
               textDecoration: "none", whiteSpace: "nowrap" }}
             onClick={e => e.stopPropagation()}>
-            {lang === "en" ? "Creation process" : "Voir le processus"}
+            {UI_STRINGS[lang].creationProc}
             <ArrowUpRight size={isMobile ? 11 : 8} strokeWidth={2} />
           </Link>
         )}
@@ -1249,7 +1357,7 @@ function WindowInfo({ num, title, color, tags, href, siteHref, isMobile }: {
               background: color, color: "#fff",
               textDecoration: "none", whiteSpace: "nowrap" }}
             onClick={e => e.stopPropagation()}>
-            {lang === "en" ? "Visit the SaaS" : "Visiter le SaaS"}
+            {UI_STRINGS[lang].visitSaas}
             <ArrowUpRight size={isMobile ? 11 : 8} strokeWidth={2} />
           </Link>
         )}
@@ -1260,7 +1368,7 @@ function WindowInfo({ num, title, color, tags, href, siteHref, isMobile }: {
               background: color, color: "#fff",
               textDecoration: "none", whiteSpace: "nowrap" }}
             onClick={e => e.stopPropagation()}>
-            {lang === "en" ? "Visit the site" : "Visiter le site"}
+            {UI_STRINGS[lang].visitSite}
             <ArrowUpRight size={isMobile ? 11 : 8} strokeWidth={2} />
           </a>
         )}
@@ -1425,7 +1533,8 @@ export default function HomePage() {
   const heroRef  = useRef<HTMLElement>(null);
   const isMobile = useIsMobile();
   const { lang } = useLang();
-  const CH = lang === "en" ? _C.homeEn : _C.home;
+  const CH = lang === "en" ? _C.homeEn : lang === "es" ? _C.homeEs : lang === "de" ? _C.homeDe : _C.home;
+  const UI = UI_STRINGS[lang];
 
   const PROJECTS: ProjectData[] = useMemo(() => {
     const pn = CH.projects.paynow;
@@ -1559,13 +1668,13 @@ export default function HomePage() {
             <motion.button className="pf2-btn-primary"
               onClick={() => scrollTo("work")}
               whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
-              {lang === "en" ? "View projects" : "Voir les projets"}
+              {UI.viewProjects}
             </motion.button>
             <button onClick={() => scrollTo("contact")}
               style={{ background: "none", border: "none", cursor: "pointer", padding: 0,
                 fontSize: 15, fontWeight: 500, color: BLUE, letterSpacing: "-0.01em",
                 display: "flex", alignItems: "center", gap: 6 }}>
-              {lang === "en" ? "Contact me" : "Me contacter"} <ArrowRight size={15} strokeWidth={1.5} />
+              {UI.contactMe} <ArrowRight size={15} strokeWidth={1.5} />
             </button>
           </motion.div>
         </div>
@@ -1579,7 +1688,7 @@ export default function HomePage() {
         <div className="pf2-section-pad pf2-about-grid" style={{ maxWidth: 1152, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "center" }}>
 
           <Reveal>
-            <SectionLabel>{lang === "en" ? "About" : "À propos"}</SectionLabel>
+            <SectionLabel>{UI.aboutLabel}</SectionLabel>
             <p style={{ fontSize: "clamp(30px,3.8vw,52px)", fontWeight: 300,
               letterSpacing: "var(--ls-title2)", color: INK, marginBottom: 16, lineHeight: 1.1 }}>
               {CH.about.greeting}
@@ -1599,20 +1708,16 @@ export default function HomePage() {
           <div className="cs-two-col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
             {([
               { icon: <IconResearch />,  stat: "UX Research",
-                label: lang === "en" ? "User research"            : "Recherche utilisateur",
-                sub:   lang === "en" ? "Interviews · Usability · Personas" : "Entretiens · Tests util. · Personas",
+                label: UI.sk1, sub: UI.sk1sub,
                 delay: 0,   floatDelay: 0   },
               { icon: <IconDesign />,    stat: "UI Design",
-                label: lang === "en" ? "Product design"           : "Design de produit",
-                sub:   lang === "en" ? "Figma · Design System · Prototyping" : "Figma · Design System · Prototypage",
+                label: UI.sk2, sub: UI.sk2sub,
                 delay: 80,  floatDelay: 0.9 },
               { icon: <IconDesign />,    stat: "Design System",
-                label: lang === "en" ? "Components & tokens"      : "Composants & tokens",
-                sub:   "Atoms · Variables · Documentation",
+                label: UI.sk3, sub: "Atoms · Variables · Documentation",
                 delay: 160, floatDelay: 1.8 },
               { icon: <IconFormation />, stat: "Design Thinking",
-                label: lang === "en" ? "Human-centered approach"  : "Approche centrée humain",
-                sub:   lang === "en" ? "Empathy · Ideation · Test": "Empathie · Idéation · Test",
+                label: UI.sk4, sub: UI.sk4sub,
                 delay: 240, floatDelay: 2.7 },
             ] as const).map((card, i) => (
               <FloatCard key={i} icon={card.icon} stat={card.stat} label={card.label} sub={card.sub} delay={card.delay} floatDelay={card.floatDelay} />
@@ -1657,10 +1762,10 @@ export default function HomePage() {
                   </svg>
                   <div>
                     <p style={{ margin: 0, fontSize: 17, fontWeight: 600, color: INK, letterSpacing: "-0.02em" }}>
-                      {lang === "en" ? "My Figma creations" : "Mes créations Figma"}
+                      {UI.figmaCreations}
                     </p>
                     <p style={{ margin: "2px 0 0", fontSize: 13, color: INK3 }}>
-                      {lang === "en" ? "Prototypes, design systems and UI explorations" : "Prototypes, design systems et explorations UI"}
+                      {UI.figmaSub}
                     </p>
                   </div>
                 </div>
@@ -1684,7 +1789,7 @@ export default function HomePage() {
                     (e.currentTarget as HTMLAnchorElement).style.color = INK3;
                   }}
                 >
-                  {lang === "en" ? "See all projects" : "Voir les autres projets"}
+                  {UI.seeAllProjects}
                   <ArrowUpRight size={13} strokeWidth={1.5} />
                 </a>
               </div>
@@ -1775,7 +1880,7 @@ export default function HomePage() {
                         fontSize: 12, fontWeight: 600, color: BLUE,
                         flexShrink: 0, whiteSpace: "nowrap",
                       }}>
-                        {lang === "en" ? "Open in Figma" : "Voir sur Figma"}
+                        {UI.openInFigma}
                         <ArrowUpRight size={12} strokeWidth={2} />
                       </span>
                     </div>
@@ -1797,7 +1902,7 @@ export default function HomePage() {
                   background: "rgba(13,148,136,0.08)",
                   border: "1px solid rgba(13,148,136,0.2)",
                 }}>
-                  {lang === "en" ? "White paper" : "Livre blanc"}
+                  {UI.whitePaper}
                 </span>
                 <span style={{ fontSize: 13, color: INK3 }}>2026</span>
               </div>
@@ -1821,14 +1926,10 @@ export default function HomePage() {
               >
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <p style={{ margin: "0 0 6px", fontSize: 18, fontWeight: 600, color: INK, letterSpacing: "-0.02em" }}>
-                    {lang === "en"
-                      ? "Inclusion beyond regulations: Accessibility in payments"
-                      : "Inclure au-delà du réglementaire : l'accessibilité dans le paiement"}
+                    {UI.wpTitle}
                   </p>
                   <p style={{ margin: 0, fontSize: 14, color: INK3, lineHeight: 1.6, maxWidth: 600 }}>
-                    {lang === "en"
-                      ? "A white paper on digital accessibility in payment services and how companies can integrate it into their design and development processes — from WCAG standards to inclusive UX decisions."
-                      : "Un livre blanc sur l'accessibilité numérique dans les services de paiement et comment l'intégrer concrètement en entreprise, de la conformité WCAG aux décisions de design inclusif."}
+                    {UI.wpDesc}
                   </p>
                   <div style={{ display: "flex", gap: 6, marginTop: 14, flexWrap: "wrap" }}>
                     {["Accessibilité", "UX Writing", "WCAG AA", "Paiement"].map(tag => (
@@ -1847,7 +1948,7 @@ export default function HomePage() {
                   fontSize: 13, fontWeight: 600, flexShrink: 0,
                   whiteSpace: "nowrap",
                 }}>
-                  {lang === "en" ? "Read the white paper" : "Lire le livre blanc"}
+                  {UI.readWP}
                   <ArrowUpRight size={14} strokeWidth={1.8} />
                 </span>
               </motion.a>

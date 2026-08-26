@@ -1,7 +1,9 @@
 "use client";
 import { createContext, useContext, useState, ReactNode } from "react";
 
-type Lang = "fr" | "en";
+type Lang = "fr" | "en" | "es" | "de";
+
+const VALID_LANGS: Lang[] = ["fr", "en", "es", "de"];
 
 const LanguageContext = createContext<{ lang: Lang; setLang: (l: Lang) => void }>({
   lang: "fr",
@@ -11,8 +13,8 @@ const LanguageContext = createContext<{ lang: Lang; setLang: (l: Lang) => void }
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>(() => {
     if (typeof window === "undefined") return "fr";
-    const saved = localStorage.getItem("pf-lang") as Lang | null;
-    return saved === "en" ? "en" : "fr";
+    const saved = localStorage.getItem("pf-lang");
+    return VALID_LANGS.includes(saved as Lang) ? (saved as Lang) : "fr";
   });
 
   const setLang = (l: Lang) => {

@@ -13,7 +13,13 @@
       "role": "Anna Vignaud, Product Designer · UX/UI",
       "bio1": "With a Bachelor's in Digital Project Management and a Master's in UX Design, I love creating user-centered products. My career has led me to work on complex interfaces, particularly in the banking and retail sectors.",
       "bio2": "What I enjoy most in my work is understanding users, collaborating with teams, and turning complex topics into simple, intuitive, and pleasant journeys.",
-      "tools": ["Figma", "Git", "GitHub", "Claude", "Flupa"]
+      "tools": [
+        "Figma",
+        "Git",
+        "GitHub",
+        "Claude",
+        "Flupa"
+      ]
     },
     "work": {
       "label": "Selected projects",
@@ -37,28 +43,42 @@
         "label": "Redesign of a merchant back-office",
         "title": "Payment back-office",
         "desc": "I worked on this project during my apprenticeship. The challenge? Combining ease of use with the demands of the payment industry, without ever sacrificing one for the other.",
-        "tags": ["UX Research", "B2B"]
+        "tags": [
+          "UX Research",
+          "B2B"
+        ]
       },
       "onboarding": {
         "num": "02",
         "label": "Designing a self-onboarding workflow",
         "title": "Merchant self-onboarding",
         "desc": "Designing a 100% autonomous activation journey for merchants: multi-team interviews, KYB compliance, workflow and screen design.",
-        "tags": ["UX Research", "KYB / KYC", "B2B"]
+        "tags": [
+          "UX Research",
+          "KYB / KYC",
+          "B2B"
+        ]
       },
       "lcbft": {
         "num": "03",
         "label": "Compliance software, 2026",
         "title": "Anti-money laundering compliance software (AML)",
         "desc": "Design of a regulatory compliance tool for risk analysis, PEP/sanctions screening and KYB document control.",
-        "tags": ["UX Research", "Compliance"]
+        "tags": [
+          "UX Research",
+          "Compliance"
+        ]
       },
       "livreBlanc": {
         "num": "04",
         "label": "White paper, 2026",
         "title": "Accessibility in payments",
         "desc": "A white paper exploring how to design inclusive payment experiences that go beyond regulatory compliance — rethinking forms, flows and error states for all users.",
-        "tags": ["Accessibility", "UX Writing", "WCAG AA"]
+        "tags": [
+          "Accessibility",
+          "UX Writing",
+          "WCAG AA"
+        ]
       }
     }
   },
@@ -548,6 +568,172 @@
     "footer": {
       "left": "Projet en alternance · 2026",
       "showDivider": true
+    }
+  },
+  "homeEs": {
+    "hero": {
+      "eyebrow": "Product Designer · UX/UI",
+      "titleLine1": "El arte de convertir",
+      "titleLine2": "lo complejo en simple.",
+      "showGrid": true,
+      "showTechLines": false,
+      "showScrollArrow": true
+    },
+    "about": {
+      "greeting": "¡Hola!",
+      "role": "Anna Vignaud, Product Designer · UX/UI",
+      "bio1": "Con un Grado en Gestión de Proyectos Digitales y un Máster en UX Design, me apasiona crear productos centrados en el usuario. Mi trayectoria me ha llevado a trabajar en interfaces complejas, especialmente en los sectores bancario y retail.",
+      "bio2": "Lo que más disfruto de mi trabajo es comprender a los usuarios, colaborar con equipos y transformar temas complejos en recorridos simples, intuitivos y agradables.",
+      "tools": [
+        "Figma",
+        "Git",
+        "GitHub",
+        "Claude",
+        "Flupa"
+      ]
+    },
+    "work": {
+      "label": "Proyectos seleccionados",
+      "title": "Mis temas favoritos"
+    },
+    "contact": {
+      "titleLine1": "¿Trabajamos",
+      "titleLine2": "juntos?",
+      "body": "Disponible en Toulouse o en remoto.",
+      "email": "vignaudanna87520@gmail.com",
+      "linkedinLabel": "LinkedIn",
+      "cvLabel": "Descargar mi CV"
+    },
+    "footer": {
+      "left": "Anna V. · Product Designer UX/UI",
+      "right": "Toulouse, Remoto, Disponible"
+    },
+    "projects": {
+      "paynow": {
+        "num": "01",
+        "label": "Rediseño de un back-office comercial",
+        "title": "Back-office de pagos",
+        "desc": "Trabajé en este proyecto durante mi alternancia. ¿El reto? Combinar facilidad de uso con las exigencias del sector de pagos, sin sacrificar nunca uno por el otro.",
+        "tags": [
+          "UX Research",
+          "B2B"
+        ]
+      },
+      "onboarding": {
+        "num": "02",
+        "label": "Diseño de un flujo de onboarding autónomo",
+        "title": "Auto-onboarding de comercios",
+        "desc": "Diseño de un recorrido de activación 100% autónomo para comercios: entrevistas multi-equipo, conformidad KYB, flujo y diseño de pantallas.",
+        "tags": [
+          "UX Research",
+          "KYB / KYC",
+          "B2B"
+        ]
+      },
+      "lcbft": {
+        "num": "03",
+        "label": "Software de cumplimiento, 2026",
+        "title": "Software antilavado de dinero (AML)",
+        "desc": "Diseño de una herramienta de compliance para análisis de riesgos, control PEP/sanciones y documentación KYB.",
+        "tags": [
+          "UX Research",
+          "Compliance"
+        ]
+      },
+      "livreBlanc": {
+        "num": "04",
+        "label": "Libro blanco, 2026",
+        "title": "Accesibilidad en pagos",
+        "desc": "Un libro blanco sobre cómo diseñar experiencias de pago inclusivas que van más allá del cumplimiento normativo.",
+        "tags": [
+          "Accesibilidad",
+          "UX Writing",
+          "WCAG AA"
+        ]
+      }
+    }
+  },
+  "homeDe": {
+    "hero": {
+      "eyebrow": "Product Designer · UX/UI",
+      "titleLine1": "Die Kunst,",
+      "titleLine2": "Komplexes zu vereinfachen.",
+      "showGrid": true,
+      "showTechLines": false,
+      "showScrollArrow": true
+    },
+    "about": {
+      "greeting": "Hallo!",
+      "role": "Anna Vignaud, Product Designer · UX/UI",
+      "bio1": "Mit einem Bachelor in Digital Project Management und einem Master in UX Design gestalte ich leidenschaftlich nutzerzentrierte Produkte. Meine Karriere führte mich zu komplexen Interfaces, insbesondere in den Bereichen Banking und Retail.",
+      "bio2": "Was mir an meiner Arbeit am meisten gefällt: Nutzer verstehen, mit Teams zusammenarbeiten und komplexe Themen in einfache, intuitive und angenehme Erlebnisse verwandeln.",
+      "tools": [
+        "Figma",
+        "Git",
+        "GitHub",
+        "Claude",
+        "Flupa"
+      ]
+    },
+    "work": {
+      "label": "Ausgewählte Projekte",
+      "title": "Meine Lieblingsthemen"
+    },
+    "contact": {
+      "titleLine1": "Lass uns",
+      "titleLine2": "zusammenarbeiten?",
+      "body": "Verfügbar in Toulouse oder remote.",
+      "email": "vignaudanna87520@gmail.com",
+      "linkedinLabel": "LinkedIn",
+      "cvLabel": "Lebenslauf herunterladen"
+    },
+    "footer": {
+      "left": "Anna V. · Product Designer UX/UI",
+      "right": "Toulouse, Remote, Verfügbar"
+    },
+    "projects": {
+      "paynow": {
+        "num": "01",
+        "label": "Neugestaltung eines Händler-Backoffice",
+        "title": "Zahlungs-Backoffice",
+        "desc": "Ich arbeitete an diesem Projekt während meiner Ausbildung. Die Herausforderung: Benutzerfreundlichkeit mit den Anforderungen der Zahlungsbranche zu verbinden, ohne eines für das andere zu opfern.",
+        "tags": [
+          "UX Research",
+          "B2B"
+        ]
+      },
+      "onboarding": {
+        "num": "02",
+        "label": "Gestaltung eines autonomen Onboarding-Flows",
+        "title": "Händler-Selbst-Onboarding",
+        "desc": "Gestaltung einer 100% autonomen Aktivierungsstrecke für Händler: Multi-Team-Interviews, KYB-Konformität, Workflow und Screen-Design.",
+        "tags": [
+          "UX Research",
+          "KYB / KYC",
+          "B2B"
+        ]
+      },
+      "lcbft": {
+        "num": "03",
+        "label": "Compliance-Software, 2026",
+        "title": "Anti-Geldwäsche-Compliance-Software (AML)",
+        "desc": "Design eines Compliance-Tools für Risikoanalyse, PEP/Sanktions-Screening und KYB-Dokumentenkontrolle.",
+        "tags": [
+          "UX Research",
+          "Compliance"
+        ]
+      },
+      "livreBlanc": {
+        "num": "04",
+        "label": "Weißbuch, 2026",
+        "title": "Barrierefreiheit im Zahlungsverkehr",
+        "desc": "Ein Weißbuch über die Gestaltung inklusiver Zahlungserlebnisse, die über die gesetzlichen Anforderungen hinausgehen.",
+        "tags": [
+          "Barrierefreiheit",
+          "UX Writing",
+          "WCAG AA"
+        ]
+      }
     }
   }
 }

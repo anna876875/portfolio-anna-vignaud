@@ -1,9 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Home, User, Layers, Mail } from "lucide-react";
+import { Menu, X, Home, User, Layers, Mail, ChevronDown, Check } from "lucide-react";
 import { useLang } from "@/components/ui/LanguageContext";
 
 const SP   = [0.22, 1, 0.36, 1] as const;
@@ -17,12 +17,23 @@ const NAV_FR = [
   { label: "Projets",  href: "/#work"    },
   { label: "Contact",  href: "/#contact" },
 ];
-
 const NAV_EN = [
   { label: "Home",    href: "/"         },
   { label: "About",   href: "/#about"   },
   { label: "Work",    href: "/#work"    },
   { label: "Contact", href: "/#contact" },
+];
+const NAV_ES = [
+  { label: "Inicio",    href: "/"         },
+  { label: "Sobre mí",  href: "/#about"   },
+  { label: "Proyectos", href: "/#work"    },
+  { label: "Contacto",  href: "/#contact" },
+];
+const NAV_DE = [
+  { label: "Start",     href: "/"         },
+  { label: "Über mich", href: "/#about"   },
+  { label: "Projekte",  href: "/#work"    },
+  { label: "Kontakt",   href: "/#contact" },
 ];
 
 const MOB_NAV_FR = [
@@ -31,12 +42,23 @@ const MOB_NAV_FR = [
   { label: "Projets",  href: "/#work",    Icon: Layers },
   { label: "Contact",  href: "/#contact", Icon: Mail   },
 ];
-
 const MOB_NAV_EN = [
   { label: "Home",    href: "/",         Icon: Home   },
   { label: "About",   href: "/#about",   Icon: User   },
   { label: "Work",    href: "/#work",    Icon: Layers },
   { label: "Contact", href: "/#contact", Icon: Mail   },
+];
+const MOB_NAV_ES = [
+  { label: "Inicio",    href: "/",         Icon: Home   },
+  { label: "Sobre mí",  href: "/#about",   Icon: User   },
+  { label: "Proyectos", href: "/#work",    Icon: Layers },
+  { label: "Contacto",  href: "/#contact", Icon: Mail   },
+];
+const MOB_NAV_DE = [
+  { label: "Start",     href: "/",         Icon: Home   },
+  { label: "Über mich", href: "/#about",   Icon: User   },
+  { label: "Projekte",  href: "/#work",    Icon: Layers },
+  { label: "Kontakt",   href: "/#contact", Icon: Mail   },
 ];
 
 function isActive(href: string, pathname: string, activeSection: string): boolean {
@@ -55,57 +77,89 @@ function isActive(href: string, pathname: string, activeSection: string): boolea
   return false;
 }
 
+const LANG_OPTIONS = [
+  { code: "fr" as const, label: "Français" },
+  { code: "en" as const, label: "English" },
+  { code: "es" as const, label: "Español" },
+  { code: "de" as const, label: "Deutsch" },
+];
+
 function LangToggle() {
   const { lang, setLang } = useLang();
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [open]);
+
   return (
-    <div
-      role="group"
-      aria-label="Langue / Language"
-      style={{
-        display: "flex",
-        background: "rgba(0,0,0,0.06)",
-        borderRadius: 8,
-        padding: 2,
-      }}
-    >
-      {(["fr", "en"] as const).map((l) => (
-        <button
-          key={l}
-          onClick={() => setLang(l)}
-          aria-pressed={lang === l}
-          style={{
-            position: "relative",
-            background: "transparent",
-            border: "none",
-            borderRadius: 6,
-            padding: "3px 10px",
-            cursor: "pointer",
-            fontSize: 11,
-            fontWeight: 700,
-            letterSpacing: "0.06em",
-            color: lang === l ? INK : INK3,
-            transition: "color 200ms",
-            textTransform: "uppercase",
-            fontFamily: "var(--font-sans)",
-            minWidth: 34,
-          }}
-        >
-          {lang === l && (
-            <motion.div
-              layoutId="lang-active-pill"
-              style={{
-                position: "absolute",
-                inset: 0,
-                background: "#ffffff",
-                borderRadius: 6,
-                boxShadow: "0 1px 4px rgba(0,0,0,0.13)",
-              }}
-              transition={{ type: "spring", stiffness: 420, damping: 32 }}
-            />
-          )}
-          <span style={{ position: "relative", zIndex: 1 }}>{l.toUpperCase()}</span>
-        </button>
-      ))}
+    <div ref={ref} style={{ position: "relative" }}>
+      <button
+        onClick={() => setOpen(o => !o)}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        style={{
+          display: "flex", alignItems: "center", gap: 5,
+          padding: "4px 10px", borderRadius: 8,
+          background: "rgba(0,0,0,0.06)",
+          border: "none", cursor: "pointer",
+          fontSize: 11, fontWeight: 700, letterSpacing: "0.06em",
+          color: INK, textTransform: "uppercase",
+          fontFamily: "var(--font-sans)",
+        }}
+      >
+        {lang.toUpperCase()}
+        <ChevronDown
+          size={10} strokeWidth={2.5}
+          style={{ transition: "transform 200ms", transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
+        />
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.ul
+            role="listbox"
+            initial={{ opacity: 0, y: -6, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -6, scale: 0.96 }}
+            transition={{ duration: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            style={{
+              position: "absolute", top: "calc(100% + 6px)", right: 0,
+              background: "#fff", borderRadius: 10,
+              border: "1px solid rgba(0,0,0,0.08)",
+              boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
+              overflow: "hidden", minWidth: 130, zIndex: 200,
+              listStyle: "none", margin: 0, padding: "4px 0",
+            }}
+          >
+            {LANG_OPTIONS.map(l => (
+              <li key={l.code} role="option" aria-selected={lang === l.code}>
+                <button
+                  onClick={() => { setLang(l.code); setOpen(false); }}
+                  style={{
+                    display: "flex", alignItems: "center", justifyContent: "space-between",
+                    width: "100%", padding: "8px 14px",
+                    background: lang === l.code ? "rgba(0,0,0,0.04)" : "transparent",
+                    border: "none", cursor: "pointer",
+                    fontSize: 13, fontWeight: lang === l.code ? 600 : 400,
+                    color: lang === l.code ? INK : INK3,
+                    textAlign: "left", fontFamily: "var(--font-sans)",
+                  }}
+                >
+                  {l.label}
+                  {lang === l.code && <Check size={12} strokeWidth={2.5} color={ACC} />}
+                </button>
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -118,8 +172,8 @@ export function PortfolioHeader() {
   const [activeSection, setActiveSection] = useState("");
   const [isMobile, setIsMobile]           = useState(false);
 
-  const NAV     = lang === "en" ? NAV_EN     : NAV_FR;
-  const MOB_NAV = lang === "en" ? MOB_NAV_EN : MOB_NAV_FR;
+  const NAV     = lang === "en" ? NAV_EN : lang === "es" ? NAV_ES : lang === "de" ? NAV_DE : NAV_FR;
+  const MOB_NAV = lang === "en" ? MOB_NAV_EN : lang === "es" ? MOB_NAV_ES : lang === "de" ? MOB_NAV_DE : MOB_NAV_FR;
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
@@ -259,7 +313,7 @@ export function PortfolioHeader() {
             <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
               <div className="pf-header-status-dot" />
               <span className="hig-caption2" style={{ color: INK3 }}>
-                {lang === "en" ? "Available" : "Disponible"}
+                {lang === "de" ? "Verfügbar" : lang === "fr" ? "Disponible" : lang === "es" ? "Disponible" : "Available"}
               </span>
             </div>
           </div>
