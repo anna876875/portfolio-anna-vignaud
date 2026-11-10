@@ -97,7 +97,7 @@ export default async function Image() {
               marginTop: 48,
             }}
           >
-            {["PayNow", "LCB-FT Prism", "Onboarding", "App Révision"].map((tag) => (
+            {["PayNow", "LCB-FT Sentinelle", "Onboarding", "App Révision"].map((tag) => (
               <div
                 key={tag}
                 style={{

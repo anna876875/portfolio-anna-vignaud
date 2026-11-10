@@ -191,7 +191,7 @@ function WIPView({ viewId }: { viewId: string }) {
       </div>
 
       <p style={{ marginTop: 20, fontSize: 12, color: C.ink4 }}>
-        Sentinelle · Prism v1.0 · Module en construction
+        Sentinelle · v1.0 · Module en construction
       </p>
 
       <style>{`

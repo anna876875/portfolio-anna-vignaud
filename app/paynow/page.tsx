@@ -470,7 +470,7 @@ function FocusPersonnalisation() {
     <div className="cs-two-col" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"var(--sp-6)" }}>
       <div>
         <p className="hig-body" style={{ color:INK2, marginBottom:"var(--sp-5)", lineHeight:1.6 }}>
-          La personnalisation de la page de paiement permet à chaque entité bancaire d&apos;adapter l&apos;interface à sa propre marque, tout en garantissant l&apos;accessibilité RGAA pour tous les utilisateurs.
+          La personnalisation de la page de paiement permet à chaque établissement partenaire d&apos;adapter l&apos;interface à sa propre marque, tout en garantissant l&apos;accessibilité RGAA pour tous les utilisateurs.
         </p>
         {[
           { icon:<CheckCircle size={14} style={{color:FGRN}}/>, t:"Ratios de contraste",     d:"Chaque couleur vérifiée en temps réel contre les exigences AA (4,5:1)." },
