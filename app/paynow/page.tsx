@@ -755,7 +755,7 @@ export default function PayNowCaseStudy() {
                 {[
                   { icon:<Shield size={13}/>,    t:"PCI-DSS / DSP2 & Données sensibles", d:"Réglementation stricte, parcours réglementés, sobriété UI imposée" },
                   { icon:<Database size={13}/>,  t:"Volumétrie élevée",    d:"Milliers de lignes"                  },
-                  { icon:<Users size={13}/>,     t:"Marque blanche",       d:"Banque Populaire, Caisse d'Épargne…" },
+                  { icon:<Users size={13}/>,     t:"Marque blanche",       d:"Établissements bancaires, réseaux mutuels fictifs…" },
                   { icon:<Lightbulb size={13}/>, t:"Multilingue",          d:"Interface en plusieurs langues"      },
                   { icon:<Target size={13}/>,    t:"Périmètre étendu",     d:"Plusieurs dizaines d'écrans"         },
                 ].map((c,i)=>(

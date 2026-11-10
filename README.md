@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio — Anna Vignaud · Product Designer UX/UI
 
-## Getting Started
+Prototype public de mon portfolio, construit avec **Next.js 16**, **TypeScript** et **Tailwind CSS v4**.  
+Il inclut un design system personnel inspiré des Apple Human Interface Guidelines, et trois case studies interactifs fictifs illustrant mes compétences en UX/Product Design.
 
-First, run the development server:
+## Projets
+
+| Case study | Domaine | Description |
+|---|---|---|
+| **PayNow** | Paiement B2B | Prototype de refonte d'un back-office marchand (PSP fictif) |
+| **Sentinelle** | RegTech / LCB-FT | Prototype d'un logiciel de conformité AML (workflow alertes, scoring risque) |
+| **Onboarding marchands** | Fintech | Prototype d'un parcours d'activation self-service en < 15 min |
+
+> Toutes les données, entités, noms de marchands et transactions présents dans ces prototypes sont **entièrement fictifs**.
+
+## Stack technique
+
+- **Framework** : Next.js 16 (App Router)
+- **Langage** : TypeScript
+- **Style** : Tailwind CSS v4 + tokens CSS custom (Apple HIG)
+- **Animations** : Framer Motion
+- **Icônes** : Lucide React
+
+## Lancer le projet
 
 ```bash
+cd mon-portfolio
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ouvrir [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Design System
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Le design system est documenté dans `/app/showcase` et couvre :
+- Tokens CSS (couleurs, typographie, espacement, radius)
+- Composants : Button, Input, Card, GlassCard, Badge, NavBar, TabBar, Toggle, Toast…
+- Glass morphism, mesh gradients, animations spring
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+© 2026 Anna Vignaud · [vignaudanna87520@gmail.com](mailto:vignaudanna87520@gmail.com)

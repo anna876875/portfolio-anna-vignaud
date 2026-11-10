@@ -126,9 +126,9 @@ function UploadZone({ label, preview, onUpload, onRemove, accept, hint, square =
    LEGAL ACCORDION
 ───────────────────────────────────────────────────────────────────────────── */
 const LEGAL_PARAGRAPHS = [
-  "L'utilisation d'un logo par le Marchand engage la pleine et entière responsabilité de ce dernier. En tout état de cause, la Banque se réserve la possibilité de refuser l'affichage d'un logo si celui-ci venait en contradiction avec le corps de règle de la Banque (défini ci-après), l'image de la Banque ou la protection des droits d'un tiers. Dans ce cas, la Banque en informera le Marchand, lequel ne pourra réclamer à cette occasion un quelconque dédommagement.",
-  "En tout état de cause, le Marchand certifie et atteste à la Banque qu'il est l'auteur du logo ou qu'il en a acquis les droits.",
-  "Le Marchand assume la pleine et entière responsabilité de ses déclarations et s'engage à prendre à sa charge toutes les conséquences que pourront avoir, à l'égard de la Banque, une déclaration mensongère.",
+  "L'utilisation d'un logo par le Marchand engage la pleine et entière responsabilité de ce dernier. En tout état de cause, la Plateforme se réserve la possibilité de refuser l'affichage d'un logo si celui-ci venait en contradiction avec les présentes règles d'utilisation, l'image de la Plateforme ou la protection des droits d'un tiers. Dans ce cas, la Plateforme en informera le Marchand, lequel ne pourra réclamer à cette occasion un quelconque dédommagement.",
+  "En tout état de cause, le Marchand certifie et atteste à la Plateforme qu'il est l'auteur du logo ou qu'il en a acquis les droits.",
+  "Le Marchand assume la pleine et entière responsabilité de ses déclarations et s'engage à prendre à sa charge toutes les conséquences que pourront avoir, à l'égard de la Plateforme, une déclaration inexacte.",
 ];
 const LEGAL_BULLETS_INTERDIT = [
   "Texte et chiffres (ex : adresse, numéro de téléphone, e-mail, nom…) ;",
@@ -136,11 +136,10 @@ const LEGAL_BULLETS_INTERDIT = [
 ];
 const LEGAL_BULLETS_USAGE = [
   "Ayant une connotation politique ou religieuse ;",
-  "Ayant une connotation ou un contenu violent, raciste, xénophobe, antisémite, subversif, choquant, provoquant, sexuel, obscène, ou contraire à la morale publique ou incitant au suicide, à la violation des dispositions légales ou réglementaires et notamment l'incitation à une violation du droit pénal, à la commission d'un délit, crime ou acte terroriste ;",
-  "Qui soit en rapport avec : l'alcool, le tabac, la drogue ou tout autre stupéfiant ou produit dont la commercialisation et l'usage sont strictement contrôlés ou à leur usage ;",
-  "Faisant l'apologie des crimes de guerre ou des crimes contre l'humanité ;",
+  "Ayant une connotation ou un contenu violent, discriminatoire, subversif, choquant, sexuel, obscène, ou contraire aux dispositions légales ou réglementaires en vigueur ;",
+  "Qui soit en rapport avec : l'alcool, le tabac, la drogue ou tout autre produit dont la commercialisation est strictement contrôlée ;",
   "Portant atteinte à la dignité et à l'intégrité de la personne humaine ;",
-  "Les codes PIN, données personnelles et confidentielles au sens de la Loi Informatique et Libertés.",
+  "Les codes PIN, données personnelles et confidentielles au sens de la réglementation applicable en matière de protection des données personnelles.",
 ];
 
 function LegalAccordion() {
@@ -169,11 +168,11 @@ function LegalAccordion() {
           <p style={{ ...pStyle, fontWeight:700, color:PN.ink, textTransform:"uppercase", fontSize:11.5, letterSpacing:"0.06em", margin:"20px 0 10px" }}>
             Corps de règles pour les logos
           </p>
-          <p style={pStyle}>La Banque s&apos;interdit l&apos;affichage de logos comportant :</p>
+          <p style={pStyle}>La Plateforme s&apos;interdit l&apos;affichage de logos comportant :</p>
           <ul style={{ margin:"0 0 14px", paddingLeft:20 }}>
             {LEGAL_BULLETS_INTERDIT.map((b,i) => <li key={i} style={liStyle}>{b}</li>)}
           </ul>
-          <p style={pStyle}>La Banque interdit expressément l&apos;utilisation de photos, images, représentations, symboles et textes :</p>
+          <p style={pStyle}>La Plateforme interdit expressément l&apos;utilisation de photos, images, représentations, symboles et textes :</p>
           <ul style={{ margin:"0 0 8px", paddingLeft:20 }}>
             {LEGAL_BULLETS_USAGE.map((b,i) => <li key={i} style={liStyle}>{b}</li>)}
           </ul>

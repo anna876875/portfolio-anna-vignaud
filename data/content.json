@@ -42,7 +42,7 @@
         "num": "01",
         "label": "Redesign of a merchant back-office",
         "title": "Payment back-office",
-        "desc": "I worked on this project during my apprenticeship. The challenge? Combining ease of use with the demands of the payment industry, without ever sacrificing one for the other.",
+        "desc": "A personal prototype exploring the full redesign of a B2B payment back-office. The challenge? Combining ease of use with the demands of the payment industry, without ever sacrificing one for the other.",
         "tags": [
           "UX Research",
           "B2B"
@@ -125,7 +125,7 @@
         "num": "01",
         "label": "Refonte d'un back-office marchand",
         "title": "Back-office paiement",
-        "desc": "J'ai travaillé sur ce projet dans le cadre de mon alternance. Le défi ? Lier la simplicité d'usage à l'exigence du domaine du paiement, sans jamais sacrifier l'une pour l'autre.",
+        "desc": "Un prototype personnel explorant la refonte complète d'un back-office de paiement B2B. Le défi ? Lier la simplicité d'usage à l'exigence du domaine du paiement, sans jamais sacrifier l'une pour l'autre.",
         "tags": [
           "UX Research",
           "B2B"
@@ -363,7 +363,7 @@
       "titleLine1": "Refonte du back-office PSP",
       "titleLine2": "",
       "accentLine": "Un back-office métier repensé de zéro.",
-      "subtitle": "Pendant mon alternance, j'ai eu la chance de travailler sur la refonte de ce back-office de paiement. Disponible en plusieurs langues, vendu en marque blanche aux plus grandes entités bancaires, le logiciel couvre plusieurs dizaines d'écrans et de fonctionnalités. Il fonctionnait parfaitement, mais datait des années 2010.",
+      "subtitle": "PayNow est un prototype personnel qui simule la refonte d'un back-office de paiement B2B. Disponible en plusieurs langues, distribué en marque blanche auprès d'établissements bancaires fictifs, le logiciel couvre plusieurs dizaines d'écrans et de fonctionnalités. Il fonctionnait parfaitement, mais datait des années 2010.",
       "tags": [
         "Product Designer",
         "User Research",
@@ -427,7 +427,7 @@
       "showBadge": true
     },
     "footer": {
-      "left": "Projet en alternance, 2026",
+      "left": "Projet personnel · 2026",
       "right": "Créé sur Figma, développé par Claude",
       "showDivider": true
     }
@@ -438,7 +438,7 @@
       "titleLine1": "Sentinelle",
       "titleLine2": "LCB-FT",
       "accentLine": "Un logiciel de conformité AML.",
-      "subtitle": "Dans le cadre de mon alternance, j'ai conçu un logiciel de conformité réglementaire LCB-FT pour les équipes compliance.",
+      "subtitle": "Sentinelle est un prototype personnel d'un logiciel de conformité réglementaire LCB-FT, conçu pour explorer les enjeux UX des équipes compliance.",
       "tags": [
         "Compliance AML",
         "LCB-FT",
@@ -500,7 +500,7 @@
       "showBadge": true
     },
     "footer": {
-      "left": "Projet professionnel · 2026",
+      "left": "Prototype personnel · 2026",
       "right": "Conformité  · LCB-FT / AML",
       "showDivider": true
     }
@@ -511,7 +511,7 @@
       "titleLine1": "Self-onboarding",
       "titleLine2": "marchands.",
       "accentLine": "Un parcours d'activation autonome.",
-      "subtitle": "Dans le cadre de mon alternance, j'ai conçu un flow d'onboarding marchand autonome, réduisant le délai d'activation de plusieurs jours à moins de 15 minutes.",
+      "subtitle": "Un prototype personnel explorant la conception d'un flow d'onboarding marchand autonome, réduisant le délai d'activation de plusieurs jours à moins de 15 minutes.",
       "showBreadcrumb": true,
       "showBadge": true,
       "showGrid": true
@@ -519,13 +519,13 @@
     "context": {
       "badge": "Contexte du projet",
       "title": "Un onboarding lent dans un marché qui s'accélère",
-      "body": "L'onboarding des marchands était intégralement géré à la main par l'administration des ventes. Résultat : un délai d'activation de plusieurs jours, une expérience frustrante côté marchands, et une charge opérationnelle non scalable côté équipe. Pendant ce temps, les concurrents proposaient une activation quasi-instantanée."
+      "body": "Dans ce scénario fictif, l'onboarding des marchands était intégralement géré à la main par une équipe d'activation interne. Résultat : un délai d'activation de plusieurs jours, une expérience frustrante côté marchands, et une charge opérationnelle non scalable côté équipe. Pendant ce temps, les concurrents proposaient une activation quasi-instantanée."
     },
     "problems": [
       {
         "tag": "Problème 1",
-        "title": "Un onboarding 100 % manuel via l'ADV",
-        "description": "Chaque nouveau marchand était activé manuellement par l'ADV (Administration des Ventes) : collecte des documents par email, vérification à la main, saisie dans le back-office. Les données ne remontaient dans le BO qu'une fois le dossier complet. Tant que l'ADV n'avait pas tout validé, le marchand ne pouvait encaisser aucune transaction. Un processus de plusieurs jours, non scalable et source d'erreurs.",
+        "title": "Un onboarding 100 % manuel",
+        "description": "Chaque nouveau marchand était activé manuellement par une équipe d'activation interne : collecte des documents par email, vérification à la main, saisie dans le back-office. Les données ne remontaient dans le BO qu'une fois le dossier complet. Tant que l'équipe n'avait pas tout validé, le marchand ne pouvait encaisser aucune transaction. Un processus de plusieurs jours, non scalable et source d'erreurs.",
         "accent": false
       },
       {
@@ -543,7 +543,7 @@
       {
         "tag": "Objectif",
         "title": "Un self-onboarding rapide, conforme et rassurant",
-        "description": "Concevoir un parcours d'activation autonome qui réduit le délai à moins de 15 minutes, sans intervention de l'ADV, en respectant les exigences KYB et en rassurant le marchand à chaque étape.",
+        "description": "Concevoir un parcours d'activation autonome qui réduit le délai à moins de 15 minutes, sans intervention manuelle, en respectant les exigences KYB et en rassurant le marchand à chaque étape.",
         "accent": true
       }
     ],
@@ -561,12 +561,12 @@
       "badge": "Onboarding Marchand · UX Design",
       "title": "Un onboarding",
       "titleAccent": "conçu pour accélérer.",
-      "subtitle": "Prototype Figma interactif : parcours complet du marchand en moins de 15 minutes, sans intervention de l'ADV.",
+      "subtitle": "Prototype Figma interactif : parcours complet du marchand en moins de 15 minutes, sans intervention manuelle.",
       "buttonText": "Voir le flow d'onboarding",
       "showBadge": true
     },
     "footer": {
-      "left": "Projet en alternance · 2026",
+      "left": "Prototype personnel · 2026",
       "showDivider": true
     }
   },
@@ -613,7 +613,7 @@
         "num": "01",
         "label": "Rediseño de un back-office comercial",
         "title": "Back-office de pagos",
-        "desc": "Trabajé en este proyecto durante mi alternancia. ¿El reto? Combinar facilidad de uso con las exigencias del sector de pagos, sin sacrificar nunca uno por el otro.",
+        "desc": "Un prototipo personal que explora el rediseño completo de un back-office de pagos B2B. ¿El reto? Combinar facilidad de uso con las exigencias del sector de pagos, sin sacrificar nunca uno por el otro.",
         "tags": [
           "UX Research",
           "B2B"
@@ -696,7 +696,7 @@
         "num": "01",
         "label": "Neugestaltung eines Händler-Backoffice",
         "title": "Zahlungs-Backoffice",
-        "desc": "Ich arbeitete an diesem Projekt während meiner Ausbildung. Die Herausforderung: Benutzerfreundlichkeit mit den Anforderungen der Zahlungsbranche zu verbinden, ohne eines für das andere zu opfern.",
+        "desc": "Ein persönliches Prototyp-Projekt zur vollständigen Neugestaltung eines B2B-Zahlungs-Backoffice. Die Herausforderung: Benutzerfreundlichkeit mit den Anforderungen der Zahlungsbranche zu verbinden, ohne eines für das andere zu opfern.",
         "tags": [
           "UX Research",
           "B2B"

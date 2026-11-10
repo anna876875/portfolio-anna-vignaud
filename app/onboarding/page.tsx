@@ -40,17 +40,17 @@ function DeliverableEmpathie() {
 
   const notes = [
     { col: "#FFF9C4", lines: ["« On nous demande des documents", "qu'on n'a jamais entendus. »", "Marchand e-commerce"] },
-    { col: "#C8E6C9", lines: ["« L'ADV nous relance 3 fois", "avant que le dossier soit", "complet. »", "Équipe ADV"] },
+    { col: "#C8E6C9", lines: ["« On relance 3 fois le marchand", "avant que le dossier soit", "complet. »", "Équipe activation"] },
     { col: "#BBDEFB", lines: ["« On veut un onboarding aussi", "rapide que la concurrence. »", "Partenaire PSP"] },
     { col: "#FFE0B2", lines: ["« Je ne sais pas où j'en suis", "dans mon dossier. »", "Marchand"] },
     { col: "#F8BBD9", lines: ["« Pourquoi vous avez besoin", "de mon KBIS et mon RIB ? »", "Marchand e-comm."] },
-    { col: "#E1BEE7", lines: ["« On perd 2h/jour à relancer", "les marchands par email. »", "ADV"] },
+    { col: "#E1BEE7", lines: ["« On perd 2h/jour à relancer", "les marchands par email. »", "Équipe activation"] },
   ];
 
   const quadrants = [
     { label: "DIT",     col: "#FFF9C4", items: ["« Je veux activer mon compte vite »", "« Pourquoi vous avez besoin de mon KBIS ? »"] },
     { label: "PENSE",   col: "#BBDEFB", items: ["« La concurrence est plus rapide »", "« Est-ce que mes données sont sûres ? »"] },
-    { label: "FAIT",    col: "#C8E6C9", items: ["Envoie des emails à l'ADV", "Attend sans visibilité sur son dossier"] },
+    { label: "FAIT",    col: "#C8E6C9", items: ["Envoie des emails à l'équipe activation", "Attend sans visibilité sur son dossier"] },
     { label: "RESSENT", col: "#F8BBD9", items: ["Frustration face à la lenteur", "Méfiance vis-à-vis des données demandées"] },
   ];
 
@@ -210,8 +210,8 @@ function DeliverableIdeation() {
   const steps = [
     { phase:"Collecte",    action:"Saisit SIRET, raison sociale", emotion:"😤", pain:"Formulaire long",      bad:true  },
     { phase:"Documents",   action:"Envoie KBIS, CGU par email",   emotion:"😟", pain:"Format non évident",   bad:true  },
-    { phase:"Attente ADV", action:"ADV ressaisit dans le BO",     emotion:"😒", pain:"Bloqué 2 à 5 jours",  bad:true  },
-    { phase:"Validation",  action:"ADV coche · BO mis à jour",    emotion:"😐", pain:"Opaque pour le march.",bad:true  },
+    { phase:"Attente interne", action:"Équipe ressaisit dans le BO",    emotion:"😒", pain:"Bloqué 2 à 5 jours",  bad:true  },
+    { phase:"Validation",     action:"Équipe coche · BO mis à jour",   emotion:"😐", pain:"Opaque pour le march.",bad:true  },
     { phase:"Activation",  action:"Peut enfin encaisser",         emotion:"🎉", pain:"Trop long",            bad:true  },
   ];
 
@@ -492,7 +492,7 @@ const PHASES = [
     livrable: "Interviews (×4 équipes) · Empathy Map",
     Livrable: DeliverableEmpathie,
     items: [
-      { n:"01", t:"Interviews (×4 équipes)", s:"Partenariats, marchands, ADV et conformité : chaque partie prenante a ses propres contraintes. Les partenaires imposent des critères d'éligibilité, les marchands veulent aller vite, l'ADV est submergée de relances manuelles." },
+      { n:"01", t:"Interviews (×4 équipes)", s:"Partenariats, marchands, équipe activation et conformité : chaque partie prenante a ses propres contraintes. Les partenaires imposent des critères d'éligibilité, les marchands veulent aller vite, l'équipe activation est submergée de relances manuelles." },
       { n:"02", t:"Empathy Map", s:"Synthèse centrée marchand : ce qu'il dit, pense, fait et ressent lors de l'onboarding. Révèle la tension entre urgence d'activation et méfiance vis-à-vis des données sensibles demandées.", c: VIO },
     ],
   },
@@ -501,7 +501,7 @@ const PHASES = [
     livrable: "Insights · Question HMW · Critères de succès",
     Livrable: DeliverableDefinition,
     items: [
-      { n:"01", t:"Problème central", s:"L'onboarding manuel crée un goulot d'étranglement : lent pour le marchand, coûteux pour l'ADV, et moins compétitif que les concurrents qui proposent une activation quasi-instantanée." },
+      { n:"01", t:"Problème central", s:"L'onboarding manuel crée un goulot d'étranglement : lent pour le marchand, coûteux pour l'équipe interne, et moins compétitif que les concurrents qui proposent une activation quasi-instantanée." },
       { n:"02", t:"Contrainte réglementaire comme cadre", s:"La conformité KYB n'est pas une contrainte à contourner ; c'est le cadre qui donne de la légitimité au flux. Expliquer pourquoi une donnée est demandée réduit la friction mieux que de la masquer." },
       { n:"03", t:"Données sensibles : enjeu de confiance", s:"SIRET, KBIS, RIB, pièce d'identité du dirigeant : chaque champ doit être accompagné d'une explication simple et d'un signal de sécurité visible. L'UX de la confiance se conçoit, elle ne s'improvise pas." },
     ],
@@ -533,7 +533,7 @@ const PHASES = [
     items: [
       { n:"01", t:"Temps d'onboarding", s:"Mesuré sur 5 sessions enregistrées en staging. Temps moyen : 12 minutes, contre 3 à 4 jours pour le process manuel, soit une réduction de 97 % du délai d'activation." },
       { n:"02", t:"Taux de compréhension", s:"82 % des tâches réalisées sans aide ni relecture. Friction principale : le terme « UBO » non compris par aucun marchand testé." },
-      { n:"03", t:"Appels au support : requêtes ouvertes", s:"Baisse de 65 % des sollicitations après livraison. Le self-service a absorbé la majorité des cas simples (SIRET, KBIS, documents PDF).", c: VIO },
+      { n:"03", t:"Appels au support : requêtes ouvertes", s:"Baisse de 65 % des sollicitations après simulation. Le self-service a absorbé la majorité des cas simples (SIRET, KBIS, documents PDF).", c: VIO },
     ],
   },
 ];
@@ -1128,7 +1128,7 @@ export default function OnboardingPage() {
             {[
               { label: "Secteur",   value: "Fintech / Paiement" },
               { label: "Mon rôle",  value: "UX Designer"        },
-              { label: "Contexte",  value: "Alternance"         },
+              { label: "Contexte",  value: "Side project"        },
               { label: "Livrables", value: "Flux + Écrans clés" },
             ].map((p, i) => (
               <div key={p.label} style={{ padding: "22px var(--sp-6)",
