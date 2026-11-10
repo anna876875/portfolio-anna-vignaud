@@ -1,11 +1,11 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import {
   LayoutGrid, Bell, List, BarChart2, BookOpen,
   Lock, Settings, ChevronRight, ChevronDown,
   Clock, CheckCircle, AlertTriangle, Timer,
   Calendar, SlidersHorizontal, Search, ChevronLeft,
-  Filter, Download, Plus, X, Maximize2, MessageSquare,
+  Filter, Download, Plus, X, MessageSquare,
   ArrowUpRight, TrendingUp,
 } from "lucide-react";
 import Link from "next/link";
@@ -1076,9 +1076,7 @@ function DrawerWIP({ icon, title, description, items }: {
 function AlertDrawer({ alertId, onClose }: { alertId: string; onClose: () => void }) {
   const alert  = ALERTS_ITEMS.find(a => a.id === alertId)!;
   const detail = getDetail(alertId);
-  const [drawerTab, setDrawerTab]     = useState(0);
-  const [commentsOpen, setCommentsOpen] = useState(false);
-  const drawerRef = useRef<HTMLDivElement>(null);
+  const [tab, setTab] = useState(0);
 
   useEffect(() => {
     const h = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
@@ -1093,10 +1091,12 @@ function AlertDrawer({ alertId, onClose }: { alertId: string; onClose: () => voi
   const headerBrd = isC ? "#FCA5A5" : isF ? "#FED7AA" : "#FDE68A";
   const headerAcc = isC ? "#DC2626" : isF ? "#EA580C" : "#D97706";
 
-  const DTABS = [
-    { label: "Contexte marchand",        icon: "⊞" },
-    { label: "Transactions impliquées",   icon: "⇄" },
-    { label: "Analyse des flux",          icon: "⚡" },
+  const MTABS = [
+    { label: "Synthèse",           icon: "⊟" },
+    { label: "Contexte marchand",  icon: "⊞" },
+    { label: "Transactions",       icon: "⇄" },
+    { label: "Analyse des flux",   icon: "⚡" },
+    { label: "Commentaires",       icon: "💬", badge: detail.comments },
   ];
 
   /* Champ merchant avec label petit + valeur en orange pour signaux anomalies */
@@ -1131,291 +1131,326 @@ function AlertDrawer({ alertId, onClose }: { alertId: string; onClose: () => voi
     );
   };
 
-  /* Transactions factices déterministes (pas de Math.random) */
-  const TX_DATA = [
-    { ref: "TX-10001", type: "Paiement CB",  time: "08:14", amount: "6 240,00 €" },
-    { ref: "TX-10002", type: "Paiement CB",  time: "09:02", amount: "7 810,50 €" },
-    { ref: "TX-10003", type: "Virement SEPA",time: "10:47", amount: "12 350,00 €" },
-    { ref: "TX-10004", type: "Paiement CB",  time: "11:23", amount: "4 900,00 €" },
-    { ref: "TX-10005", type: "Virement SEPA",time: "13:56", amount: "9 100,00 €" },
-  ];
-
   return (
     <>
       {/* Backdrop */}
       <div onClick={onClose} style={{
-        position: "fixed", inset: 0, background: "rgba(15,23,42,0.22)", zIndex: 40,
+        position: "fixed", inset: 0, zIndex: 40,
+        background: "rgba(15,23,42,0.45)", backdropFilter: "blur(3px)",
       }} />
 
-      {/* Drawer */}
-      <div ref={drawerRef} style={{
-        position: "fixed", top: 0, right: 0, bottom: 0, width: 500, zIndex: 50,
-        background: "#fff", boxShadow: "-6px 0 32px rgba(0,0,0,0.14)",
-        display: "flex", flexDirection: "column",
-        animation: "slideIn 0.24s cubic-bezier(0.22,1,0.36,1)",
+      {/* Centrage */}
+      <div style={{
+        position: "fixed", inset: 0, zIndex: 50,
+        display: "flex", alignItems: "center", justifyContent: "center",
+        padding: "24px 16px",
       }}>
+        {/* Modale */}
+        <div style={{
+          width: "100%", maxWidth: 800, maxHeight: "90vh",
+          background: "#fff", borderRadius: 16,
+          boxShadow: "0 32px 80px rgba(0,0,0,0.22), 0 0 0 1px rgba(0,0,0,0.06)",
+          display: "flex", flexDirection: "column",
+          animation: "modalIn 0.22s cubic-bezier(0.22,1,0.36,1)",
+        }}>
 
-        {/* ── HEADER ─────────────────────────────────────────── */}
-        <div style={{ background: headerBg, borderBottom: `1px solid ${headerBrd}`, flexShrink: 0 }}>
-
-          {/* Ligne 1 : ID + close */}
-          <div style={{ padding: "11px 14px 0", display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 4, marginRight: 2 }}>
-              <ChevronRight size={12} color={headerAcc} style={{ transform: "rotate(-90deg)" }} />
-              <ChevronRight size={12} color={headerAcc} style={{ transform: "rotate(90deg)", marginLeft: -6 }} />
-            </div>
-            <span style={{ fontSize: 13, fontWeight: 700, color: C.ink, fontFamily: "monospace",
-              letterSpacing: "0.02em" }}>{alert.id}</span>
-            <span style={{ fontSize: 11.5, color: C.ink3, flex: 1 }}>
-              {alert.rule} / 24h · {alert.entity} · {detail.detectedAt}
-            </span>
-            <button style={{ width: 26, height: 26, borderRadius: 6, border: `1px solid ${headerBrd}`,
-              background: "rgba(255,255,255,0.75)", cursor: "pointer",
-              display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <Maximize2 size={11} color={C.ink3} />
-            </button>
-            <button onClick={onClose} style={{ width: 26, height: 26, borderRadius: 6,
-              border: `1px solid ${headerBrd}`, background: "rgba(255,255,255,0.75)",
-              cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <X size={11} color={C.ink3} />
-            </button>
-          </div>
-
-          {/* Ligne 2 : statut + détection + badge sévérité */}
-          <div style={{ padding: "8px 14px 12px", display: "flex", alignItems: "center", gap: 8 }}>
-            <button style={{ display: "flex", alignItems: "center", gap: 6, padding: "5px 10px",
-              borderRadius: 6, border: `1px solid ${C.brd}`, background: "#fff",
-              fontSize: 12.5, fontWeight: 500, color: C.ink, cursor: "pointer" }}>
-              <Dot color={A_STATUS[alert.status]?.color ?? C.ink3} />
-              {alert.status} <ChevronDown size={11} color={C.ink3} />
-            </button>
-            <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 10 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                <Calendar size={11} color={C.ink4} />
-                <span style={{ fontSize: 11, color: C.ink4 }}>Détectée le {detail.detectedAt}</span>
-              </div>
-              <span style={{ fontSize: 11, padding: "2px 9px", borderRadius: 999, fontWeight: 600,
-                background: headerAcc + "18", color: headerAcc }}>{detail.severity}</span>
-            </div>
-          </div>
-        </div>
-
-        {/* ── BODY (scroll) ───────────────────────────────────── */}
-        <div style={{ flex: 1, overflowY: "auto" }}>
-
-          {/* Description */}
-          <div style={{ padding: "14px 18px", borderBottom: `1px solid ${C.brdL}` }}>
-            <p style={{ margin: 0, fontSize: 13, color: C.ink2, lineHeight: 1.65 }}>{detail.description}</p>
-          </div>
-
-          {/* 2 colonnes : métriques | règles */}
-          <div style={{ display: "grid", gridTemplateColumns: "45% 55%",
-            borderBottom: `1px solid ${C.brdL}` }}>
-
-            {/* Gauche */}
-            <div style={{ padding: "16px 18px", borderRight: `1px solid ${C.brdL}` }}>
-              {[
-                { label: "Entité concernée",            value: alert.entity },
-                { label: "Score de risque",             value: String(detail.scoreTotal) },
-                { label: "Nombre de transactions",      value: String(detail.txCount) },
-                { label: "Information complémentaire",  value: "N/A" },
-                { label: "Montant total",               value: alert.amount },
-                { label: "Période",                     value: detail.period },
-              ].map((f) => (
-                <div key={f.label} style={{ marginBottom: 14 }}>
-                  <p style={{ margin: "0 0 1px", fontSize: 11, color: C.ink4 }}>{f.label}</p>
-                  <p style={{ margin: 0,
-                    fontSize: f.label === "Score de risque" ? 22 : f.label === "Montant total" ? 17 : 13.5,
-                    fontWeight: f.label === "Score de risque" || f.label === "Montant total" ? 700 : 500,
-                    color: f.label === "Score de risque" || f.label === "Montant total" ? headerAcc : C.ink,
-                  }}>{f.value}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Droite : règles */}
-            <div style={{ padding: "16px 14px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
-                <span style={{ fontSize: 13, fontWeight: 600, color: C.ink }}>Règles déclenchées</span>
-                <span style={{ fontSize: 11, fontWeight: 700, padding: "1px 7px", borderRadius: 999,
-                  background: C.redL, color: C.red }}>{detail.rules.length}</span>
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                {detail.rules.map((r) => (
-                  <div key={r.id} style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
-                    <div style={{ width: 7, height: 7, borderRadius: "50%", marginTop: 4, flexShrink: 0,
-                      background: RULE_SEVERITY_DOT[r.severity] }} />
-                    <div>
-                      <p style={{ margin: 0, fontSize: 10.5, fontWeight: 600, color: C.ink3,
-                        fontFamily: "monospace" }}>{r.id}</p>
-                      {r.highlight ? (
-                        <p style={{ margin: "2px 0 0", fontSize: 11, color: C.ink4, lineHeight: 1.45 }}>
-                          {r.name.split(r.highlight)[0]}
-                          <strong style={{ color: RULE_SEVERITY_DOT[r.severity], fontWeight: 600 }}>{r.highlight}</strong>
-                          {r.name.split(r.highlight)[1]}
-                        </p>
-                      ) : (
-                        <p style={{ margin: "2px 0 0", fontSize: 11, color: C.ink4 }}>{r.name}</p>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <button style={{ marginTop: 14, background: "none", border: "none", padding: 0,
-                fontSize: 11.5, color: C.acc, cursor: "pointer",
-                display: "flex", alignItems: "center", gap: 4 }}>
-                Voir la règle principale <ArrowUpRight size={11} />
+          {/* ── HEADER ─────────────────────────────────────── */}
+          <div style={{
+            background: headerBg, borderBottom: `1px solid ${headerBrd}`,
+            borderRadius: "16px 16px 0 0", flexShrink: 0, padding: "14px 20px 12px",
+          }}>
+            {/* Ligne 1 : ID · entité · règle + close */}
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+              <span style={{
+                fontFamily: "monospace", fontSize: 13, fontWeight: 700,
+                color: C.ink, letterSpacing: "0.03em",
+              }}>{alert.id}</span>
+              <span style={{
+                fontSize: 11, fontWeight: 600, padding: "2px 9px", borderRadius: 999,
+                background: headerAcc + "18", color: headerAcc,
+              }}>{detail.severity}</span>
+              <span style={{ fontSize: 12, color: C.ink3, flex: 1 }}>
+                {alert.entity} · {alert.rule} / 24h
+              </span>
+              <button onClick={onClose} style={{
+                width: 28, height: 28, borderRadius: 7, border: `1px solid ${headerBrd}`,
+                background: "rgba(255,255,255,0.8)", cursor: "pointer",
+                display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+              }}>
+                <X size={13} color={C.ink3} />
               </button>
             </div>
+            {/* Ligne 2 : statut + date + score + montant */}
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <button style={{
+                display: "flex", alignItems: "center", gap: 6, padding: "5px 10px",
+                borderRadius: 6, border: `1px solid ${C.brd}`, background: "#fff",
+                fontSize: 12.5, fontWeight: 500, color: C.ink, cursor: "pointer",
+              }}>
+                <Dot color={A_STATUS[alert.status]?.color ?? C.ink3} />
+                {alert.status} <ChevronDown size={11} color={C.ink3} />
+              </button>
+              <span style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11.5, color: C.ink4 }}>
+                <Calendar size={11} color={C.ink4} /> Détectée le {detail.detectedAt}
+              </span>
+              <span style={{ marginLeft: "auto", fontSize: 20, fontWeight: 700, color: headerAcc }}>
+                {detail.scoreTotal}
+              </span>
+              <span style={{ fontSize: 14, fontWeight: 600, color: C.ink }}>{alert.amount}</span>
+            </div>
           </div>
 
-          {/* ── Tabs ─────────────────────────────────────────── */}
-          <div style={{ display: "flex", borderBottom: `1px solid ${C.brd}`, background: "#fff" }}>
-            {DTABS.map((t, i) => (
-              <button key={t.label} onClick={() => setDrawerTab(i)} style={{
+          {/* ── BARRE D'ONGLETS ─────────────────────────────── */}
+          <div style={{
+            display: "flex", borderBottom: `1px solid ${C.brd}`,
+            background: "#fff", flexShrink: 0, padding: "0 6px", overflowX: "auto",
+          }}>
+            {MTABS.map((t, i) => (
+              <button key={t.label} onClick={() => setTab(i)} style={{
                 display: "flex", alignItems: "center", gap: 5,
-                padding: "11px 14px", background: "none", border: "none",
-                borderBottom: drawerTab === i ? `2px solid ${C.acc}` : "2px solid transparent",
-                color: drawerTab === i ? C.acc : C.ink3,
-                fontWeight: drawerTab === i ? 600 : 400, fontSize: 12.5,
+                padding: "11px 15px", background: "none", border: "none",
+                borderBottom: tab === i ? `2px solid ${C.acc}` : "2px solid transparent",
+                color: tab === i ? C.acc : C.ink3,
+                fontWeight: tab === i ? 600 : 400, fontSize: 12.5,
                 cursor: "pointer", marginBottom: -1, whiteSpace: "nowrap" as const,
+                transition: "color 0.15s",
               }}>
                 <span style={{ fontSize: 11 }}>{t.icon}</span>
                 {t.label}
+                {t.badge ? (
+                  <span style={{
+                    fontSize: 10.5, fontWeight: 700, padding: "1px 6px", borderRadius: 999,
+                    background: tab === i ? C.accL : C.brdL,
+                    color: tab === i ? C.acc : C.ink4,
+                  }}>{t.badge}</span>
+                ) : null}
               </button>
             ))}
           </div>
 
-          {/* ── Onglet 0 : Contexte marchand ─────────────────── */}
-          {drawerTab === 0 && (
-            <div style={{ padding: "20px 18px 24px" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 24px" }}>
+          {/* ── CORPS (scroll) ──────────────────────────────── */}
+          <div style={{ flex: 1, overflowY: "auto" }}>
 
-                <MF label="Secteur (MCC)" value={detail.merchant.mcc} />
-                <div style={{ marginBottom: 20 }}>
-                  <p style={{ margin: "0 0 5px", fontSize: 11.5, color: C.ink4 }}>Risque client (BO)</p>
-                  <StatusPill text={detail.merchant.clientRisk} type="risk" />
-                </div>
-
-                <MF label="Date de création" value={detail.merchant.createdAt} />
-                <div style={{ marginBottom: 20 }}>
-                  <p style={{ margin: "0 0 5px", fontSize: 11.5, color: C.ink4 }}>Statut KYB</p>
-                  <StatusPill text={detail.merchant.kybStatus} type="kyb" />
-                </div>
-
-                <MF label="Volume mensuel moyen" value={detail.merchant.avgVolume} orange badge="A" />
-                <MF label="Nombre moyen de transactions" value={detail.merchant.avgTx} orange badge="B" />
-                <MF label="30 derniers jours" value={detail.merchant.last30} orange />
-                <MF label="Score de risque global" value={String(detail.merchant.riskScore)} orange />
-                <MF label="Incidents / 90 jours" value={detail.merchant.incidents} />
-              </div>
-
-              {/* Graphe score */}
-              <div style={{ marginTop: 4, borderTop: `1px solid ${C.brdL}`, paddingTop: 18 }}>
-                <p style={{ margin: "0 0 12px", fontSize: 10.5, fontWeight: 700, color: C.ink4,
-                  letterSpacing: "0.1em", textTransform: "uppercase" }}>
-                  Évolution du score de risque
+            {/* ── Onglet 0 : Synthèse ──────────────────────── */}
+            {tab === 0 && (
+              <div style={{ padding: "20px 24px 28px" }}>
+                {/* Description */}
+                <p style={{ margin: "0 0 20px", fontSize: 13.5, color: C.ink2, lineHeight: 1.7 }}>
+                  {detail.description}
                 </p>
-                <RiskScoreChart data={detail.riskHistory} />
-              </div>
 
-              {/* Historique */}
-              <div style={{ marginTop: 20, borderTop: `1px solid ${C.brdL}`, paddingTop: 18 }}>
-                <p style={{ margin: "0 0 14px", fontSize: 10.5, fontWeight: 700, color: C.ink4,
-                  letterSpacing: "0.1em", textTransform: "uppercase" }}>
-                  Historique de l'alerte
-                </p>
-                <div style={{ position: "relative" }}>
-                  {detail.history.map((h, i) => (
-                    <div key={i} style={{ display: "flex", gap: 12, alignItems: "flex-start",
-                      marginBottom: i < detail.history.length - 1 ? 20 : 0 }}>
-                      {/* Avatar + ligne verticale */}
-                      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
-                        <div style={{ width: 30, height: 30, borderRadius: "50%",
-                          background: C.brdL, border: `1px solid ${C.brd}`,
-                          display: "flex", alignItems: "center", justifyContent: "center",
-                          fontSize: 10, fontWeight: 700, color: C.ink3 }}>
-                          {h.actor.includes(".") ? h.actor.split(".")[1]?.trim()[0] ?? h.actor[0] : h.actor[0]}
-                        </div>
-                        {i < detail.history.length - 1 && (
-                          <div style={{ width: 1, flex: 1, minHeight: 16, background: C.brdL, margin: "4px 0" }} />
-                        )}
+                {/* Grille : métriques | règles */}
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+
+                  {/* Métriques */}
+                  <div style={{
+                    background: C.bg, borderRadius: 12, padding: "16px 18px",
+                    border: `1px solid ${C.brdL}`,
+                  }}>
+                    <p style={{ margin: "0 0 14px", fontSize: 10.5, fontWeight: 700, color: C.ink4,
+                      letterSpacing: "0.1em", textTransform: "uppercase" }}>
+                      Métriques clés
+                    </p>
+                    {[
+                      { label: "Entité concernée",       value: alert.entity,              big: false },
+                      { label: "Score de risque",        value: String(detail.scoreTotal), big: true  },
+                      { label: "Transactions",           value: String(detail.txCount),    big: false },
+                      { label: "Montant total",          value: alert.amount,              big: true  },
+                      { label: "Période",                value: detail.period,             big: false },
+                    ].map((f) => (
+                      <div key={f.label} style={{ marginBottom: 12 }}>
+                        <p style={{ margin: "0 0 1px", fontSize: 11, color: C.ink4 }}>{f.label}</p>
+                        <p style={{ margin: 0,
+                          fontSize: f.big ? 18 : 13.5,
+                          fontWeight: f.big ? 700 : 500,
+                          color: f.big ? headerAcc : C.ink,
+                        }}>{f.value}</p>
                       </div>
-                      <div style={{ flex: 1, paddingTop: 2 }}>
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                          <p style={{ margin: 0, fontSize: 13, fontWeight: 600, color: C.ink }}>{h.actor}</p>
-                          <span style={{ fontSize: 11, color: C.ink4 }}>{h.time}</span>
-                        </div>
-                        <p style={{ margin: "2px 0 0", fontSize: 12.5, color: C.ink3 }}>{h.action}</p>
-                      </div>
+                    ))}
+                  </div>
+
+                  {/* Règles déclenchées */}
+                  <div style={{
+                    background: C.bg, borderRadius: 12, padding: "16px 18px",
+                    border: `1px solid ${C.brdL}`,
+                  }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
+                      <p style={{ margin: 0, fontSize: 10.5, fontWeight: 700, color: C.ink4,
+                        letterSpacing: "0.1em", textTransform: "uppercase" }}>
+                        Règles déclenchées
+                      </p>
+                      <span style={{ fontSize: 10.5, fontWeight: 700, padding: "1px 7px", borderRadius: 999,
+                        background: C.redL, color: C.red }}>{detail.rules.length}</span>
                     </div>
-                  ))}
+                    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                      {detail.rules.map((r) => (
+                        <div key={r.id} style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
+                          <div style={{ width: 7, height: 7, borderRadius: "50%", marginTop: 4, flexShrink: 0,
+                            background: RULE_SEVERITY_DOT[r.severity] }} />
+                          <div>
+                            <p style={{ margin: 0, fontSize: 10.5, fontWeight: 600, color: C.ink3,
+                              fontFamily: "monospace" }}>{r.id}</p>
+                            {r.highlight ? (
+                              <p style={{ margin: "2px 0 0", fontSize: 11.5, color: C.ink4, lineHeight: 1.45 }}>
+                                {r.name.split(r.highlight)[0]}
+                                <strong style={{ color: RULE_SEVERITY_DOT[r.severity], fontWeight: 600 }}>{r.highlight}</strong>
+                                {r.name.split(r.highlight)[1]}
+                              </p>
+                            ) : (
+                              <p style={{ margin: "2px 0 0", fontSize: 11.5, color: C.ink4 }}>{r.name}</p>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <button style={{ marginTop: 14, background: "none", border: "none", padding: 0,
+                      fontSize: 11.5, color: C.acc, cursor: "pointer",
+                      display: "flex", alignItems: "center", gap: 4 }}>
+                      Voir la règle principale <ArrowUpRight size={11} />
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* ── Onglet 1 : Transactions impliquées — WIP ─────── */}
-          {drawerTab === 1 && <DrawerWIP
-            icon="⇄"
-            title="Transactions impliquées"
-            description={`Visualisation des ${detail.txCount} transactions liées à cette alerte sur ${detail.period}.`}
-            items={[
-              "Tableau détaillé avec statut, canal et montant par transaction",
-              "Filtres par type de flux et plage horaire",
-              "Export CSV des transactions sélectionnées",
-            ]}
-          />}
-
-          {/* ── Onglet 2 : Analyse des flux — WIP ───────────── */}
-          {drawerTab === 2 && <DrawerWIP
-            icon="⚡"
-            title="Analyse des flux"
-            description="Cartographie des flux entrants / sortants et détection de circuits atypiques."
-            items={[
-              "Graphe de flux interactif (entrant / sortant / cross-border)",
-              "Détection automatique de schémas de fractionnement",
-              "Corrélation avec d'autres alertes ouvertes",
-            ]}
-          />}
-        </div>
-
-        {/* ── Footer: Commentaires ─────────────────────────────── */}
-        <div style={{ borderTop: `1px solid ${C.brd}`, flexShrink: 0 }}>
-          <button onClick={() => setCommentsOpen(o => !o)} style={{
-            width: "100%", padding: "14px 16px", background: "none", border: "none",
-            display: "flex", alignItems: "center", gap: 8, cursor: "pointer",
-          }}>
-            <MessageSquare size={14} color={C.ink3} />
-            <span style={{ fontSize: 13, color: C.ink, fontWeight: 500 }}>Commentaire d'analyse</span>
-            <span style={{ fontSize: 11, fontWeight: 700, background: C.accL, color: C.acc,
-              padding: "1px 7px", borderRadius: 999 }}>{detail.comments}</span>
-            <ChevronDown size={13} color={C.ink4} style={{ marginLeft: "auto",
-              transform: commentsOpen ? "rotate(180deg)" : "none", transition: "transform 0.2s" }} />
-          </button>
-          {commentsOpen && (
-            <div style={{ padding: "0 16px 16px" }}>
-              {detail.comments > 0 ? (
-                <div style={{ padding: "10px 12px", background: C.bg, borderRadius: 8,
-                  border: `1px solid ${C.brdL}`, fontSize: 12.5, color: C.ink2 }}>
-                  {detail.comments} commentaire{detail.comments > 1 ? "s" : ""} d'analyse. Cliquez pour consulter.
+            {/* ── Onglet 1 : Contexte marchand ─────────────── */}
+            {tab === 1 && (
+              <div style={{ padding: "20px 24px 28px" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 32px" }}>
+                  <MF label="Secteur (MCC)" value={detail.merchant.mcc} />
+                  <div style={{ marginBottom: 20 }}>
+                    <p style={{ margin: "0 0 5px", fontSize: 11.5, color: C.ink4 }}>Risque client (BO)</p>
+                    <StatusPill text={detail.merchant.clientRisk} type="risk" />
+                  </div>
+                  <MF label="Date de création" value={detail.merchant.createdAt} />
+                  <div style={{ marginBottom: 20 }}>
+                    <p style={{ margin: "0 0 5px", fontSize: 11.5, color: C.ink4 }}>Statut KYB</p>
+                    <StatusPill text={detail.merchant.kybStatus} type="kyb" />
+                  </div>
+                  <MF label="Volume mensuel moyen" value={detail.merchant.avgVolume} orange badge="A" />
+                  <MF label="Nombre moyen de transactions" value={detail.merchant.avgTx} orange badge="B" />
+                  <MF label="30 derniers jours" value={detail.merchant.last30} orange />
+                  <MF label="Score de risque global" value={String(detail.merchant.riskScore)} orange />
+                  <MF label="Incidents / 90 jours" value={detail.merchant.incidents} />
                 </div>
-              ) : (
-                <p style={{ margin: 0, fontSize: 12.5, color: C.ink4 }}>Aucun commentaire pour l'instant.</p>
-              )}
-              <textarea placeholder="Ajouter un commentaire…" rows={3} style={{
-                marginTop: 10, width: "100%", padding: "10px 12px",
-                border: `1px solid ${C.brd}`, borderRadius: 8, fontSize: 13,
-                resize: "none", fontFamily: "inherit", color: C.ink, outline: "none",
-                boxSizing: "border-box" as const,
-              }} />
-            </div>
-          )}
+
+                {/* Graphe score */}
+                <div style={{ marginTop: 4, borderTop: `1px solid ${C.brdL}`, paddingTop: 18 }}>
+                  <p style={{ margin: "0 0 12px", fontSize: 10.5, fontWeight: 700, color: C.ink4,
+                    letterSpacing: "0.1em", textTransform: "uppercase" }}>
+                    Évolution du score de risque
+                  </p>
+                  <RiskScoreChart data={detail.riskHistory} />
+                </div>
+
+                {/* Historique */}
+                <div style={{ marginTop: 20, borderTop: `1px solid ${C.brdL}`, paddingTop: 18 }}>
+                  <p style={{ margin: "0 0 14px", fontSize: 10.5, fontWeight: 700, color: C.ink4,
+                    letterSpacing: "0.1em", textTransform: "uppercase" }}>
+                    Historique de l'alerte
+                  </p>
+                  <div style={{ position: "relative" }}>
+                    {detail.history.map((h, i) => (
+                      <div key={i} style={{ display: "flex", gap: 12, alignItems: "flex-start",
+                        marginBottom: i < detail.history.length - 1 ? 20 : 0 }}>
+                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
+                          <div style={{ width: 30, height: 30, borderRadius: "50%",
+                            background: C.brdL, border: `1px solid ${C.brd}`,
+                            display: "flex", alignItems: "center", justifyContent: "center",
+                            fontSize: 10, fontWeight: 700, color: C.ink3 }}>
+                            {h.actor.includes(".") ? h.actor.split(".")[1]?.trim()[0] ?? h.actor[0] : h.actor[0]}
+                          </div>
+                          {i < detail.history.length - 1 && (
+                            <div style={{ width: 1, flex: 1, minHeight: 16, background: C.brdL, margin: "4px 0" }} />
+                          )}
+                        </div>
+                        <div style={{ flex: 1, paddingTop: 2 }}>
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                            <p style={{ margin: 0, fontSize: 13, fontWeight: 600, color: C.ink }}>{h.actor}</p>
+                            <span style={{ fontSize: 11, color: C.ink4 }}>{h.time}</span>
+                          </div>
+                          <p style={{ margin: "2px 0 0", fontSize: 12.5, color: C.ink3 }}>{h.action}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* ── Onglet 2 : Transactions — WIP ────────────── */}
+            {tab === 2 && <DrawerWIP
+              icon="⇄"
+              title="Transactions impliquées"
+              description={`Visualisation des ${detail.txCount} transactions liées à cette alerte sur ${detail.period}.`}
+              items={[
+                "Tableau détaillé avec statut, canal et montant par transaction",
+                "Filtres par type de flux et plage horaire",
+                "Export CSV des transactions sélectionnées",
+              ]}
+            />}
+
+            {/* ── Onglet 3 : Analyse des flux — WIP ────────── */}
+            {tab === 3 && <DrawerWIP
+              icon="⚡"
+              title="Analyse des flux"
+              description="Cartographie des flux entrants / sortants et détection de circuits atypiques."
+              items={[
+                "Graphe de flux interactif (entrant / sortant / cross-border)",
+                "Détection automatique de schémas de fractionnement",
+                "Corrélation avec d'autres alertes ouvertes",
+              ]}
+            />}
+
+            {/* ── Onglet 4 : Commentaires ───────────────────── */}
+            {tab === 4 && (
+              <div style={{ padding: "20px 24px 28px" }}>
+                {detail.comments > 0 ? (
+                  <div style={{
+                    marginBottom: 16, padding: "12px 14px",
+                    background: C.accL, borderRadius: 10, border: `1px solid ${C.acc}22`,
+                    display: "flex", alignItems: "center", gap: 8,
+                  }}>
+                    <MessageSquare size={14} color={C.acc} />
+                    <span style={{ fontSize: 13, color: C.acc, fontWeight: 500 }}>
+                      {detail.comments} commentaire{detail.comments > 1 ? "s" : ""} d'analyse enregistré{detail.comments > 1 ? "s" : ""}
+                    </span>
+                  </div>
+                ) : (
+                  <p style={{ margin: "0 0 16px", fontSize: 13, color: C.ink4 }}>
+                    Aucun commentaire pour cette alerte.
+                  </p>
+                )}
+                <p style={{ margin: "0 0 8px", fontSize: 12, fontWeight: 600, color: C.ink }}>
+                  Ajouter un commentaire
+                </p>
+                <textarea placeholder="Votre analyse, observations, décision de traitement…" rows={5} style={{
+                  width: "100%", padding: "12px 14px",
+                  border: `1px solid ${C.brd}`, borderRadius: 10, fontSize: 13,
+                  resize: "vertical", fontFamily: "inherit", color: C.ink, outline: "none",
+                  boxSizing: "border-box" as const, lineHeight: 1.6,
+                }} />
+                <div style={{ marginTop: 10, display: "flex", justifyContent: "flex-end", gap: 8 }}>
+                  <button style={{
+                    padding: "8px 18px", borderRadius: 8, border: `1px solid ${C.brd}`,
+                    background: "#fff", fontSize: 13, fontWeight: 500, color: C.ink3, cursor: "pointer",
+                  }}>Annuler</button>
+                  <button style={{
+                    padding: "8px 18px", borderRadius: 8, border: "none",
+                    background: C.acc, fontSize: 13, fontWeight: 600, color: "#fff", cursor: "pointer",
+                  }}>Enregistrer</button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
       <style>{`
-        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes modalIn {
+          from { opacity: 0; transform: scale(0.96) translateY(10px); }
+          to   { opacity: 1; transform: scale(1)    translateY(0);    }
+        }
       `}</style>
     </>
   );
