@@ -1705,36 +1705,12 @@ export default function HomePage() {
         aria-labelledby="about-title">
         <div className="pf2-section-pad" style={{ maxWidth: 1152, margin: "0 auto",
           display: "grid",
-          gridTemplateColumns: isMobile ? "1fr" : "260px 1fr",
-          gap: isMobile ? 40 : 64,
+          gridTemplateColumns: isMobile ? "1fr" : "1fr 240px",
+          gap: isMobile ? 40 : 72,
           alignItems: "flex-start" }}>
 
-          {/* ── Colonne gauche : emplacement photo ── */}
+          {/* ── Colonne gauche : bio + services ── */}
           <Reveal>
-            <div style={{
-              width: "100%",
-              aspectRatio: "3 / 4",
-              borderRadius: 20,
-              border: `2px dashed rgba(162,89,255,0.3)`,
-              background: `rgba(162,89,255,0.03)`,
-              display: "flex", flexDirection: "column",
-              alignItems: "center", justifyContent: "center", gap: 14,
-            }}>
-              {/* Silhouette personne */}
-              <svg width="52" height="60" viewBox="0 0 52 60" fill="none" aria-hidden="true">
-                <circle cx="26" cy="17" r="12" stroke="rgba(162,89,255,0.3)" strokeWidth="2" />
-                <path d="M4 56c0-12.15 9.85-22 22-22s22 9.85 22 22"
-                  stroke="rgba(162,89,255,0.3)" strokeWidth="2" strokeLinecap="round" />
-              </svg>
-              <p style={{ fontSize: 11, fontWeight: 500, color: INK3,
-                letterSpacing: "0.12em", textTransform: "uppercase", margin: 0 }}>
-                Photo · 3×4
-              </p>
-            </div>
-          </Reveal>
-
-          {/* ── Colonne droite : bio + services ── */}
-          <Reveal delay={80}>
             <SectionLabel>{UI.aboutLabel}</SectionLabel>
             <p style={{ fontSize: "clamp(28px,3.4vw,48px)", fontWeight: 300,
               letterSpacing: "var(--ls-title2)", color: INK, marginBottom: 14, lineHeight: 1.1 }}>
@@ -1762,11 +1738,11 @@ export default function HomePage() {
             </p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
               {[
-                { label: "Audit UX",             size: "lg" },
-                { label: "Redesign d'interface", size: "lg" },
-                { label: "Création sur mesure",  size: "lg" },
-                { label: "Design System",        size: "sm" },
-                { label: "Prototype Figma",      size: "sm" },
+                { label: "Audit UX",               size: "lg" },
+                { label: "Redesign d'interface",   size: "lg" },
+                { label: "Création sur mesure",    size: "lg" },
+                { label: "Design System",          size: "sm" },
+                { label: "Prototype Figma",        size: "sm" },
                 { label: "Accompagnement produit", size: "sm" },
               ].map(({ label, size }) => (
                 <span key={label} style={{
@@ -1776,15 +1752,37 @@ export default function HomePage() {
                   fontSize: size === "lg" ? 14 : 12,
                   fontWeight: size === "lg" ? 600 : 500,
                   color: BLUE,
-                  background: size === "lg"
-                    ? "rgba(162,89,255,0.09)"
-                    : "rgba(162,89,255,0.05)",
+                  background: size === "lg" ? "rgba(162,89,255,0.09)" : "rgba(162,89,255,0.05)",
                   border: `1px solid rgba(162,89,255,${size === "lg" ? "0.22" : "0.14"})`,
                   letterSpacing: "-0.01em",
                 }}>
                   {label}
                 </span>
               ))}
+            </div>
+          </Reveal>
+
+          {/* ── Colonne droite : photo ronde ── */}
+          <Reveal delay={120}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
+              <div style={{
+                width: 220, height: 220,
+                borderRadius: "50%",
+                border: "2px dashed rgba(162,89,255,0.3)",
+                background: "rgba(162,89,255,0.04)",
+                display: "flex", flexDirection: "column",
+                alignItems: "center", justifyContent: "center", gap: 12,
+              }}>
+                <svg width="48" height="52" viewBox="0 0 48 52" fill="none" aria-hidden="true">
+                  <circle cx="24" cy="15" r="10" stroke="rgba(162,89,255,0.35)" strokeWidth="2" />
+                  <path d="M4 50c0-11.046 8.954-20 20-20s20 8.954 20 20"
+                    stroke="rgba(162,89,255,0.35)" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+              </div>
+              <p style={{ fontSize: 11, fontWeight: 500, color: INK3,
+                letterSpacing: "0.1em", textTransform: "uppercase", margin: 0 }}>
+                Ta photo ici
+              </p>
             </div>
           </Reveal>
 
