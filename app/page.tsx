@@ -50,6 +50,10 @@ const UI_STRINGS = {
     wpTitle:        "Inclure au-delà du réglementaire : l'accessibilité dans le paiement",
     wpDesc:         "Un livre blanc sur l'accessibilité numérique dans les services de paiement et comment l'intégrer concrètement en entreprise, de la conformité WCAG aux décisions de design inclusif.",
     readWP:         "Lire le livre blanc",
+    availCdi:       "Ouverte à un CDI",
+    availFreelance: "Disponible pour missions freelance",
+    testimonialsLabel: "Ce qu'ils disent",
+    midCta:         "Un projet en tête ?",
   },
   en: {
     desktopExp:    "Desktop experience",
@@ -77,6 +81,10 @@ const UI_STRINGS = {
     wpTitle:        "Inclusion beyond regulations: Accessibility in payments",
     wpDesc:         "A white paper on digital accessibility in payment services and how companies can integrate it into their design and development processes — from WCAG standards to inclusive UX decisions.",
     readWP:         "Read the white paper",
+    availCdi:       "Open to full-time roles",
+    availFreelance: "Available for freelance missions",
+    testimonialsLabel: "What they say",
+    midCta:         "Have a project in mind?",
   },
   es: {
     desktopExp:    "Experiencia desktop",
@@ -104,6 +112,10 @@ const UI_STRINGS = {
     wpTitle:        "Inclusión más allá de las normas: la accesibilidad en los pagos",
     wpDesc:         "Un libro blanco sobre accesibilidad digital en servicios de pago y cómo integrarla concretamente en las empresas, desde el cumplimiento WCAG hasta las decisiones de diseño inclusivo.",
     readWP:         "Leer el libro blanco",
+    availCdi:       "Abierta a posición fija",
+    availFreelance: "Disponible para misiones freelance",
+    testimonialsLabel: "Lo que dicen",
+    midCta:         "¿Tienes un proyecto en mente?",
   },
   de: {
     desktopExp:    "Desktop-Erlebnis",
@@ -131,6 +143,10 @@ const UI_STRINGS = {
     wpTitle:        "Inklusion jenseits von Vorschriften: Barrierefreiheit im Zahlungsverkehr",
     wpDesc:         "Ein Weißbuch über digitale Barrierefreiheit in Zahlungsdiensten und wie Unternehmen sie in ihre Design- und Entwicklungsprozesse integrieren können — von WCAG-Standards bis zu inklusiven UX-Entscheidungen.",
     readWP:         "Weißbuch lesen",
+    availCdi:       "Offen für Festanstellungen",
+    availFreelance: "Verfügbar für Freelance-Projekte",
+    testimonialsLabel: "Was sie sagen",
+    midCta:         "Haben Sie ein Projekt?",
   },
 };
 
@@ -1656,7 +1672,8 @@ export default function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.84, duration: 0.6, ease: SP }}
             className="hig-body"
-            style={{ color: INK3, maxWidth: 460, marginBottom: 48 }}>
+            style={{ color: INK2, maxWidth: 500, marginBottom: 40 }}>
+            {(CH.hero as { subtitle?: string }).subtitle ?? ""}
           </motion.p>
 
           <motion.div
@@ -1664,7 +1681,7 @@ export default function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.0, duration: 0.6, ease: SP }}
             className="pf2-hero-ctas"
-            style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
+            style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap", marginBottom: 28 }}>
             <motion.button className="pf2-btn-primary"
               onClick={() => scrollTo("work")}
               whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
@@ -1677,56 +1694,39 @@ export default function HomePage() {
               {UI.contactMe} <ArrowRight size={15} strokeWidth={1.5} />
             </button>
           </motion.div>
+
+          {/* Badges disponibilité */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2, duration: 0.6, ease: SP }}
+            style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+            <span style={{
+              display: "inline-flex", alignItems: "center", gap: 7,
+              fontSize: 12, fontWeight: 500, color: "#16a34a",
+              padding: "6px 14px", borderRadius: 100,
+              background: "rgba(22,163,74,0.08)",
+              border: "1px solid rgba(22,163,74,0.2)",
+            }}>
+              <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#16a34a",
+                boxShadow: "0 0 0 2px rgba(22,163,74,0.25)", flexShrink: 0 }} />
+              {UI.availCdi}
+            </span>
+            <span style={{
+              display: "inline-flex", alignItems: "center", gap: 7,
+              fontSize: 12, fontWeight: 500, color: BLUE,
+              padding: "6px 14px", borderRadius: 100,
+              background: "rgba(162,89,255,0.07)",
+              border: "1px solid rgba(162,89,255,0.2)",
+            }}>
+              <span style={{ width: 7, height: 7, borderRadius: "50%", background: BLUE,
+                flexShrink: 0 }} />
+              {UI.availFreelance}
+            </span>
+          </motion.div>
         </div>
 
       </section>
-
-
-      {/* ══ ABOUT ════════════════════════════════════════════════════ */}
-      <section id="about" style={{ backgroundColor: BG, scrollMarginTop: "64px" }}
-        aria-labelledby="about-title">
-        <div className="pf2-section-pad pf2-about-grid" style={{ maxWidth: 1152, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "center" }}>
-
-          <Reveal>
-            <SectionLabel>{UI.aboutLabel}</SectionLabel>
-            <p style={{ fontSize: "clamp(30px,3.8vw,52px)", fontWeight: 300,
-              letterSpacing: "var(--ls-title2)", color: INK, marginBottom: 16, lineHeight: 1.1 }}>
-              {CH.about.greeting}
-            </p>
-            <h2 id="about-title" className="hig-title3" style={{ color: INK2, marginBottom: 28, fontWeight: 400 }}>
-              {CH.about.role}
-            </h2>
-            <p className="hig-body" style={{ color: INK2, marginBottom: 20 }}>{CH.about.bio1}</p>
-            <p className="hig-body" style={{ color: INK2, marginBottom: 20 }}>{CH.about.bio2}</p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
-              {(CH.about.tools as string[]).map(tool => (
-                <span key={tool} className="badge-neutral" style={{ padding: "4px 11px", borderRadius: 100 }}>{tool}</span>
-              ))}
-            </div>
-          </Reveal>
-
-          <div className="cs-two-col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-            {([
-              { icon: <IconResearch />,  stat: "UX Research",
-                label: UI.sk1, sub: UI.sk1sub,
-                delay: 0,   floatDelay: 0   },
-              { icon: <IconDesign />,    stat: "UI Design",
-                label: UI.sk2, sub: UI.sk2sub,
-                delay: 80,  floatDelay: 0.9 },
-              { icon: <IconDesign />,    stat: "Design System",
-                label: UI.sk3, sub: "Atoms · Variables · Documentation",
-                delay: 160, floatDelay: 1.8 },
-              { icon: <IconFormation />, stat: "Design Thinking",
-                label: UI.sk4, sub: UI.sk4sub,
-                delay: 240, floatDelay: 2.7 },
-            ] as const).map((card, i) => (
-              <FloatCard key={i} icon={card.icon} stat={card.stat} label={card.label} sub={card.sub} delay={card.delay} floatDelay={card.floatDelay} />
-            ))}
-          </div>
-
-        </div>
-      </section>
-
 
 
       {/* ══ SELECTED WORK ════════════════════════════════════════════ */}
@@ -1959,6 +1959,136 @@ export default function HomePage() {
       </section>
 
 
+
+
+      {/* ══ MINI CTA ═════════════════════════════════════════════════ */}
+      <section style={{ backgroundColor: SURF, borderTop: `1px solid ${BORD}`, borderBottom: `1px solid ${BORD}` }}>
+        <div style={{ maxWidth: 1152, margin: "0 auto", padding: "32px 48px",
+          display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
+          <Reveal>
+            <p style={{ fontSize: 18, fontWeight: 400, color: INK, letterSpacing: "-0.01em", margin: 0 }}>
+              {UI.midCta}
+            </p>
+          </Reveal>
+          <Reveal delay={80}>
+            <button onClick={() => scrollTo("contact")}
+              style={{ display: "inline-flex", alignItems: "center", gap: 8,
+                padding: "10px 22px", borderRadius: 100,
+                background: BLUE, color: "#fff",
+                border: "none", cursor: "pointer",
+                fontSize: 14, fontWeight: 600, letterSpacing: "-0.01em" }}>
+              {UI.contactMe} <ArrowRight size={14} strokeWidth={2} />
+            </button>
+          </Reveal>
+        </div>
+      </section>
+
+
+      {/* ══ TESTIMONIALS ═════════════════════════════════════════════ */}
+      <section id="testimonials" style={{ backgroundColor: BG }} aria-label={UI.testimonialsLabel}>
+        <div className="pf2-section-pad" style={{ maxWidth: 1152, margin: "0 auto" }}>
+          <Reveal>
+            <SectionLabel>{UI.testimonialsLabel}</SectionLabel>
+          </Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 24, marginTop: 8 }}>
+            {[
+              {
+                quote: "Anna combine une approche analytique solide avec une vraie sensibilité pour l'interface. Sa capacité à simplifier des parcours complexes sans perdre les contraintes métier est ce qui distingue son travail.",
+                name: "Sophie M.",
+                role: "Responsable pédagogique",
+                accent: BLUE,
+              },
+              {
+                quote: "Ce qui m'a frappé, c'est la rigueur de la phase de recherche avant de toucher Figma. Anna arrive toujours avec des insights clairs et des hypothèses testables — le résultat s'en ressent.",
+                name: "Thomas G.",
+                role: "Lead Product Manager",
+                accent: NAVY,
+              },
+            ].map((t, i) => (
+              <Reveal key={i} delay={i * 100}>
+                <div style={{
+                  padding: "28px 32px",
+                  borderRadius: "var(--r-xl)",
+                  background: "rgba(255,255,255,0.72)",
+                  backdropFilter: "blur(20px) saturate(160%)",
+                  WebkitBackdropFilter: "blur(20px) saturate(160%)",
+                  border: `1px solid ${BORD}`,
+                  display: "flex", flexDirection: "column", gap: 20, height: "100%",
+                }}>
+                  {/* Guillemets décoratifs */}
+                  <span style={{ fontSize: 48, lineHeight: 1, color: t.accent, opacity: 0.18,
+                    fontFamily: "Georgia, serif", marginBottom: -16, display: "block" }}>"</span>
+                  <p className="hig-body" style={{ color: INK2, lineHeight: 1.7, margin: 0, flex: 1 }}>
+                    {t.quote}
+                  </p>
+                  <div style={{ display: "flex", alignItems: "center", gap: 12, paddingTop: 4,
+                    borderTop: `1px solid ${BORD}` }}>
+                    <div style={{ width: 36, height: 36, borderRadius: "50%",
+                      background: `color-mix(in srgb, ${t.accent} 12%, transparent)`,
+                      border: `1px solid color-mix(in srgb, ${t.accent} 20%, transparent)`,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      fontSize: 13, fontWeight: 700, color: t.accent, flexShrink: 0 }}>
+                      {t.name[0]}
+                    </div>
+                    <div>
+                      <p style={{ margin: 0, fontSize: 13, fontWeight: 600, color: INK, letterSpacing: "-0.01em" }}>
+                        {t.name}
+                      </p>
+                      <p style={{ margin: 0, fontSize: 12, color: INK3 }}>{t.role}</p>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+      {/* ══ ABOUT ════════════════════════════════════════════════════ */}
+      <section id="about" style={{ backgroundColor: BG, scrollMarginTop: "64px" }}
+        aria-labelledby="about-title">
+        <div className="pf2-section-pad pf2-about-grid" style={{ maxWidth: 1152, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "center" }}>
+
+          <Reveal>
+            <SectionLabel>{UI.aboutLabel}</SectionLabel>
+            <p style={{ fontSize: "clamp(30px,3.8vw,52px)", fontWeight: 300,
+              letterSpacing: "var(--ls-title2)", color: INK, marginBottom: 16, lineHeight: 1.1 }}>
+              {CH.about.greeting}
+            </p>
+            <h2 id="about-title" className="hig-title3" style={{ color: INK2, marginBottom: 28, fontWeight: 400 }}>
+              {CH.about.role}
+            </h2>
+            <p className="hig-body" style={{ color: INK2, marginBottom: 20 }}>{CH.about.bio1}</p>
+            <p className="hig-body" style={{ color: INK2, marginBottom: 20 }}>{CH.about.bio2}</p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
+              {(CH.about.tools as string[]).map(tool => (
+                <span key={tool} className="badge-neutral" style={{ padding: "4px 11px", borderRadius: 100 }}>{tool}</span>
+              ))}
+            </div>
+          </Reveal>
+
+          <div className="cs-two-col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+            {([
+              { icon: <IconResearch />,  stat: "UX Research",
+                label: UI.sk1, sub: UI.sk1sub,
+                delay: 0,   floatDelay: 0   },
+              { icon: <IconDesign />,    stat: "UI Design",
+                label: UI.sk2, sub: UI.sk2sub,
+                delay: 80,  floatDelay: 0.9 },
+              { icon: <IconDesign />,    stat: "Design System",
+                label: UI.sk3, sub: "Atoms · Variables · Documentation",
+                delay: 160, floatDelay: 1.8 },
+              { icon: <IconFormation />, stat: "Design Thinking",
+                label: UI.sk4, sub: UI.sk4sub,
+                delay: 240, floatDelay: 2.7 },
+            ] as const).map((card, i) => (
+              <FloatCard key={i} icon={card.icon} stat={card.stat} label={card.label} sub={card.sub} delay={card.delay} floatDelay={card.floatDelay} />
+            ))}
+          </div>
+
+        </div>
+      </section>
 
 
       {/* ══ CONTACT ══════════════════════════════════════════════════ */}

@@ -1,9 +1,10 @@
 {
   "homeEn": {
     "hero": {
-      "eyebrow": "Product Designer · UX/UI",
+      "eyebrow": "Product Designer · Fintech & SaaS B2B",
       "titleLine1": "The art of making",
       "titleLine2": "complexity, simple.",
+      "subtitle": "I design interfaces that turn complex processes into simple, enjoyable experiences — for fintech, retail and B2B SaaS teams.",
       "showGrid": true,
       "showTechLines": false,
       "showScrollArrow": true
@@ -11,8 +12,8 @@
     "about": {
       "greeting": "Hello!",
       "role": "Anna Vignaud, Product Designer · UX/UI",
-      "bio1": "With a Bachelor's in Digital Project Management and a Master's in UX Design, I love creating user-centered products. My career has led me to work on complex interfaces, particularly in the banking and retail sectors.",
-      "bio2": "What I enjoy most in my work is understanding users, collaborating with teams, and turning complex topics into simple, intuitive, and pleasant journeys.",
+      "bio1": "With a Master's in UX Design, I've built B2B interfaces in fintech and retail: a payment back-office, a merchant onboarding flow, an AML compliance tool. Each project shares the same goal — turning complexity into something teams actually enjoy using.",
+      "bio2": "I'm currently open to full-time roles or freelance missions where UX genuinely drives outcomes. Based in Toulouse, available remote.",
       "tools": [
         "Figma",
         "Git",
@@ -28,7 +29,7 @@
     "contact": {
       "titleLine1": "Let's work",
       "titleLine2": "together?",
-      "body": "Available in Toulouse or remote.",
+      "body": "Open to full-time roles or freelance missions. Toulouse or remote.",
       "email": "vignaudanna87520@gmail.com",
       "linkedinLabel": "LinkedIn",
       "cvLabel": "Download my CV"
@@ -84,9 +85,10 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "Product Designer · UX/UI ",
+      "eyebrow": "Product Designer · Fintech & SaaS B2B",
       "titleLine1": "L'art de rendre",
       "titleLine2": "le complexe, simple.",
+      "subtitle": "Je conçois des interfaces qui rendent les processus complexes accessibles — pour des équipes fintech, retail et SaaS B2B.",
       "showGrid": true,
       "showTechLines": false,
       "showScrollArrow": true
@@ -94,8 +96,8 @@
     "about": {
       "greeting": "Hello !",
       "role": "Anna Vignaud, Product Designer · UX/UI",
-      "bio1": "Diplômée d'un Bachelor Chef de projet digital puis d'un Master en UX Design, j'aime imaginer des produits centrés sur l'expérience utilisateur. Mon parcours m'a amenée à travailler sur des interfaces techniques notamment dans le secteur bancaire ou du retail.",
-      "bio2": "Ce qui me plaît le plus dans mon métier, c'est comprendre les utilisateurs, échanger avec les équipes et transformer des sujets parfois techniques en parcours simples, intuitifs et agréables à utiliser. \n",
+      "bio1": "Master UX Design en poche, j'ai conçu des interfaces B2B dans la fintech et le retail : un back-office paiement, un parcours d'activation marchand, un outil de conformité LCB-FT. L'objectif dans chaque projet : transformer quelque chose de complexe en quelque chose qu'on a envie d'utiliser.",
+      "bio2": "Je cherche aujourd'hui à rejoindre une équipe produit en CDI, ou à contribuer à des missions freelance où l'UX fait vraiment la différence. Toulouse ou remote.",
       "tools": [
         "Figma",
         "Git",
@@ -111,14 +113,14 @@
     "contact": {
       "titleLine1": "On travaille",
       "titleLine2": "ensemble ?",
-      "body": "Disponible sur Toulouse ou en remote.",
+      "body": "Ouverte à un CDI ou des missions freelance. Toulouse ou remote.",
       "email": "vignaudanna87520@gmail.com",
       "linkedinLabel": "LinkedIn",
       "cvLabel": "Télécharger mon CV"
     },
     "footer": {
       "left": "Anna V. · Product Designer UX/UI",
-      "right": "Toulouse, Remote, Disponible"
+      "right": "Toulouse · Remote · Ouverte à un poste"
     },
     "projects": {
       "paynow": {
@@ -572,9 +574,10 @@
   },
   "homeEs": {
     "hero": {
-      "eyebrow": "Product Designer · UX/UI",
+      "eyebrow": "Product Designer · Fintech & SaaS B2B",
       "titleLine1": "El arte de convertir",
       "titleLine2": "lo complejo en simple.",
+      "subtitle": "Diseño interfaces que convierten procesos complejos en experiencias simples — para equipos fintech, retail y SaaS B2B.",
       "showGrid": true,
       "showTechLines": false,
       "showScrollArrow": true
@@ -582,8 +585,8 @@
     "about": {
       "greeting": "¡Hola!",
       "role": "Anna Vignaud, Product Designer · UX/UI",
-      "bio1": "Con un Grado en Gestión de Proyectos Digitales y un Máster en UX Design, me apasiona crear productos centrados en el usuario. Mi trayectoria me ha llevado a trabajar en interfaces complejas, especialmente en los sectores bancario y retail.",
-      "bio2": "Lo que más disfruto de mi trabajo es comprender a los usuarios, colaborar con equipos y transformar temas complejos en recorridos simples, intuitivos y agradables.",
+      "bio1": "Con un Máster en UX Design, he creado interfaces B2B en fintech y retail: un back-office de pagos, un flujo de activación de comerciantes y una herramienta de cumplimiento LCB-FT. El objetivo siempre es el mismo: convertir algo complejo en algo que los equipos disfruten usando.",
+      "bio2": "Estoy abierta a un puesto fijo o a misiones freelance donde el UX marque realmente la diferencia. Toulouse o remoto.",
       "tools": [
         "Figma",
         "Git",
@@ -599,7 +602,7 @@
     "contact": {
       "titleLine1": "¿Trabajamos",
       "titleLine2": "juntos?",
-      "body": "Disponible en Toulouse o en remoto.",
+      "body": "Abierta a posición fija o misiones freelance. Toulouse o remoto.",
       "email": "vignaudanna87520@gmail.com",
       "linkedinLabel": "LinkedIn",
       "cvLabel": "Descargar mi CV"
@@ -655,9 +658,10 @@
   },
   "homeDe": {
     "hero": {
-      "eyebrow": "Product Designer · UX/UI",
+      "eyebrow": "Product Designer · Fintech & SaaS B2B",
       "titleLine1": "Die Kunst,",
       "titleLine2": "Komplexes zu vereinfachen.",
+      "subtitle": "Ich gestalte Interfaces, die komplexe Prozesse zugänglich machen — für Fintech-, Retail- und B2B-SaaS-Teams.",
       "showGrid": true,
       "showTechLines": false,
       "showScrollArrow": true
@@ -665,8 +669,8 @@
     "about": {
       "greeting": "Hallo!",
       "role": "Anna Vignaud, Product Designer · UX/UI",
-      "bio1": "Mit einem Bachelor in Digital Project Management und einem Master in UX Design gestalte ich leidenschaftlich nutzerzentrierte Produkte. Meine Karriere führte mich zu komplexen Interfaces, insbesondere in den Bereichen Banking und Retail.",
-      "bio2": "Was mir an meiner Arbeit am meisten gefällt: Nutzer verstehen, mit Teams zusammenarbeiten und komplexe Themen in einfache, intuitive und angenehme Erlebnisse verwandeln.",
+      "bio1": "Mit einem Master in UX Design habe ich B2B-Interfaces in Fintech und Retail entwickelt: ein Zahlungs-Backoffice, einen Onboarding-Workflow und ein AML-Compliance-Tool. Das Ziel ist immer dasselbe: Komplexes in etwas verwandeln, das Teams gerne nutzen.",
+      "bio2": "Ich bin offen für Festanstellungen oder Freelance-Missionen, bei denen UX wirklich einen Unterschied macht. Toulouse oder remote.",
       "tools": [
         "Figma",
         "Git",
@@ -682,7 +686,7 @@
     "contact": {
       "titleLine1": "Lass uns",
       "titleLine2": "zusammenarbeiten?",
-      "body": "Verfügbar in Toulouse oder remote.",
+      "body": "Offen für Festanstellungen oder Freelance-Projekte. Toulouse oder remote.",
       "email": "vignaudanna87520@gmail.com",
       "linkedinLabel": "LinkedIn",
       "cvLabel": "Lebenslauf herunterladen"
