@@ -1703,44 +1703,90 @@ export default function HomePage() {
       {/* ══ ABOUT ════════════════════════════════════════════════════ */}
       <section id="about" style={{ backgroundColor: BG, scrollMarginTop: "64px" }}
         aria-labelledby="about-title">
-        <div className="pf2-section-pad pf2-about-grid" style={{ maxWidth: 1152, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "center" }}>
+        <div className="pf2-section-pad" style={{ maxWidth: 1152, margin: "0 auto",
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "260px 1fr",
+          gap: isMobile ? 40 : 64,
+          alignItems: "flex-start" }}>
 
+          {/* ── Colonne gauche : emplacement photo ── */}
           <Reveal>
-            <SectionLabel>{UI.aboutLabel}</SectionLabel>
-            <p style={{ fontSize: "clamp(30px,3.8vw,52px)", fontWeight: 300,
-              letterSpacing: "var(--ls-title2)", color: INK, marginBottom: 16, lineHeight: 1.1 }}>
-              {CH.about.greeting}
-            </p>
-            <h2 id="about-title" className="hig-title3" style={{ color: INK2, marginBottom: 28, fontWeight: 400 }}>
-              {CH.about.role}
-            </h2>
-            <p className="hig-body" style={{ color: INK2, marginBottom: 20 }}>{CH.about.bio1}</p>
-            <p className="hig-body" style={{ color: INK2, marginBottom: 20 }}>{CH.about.bio2}</p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
-              {(CH.about.tools as string[]).map(tool => (
-                <span key={tool} className="badge-neutral" style={{ padding: "4px 11px", borderRadius: 100 }}>{tool}</span>
-              ))}
+            <div style={{
+              width: "100%",
+              aspectRatio: "3 / 4",
+              borderRadius: 20,
+              border: `2px dashed rgba(162,89,255,0.3)`,
+              background: `rgba(162,89,255,0.03)`,
+              display: "flex", flexDirection: "column",
+              alignItems: "center", justifyContent: "center", gap: 14,
+            }}>
+              {/* Silhouette personne */}
+              <svg width="52" height="60" viewBox="0 0 52 60" fill="none" aria-hidden="true">
+                <circle cx="26" cy="17" r="12" stroke="rgba(162,89,255,0.3)" strokeWidth="2" />
+                <path d="M4 56c0-12.15 9.85-22 22-22s22 9.85 22 22"
+                  stroke="rgba(162,89,255,0.3)" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+              <p style={{ fontSize: 11, fontWeight: 500, color: INK3,
+                letterSpacing: "0.12em", textTransform: "uppercase", margin: 0 }}>
+                Photo · 3×4
+              </p>
             </div>
           </Reveal>
 
-          <div className="cs-two-col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-            {([
-              { icon: <IconResearch />,  stat: "UX Research",
-                label: UI.sk1, sub: UI.sk1sub,
-                delay: 0,   floatDelay: 0   },
-              { icon: <IconDesign />,    stat: "UI Design",
-                label: UI.sk2, sub: UI.sk2sub,
-                delay: 80,  floatDelay: 0.9 },
-              { icon: <IconDesign />,    stat: "Design System",
-                label: UI.sk3, sub: "Atoms · Variables · Documentation",
-                delay: 160, floatDelay: 1.8 },
-              { icon: <IconFormation />, stat: "Design Thinking",
-                label: UI.sk4, sub: UI.sk4sub,
-                delay: 240, floatDelay: 2.7 },
-            ] as const).map((card, i) => (
-              <FloatCard key={i} icon={card.icon} stat={card.stat} label={card.label} sub={card.sub} delay={card.delay} floatDelay={card.floatDelay} />
-            ))}
-          </div>
+          {/* ── Colonne droite : bio + services ── */}
+          <Reveal delay={80}>
+            <SectionLabel>{UI.aboutLabel}</SectionLabel>
+            <p style={{ fontSize: "clamp(28px,3.4vw,48px)", fontWeight: 300,
+              letterSpacing: "var(--ls-title2)", color: INK, marginBottom: 14, lineHeight: 1.1 }}>
+              {CH.about.greeting}
+            </p>
+            <h2 id="about-title" className="hig-title3"
+              style={{ color: INK2, marginBottom: 24, fontWeight: 400 }}>
+              {CH.about.role}
+            </h2>
+            <p className="hig-body" style={{ color: INK2, marginBottom: 16 }}>{CH.about.bio1}</p>
+            <p className="hig-body" style={{ color: INK2, marginBottom: 24 }}>{CH.about.bio2}</p>
+
+            {/* Outils */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 7, marginBottom: 36 }}>
+              {(CH.about.tools as string[]).map(tool => (
+                <span key={tool} className="badge-neutral"
+                  style={{ padding: "4px 11px", borderRadius: 100 }}>{tool}</span>
+              ))}
+            </div>
+
+            {/* ── Bulles de services freelance ── */}
+            <p className="hig-caption2" style={{ fontWeight: 600, letterSpacing: "0.14em",
+              textTransform: "uppercase", color: BLUE, marginBottom: 16 }}>
+              Ce que je propose
+            </p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+              {[
+                { label: "Audit UX",             size: "lg" },
+                { label: "Redesign d'interface", size: "lg" },
+                { label: "Création sur mesure",  size: "lg" },
+                { label: "Design System",        size: "sm" },
+                { label: "Prototype Figma",      size: "sm" },
+                { label: "Accompagnement produit", size: "sm" },
+              ].map(({ label, size }) => (
+                <span key={label} style={{
+                  display: "inline-flex", alignItems: "center",
+                  padding: size === "lg" ? "10px 20px" : "7px 16px",
+                  borderRadius: 100,
+                  fontSize: size === "lg" ? 14 : 12,
+                  fontWeight: size === "lg" ? 600 : 500,
+                  color: BLUE,
+                  background: size === "lg"
+                    ? "rgba(162,89,255,0.09)"
+                    : "rgba(162,89,255,0.05)",
+                  border: `1px solid rgba(162,89,255,${size === "lg" ? "0.22" : "0.14"})`,
+                  letterSpacing: "-0.01em",
+                }}>
+                  {label}
+                </span>
+              ))}
+            </div>
+          </Reveal>
 
         </div>
       </section>
