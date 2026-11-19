@@ -1695,37 +1695,54 @@ export default function HomePage() {
             </button>
           </motion.div>
 
-          {/* Badges disponibilité */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2, duration: 0.6, ease: SP }}
-            style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-            <span style={{
-              display: "inline-flex", alignItems: "center", gap: 7,
-              fontSize: 12, fontWeight: 500, color: "#16a34a",
-              padding: "6px 14px", borderRadius: 100,
-              background: "rgba(22,163,74,0.08)",
-              border: "1px solid rgba(22,163,74,0.2)",
-            }}>
-              <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#16a34a",
-                boxShadow: "0 0 0 2px rgba(22,163,74,0.25)", flexShrink: 0 }} />
-              {UI.availCdi}
-            </span>
-            <span style={{
-              display: "inline-flex", alignItems: "center", gap: 7,
-              fontSize: 12, fontWeight: 500, color: BLUE,
-              padding: "6px 14px", borderRadius: 100,
-              background: "rgba(162,89,255,0.07)",
-              border: "1px solid rgba(162,89,255,0.2)",
-            }}>
-              <span style={{ width: 7, height: 7, borderRadius: "50%", background: BLUE,
-                flexShrink: 0 }} />
-              {UI.availFreelance}
-            </span>
-          </motion.div>
         </div>
 
+      </section>
+
+
+      {/* ══ ABOUT ════════════════════════════════════════════════════ */}
+      <section id="about" style={{ backgroundColor: BG, scrollMarginTop: "64px" }}
+        aria-labelledby="about-title">
+        <div className="pf2-section-pad pf2-about-grid" style={{ maxWidth: 1152, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "center" }}>
+
+          <Reveal>
+            <SectionLabel>{UI.aboutLabel}</SectionLabel>
+            <p style={{ fontSize: "clamp(30px,3.8vw,52px)", fontWeight: 300,
+              letterSpacing: "var(--ls-title2)", color: INK, marginBottom: 16, lineHeight: 1.1 }}>
+              {CH.about.greeting}
+            </p>
+            <h2 id="about-title" className="hig-title3" style={{ color: INK2, marginBottom: 28, fontWeight: 400 }}>
+              {CH.about.role}
+            </h2>
+            <p className="hig-body" style={{ color: INK2, marginBottom: 20 }}>{CH.about.bio1}</p>
+            <p className="hig-body" style={{ color: INK2, marginBottom: 20 }}>{CH.about.bio2}</p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
+              {(CH.about.tools as string[]).map(tool => (
+                <span key={tool} className="badge-neutral" style={{ padding: "4px 11px", borderRadius: 100 }}>{tool}</span>
+              ))}
+            </div>
+          </Reveal>
+
+          <div className="cs-two-col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+            {([
+              { icon: <IconResearch />,  stat: "UX Research",
+                label: UI.sk1, sub: UI.sk1sub,
+                delay: 0,   floatDelay: 0   },
+              { icon: <IconDesign />,    stat: "UI Design",
+                label: UI.sk2, sub: UI.sk2sub,
+                delay: 80,  floatDelay: 0.9 },
+              { icon: <IconDesign />,    stat: "Design System",
+                label: UI.sk3, sub: "Atoms · Variables · Documentation",
+                delay: 160, floatDelay: 1.8 },
+              { icon: <IconFormation />, stat: "Design Thinking",
+                label: UI.sk4, sub: UI.sk4sub,
+                delay: 240, floatDelay: 2.7 },
+            ] as const).map((card, i) => (
+              <FloatCard key={i} icon={card.icon} stat={card.stat} label={card.label} sub={card.sub} delay={card.delay} floatDelay={card.floatDelay} />
+            ))}
+          </div>
+
+        </div>
       </section>
 
 
@@ -1980,113 +1997,6 @@ export default function HomePage() {
               {UI.contactMe} <ArrowRight size={14} strokeWidth={2} />
             </button>
           </Reveal>
-        </div>
-      </section>
-
-
-      {/* ══ TESTIMONIALS ═════════════════════════════════════════════ */}
-      <section id="testimonials" style={{ backgroundColor: BG }} aria-label={UI.testimonialsLabel}>
-        <div className="pf2-section-pad" style={{ maxWidth: 1152, margin: "0 auto" }}>
-          <Reveal>
-            <SectionLabel>{UI.testimonialsLabel}</SectionLabel>
-          </Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 24, marginTop: 8 }}>
-            {[
-              {
-                quote: "Anna combine une approche analytique solide avec une vraie sensibilité pour l'interface. Sa capacité à simplifier des parcours complexes sans perdre les contraintes métier est ce qui distingue son travail.",
-                name: "Sophie M.",
-                role: "Responsable pédagogique",
-                accent: BLUE,
-              },
-              {
-                quote: "Ce qui m'a frappé, c'est la rigueur de la phase de recherche avant de toucher Figma. Anna arrive toujours avec des insights clairs et des hypothèses testables — le résultat s'en ressent.",
-                name: "Thomas G.",
-                role: "Lead Product Manager",
-                accent: NAVY,
-              },
-            ].map((t, i) => (
-              <Reveal key={i} delay={i * 100}>
-                <div style={{
-                  padding: "28px 32px",
-                  borderRadius: "var(--r-xl)",
-                  background: "rgba(255,255,255,0.72)",
-                  backdropFilter: "blur(20px) saturate(160%)",
-                  WebkitBackdropFilter: "blur(20px) saturate(160%)",
-                  border: `1px solid ${BORD}`,
-                  display: "flex", flexDirection: "column", gap: 20, height: "100%",
-                }}>
-                  {/* Guillemets décoratifs */}
-                  <span style={{ fontSize: 48, lineHeight: 1, color: t.accent, opacity: 0.18,
-                    fontFamily: "Georgia, serif", marginBottom: -16, display: "block" }}>"</span>
-                  <p className="hig-body" style={{ color: INK2, lineHeight: 1.7, margin: 0, flex: 1 }}>
-                    {t.quote}
-                  </p>
-                  <div style={{ display: "flex", alignItems: "center", gap: 12, paddingTop: 4,
-                    borderTop: `1px solid ${BORD}` }}>
-                    <div style={{ width: 36, height: 36, borderRadius: "50%",
-                      background: `color-mix(in srgb, ${t.accent} 12%, transparent)`,
-                      border: `1px solid color-mix(in srgb, ${t.accent} 20%, transparent)`,
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                      fontSize: 13, fontWeight: 700, color: t.accent, flexShrink: 0 }}>
-                      {t.name[0]}
-                    </div>
-                    <div>
-                      <p style={{ margin: 0, fontSize: 13, fontWeight: 600, color: INK, letterSpacing: "-0.01em" }}>
-                        {t.name}
-                      </p>
-                      <p style={{ margin: 0, fontSize: 12, color: INK3 }}>{t.role}</p>
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-
-      {/* ══ ABOUT ════════════════════════════════════════════════════ */}
-      <section id="about" style={{ backgroundColor: BG, scrollMarginTop: "64px" }}
-        aria-labelledby="about-title">
-        <div className="pf2-section-pad pf2-about-grid" style={{ maxWidth: 1152, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "center" }}>
-
-          <Reveal>
-            <SectionLabel>{UI.aboutLabel}</SectionLabel>
-            <p style={{ fontSize: "clamp(30px,3.8vw,52px)", fontWeight: 300,
-              letterSpacing: "var(--ls-title2)", color: INK, marginBottom: 16, lineHeight: 1.1 }}>
-              {CH.about.greeting}
-            </p>
-            <h2 id="about-title" className="hig-title3" style={{ color: INK2, marginBottom: 28, fontWeight: 400 }}>
-              {CH.about.role}
-            </h2>
-            <p className="hig-body" style={{ color: INK2, marginBottom: 20 }}>{CH.about.bio1}</p>
-            <p className="hig-body" style={{ color: INK2, marginBottom: 20 }}>{CH.about.bio2}</p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
-              {(CH.about.tools as string[]).map(tool => (
-                <span key={tool} className="badge-neutral" style={{ padding: "4px 11px", borderRadius: 100 }}>{tool}</span>
-              ))}
-            </div>
-          </Reveal>
-
-          <div className="cs-two-col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-            {([
-              { icon: <IconResearch />,  stat: "UX Research",
-                label: UI.sk1, sub: UI.sk1sub,
-                delay: 0,   floatDelay: 0   },
-              { icon: <IconDesign />,    stat: "UI Design",
-                label: UI.sk2, sub: UI.sk2sub,
-                delay: 80,  floatDelay: 0.9 },
-              { icon: <IconDesign />,    stat: "Design System",
-                label: UI.sk3, sub: "Atoms · Variables · Documentation",
-                delay: 160, floatDelay: 1.8 },
-              { icon: <IconFormation />, stat: "Design Thinking",
-                label: UI.sk4, sub: UI.sk4sub,
-                delay: 240, floatDelay: 2.7 },
-            ] as const).map((card, i) => (
-              <FloatCard key={i} icon={card.icon} stat={card.stat} label={card.label} sub={card.sub} delay={card.delay} floatDelay={card.floatDelay} />
-            ))}
-          </div>
-
         </div>
       </section>
 
