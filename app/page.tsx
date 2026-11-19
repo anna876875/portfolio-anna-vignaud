@@ -1130,7 +1130,7 @@ function ProjectWindow({
       {/* Footer */}
       <div style={{ padding: "14px 16px 16px", borderTop: `1px solid ${BORD}`, display: "flex", flexDirection: "column", gap: 12 }}>
         <div style={{ minWidth: 0 }}>
-          <span style={{ fontSize: 11, fontWeight: 700, color: BLUE, textTransform: "uppercase", letterSpacing: "0.06em" }}>
+          <span style={{ fontSize: 11, fontWeight: 700, color: color, textTransform: "uppercase", letterSpacing: "0.06em" }}>
             {num}
           </span>
           <p style={{ fontSize: 13, fontWeight: 600, color: INK, margin: "2px 0 0",
@@ -1143,7 +1143,7 @@ function ProjectWindow({
             <Link href={href} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
               style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
                 padding: "9px 14px", borderRadius: 10, fontSize: 13, fontWeight: 600,
-                background: BLUE, color: "#fff",
+                background: color, color: "#fff",
                 textDecoration: "none", whiteSpace: "nowrap" }}>
               {UI_STRINGS[lang].caseStudy} <ArrowUpRight size={13} strokeWidth={2} />
             </Link>
@@ -1152,8 +1152,8 @@ function ProjectWindow({
             <Link href={siteHref} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
               style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
                 padding: "9px 14px", borderRadius: 10, fontSize: 13, fontWeight: 600,
-                background: "rgba(162,89,255,0.08)",
-                color: BLUE, border: "1px solid rgba(162,89,255,0.22)",
+                background: `color-mix(in srgb, ${color} 10%, transparent)`,
+                color, border: `1px solid color-mix(in srgb, ${color} 25%, transparent)`,
                 textDecoration: "none", whiteSpace: "nowrap" }}>
               {UI_STRINGS[lang].viewDemo} <ArrowUpRight size={13} strokeWidth={2} />
             </Link>
@@ -1705,9 +1705,9 @@ export default function HomePage() {
         aria-labelledby="about-title">
         <div className="pf2-section-pad" style={{ maxWidth: 1152, margin: "0 auto",
           display: "grid",
-          gridTemplateColumns: isMobile ? "1fr" : "1fr 240px",
+          gridTemplateColumns: isMobile ? "1fr" : "1fr 280px",
           gap: isMobile ? 40 : 72,
-          alignItems: "flex-start" }}>
+          alignItems: "center" }}>
 
           {/* ── Colonne gauche : bio + services ── */}
           <Reveal>
@@ -1766,7 +1766,7 @@ export default function HomePage() {
           <Reveal delay={120}>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
               <div style={{
-                width: 220, height: 220,
+                width: 260, height: 260,
                 borderRadius: "50%",
                 border: "2px dashed rgba(162,89,255,0.3)",
                 background: "rgba(162,89,255,0.04)",
