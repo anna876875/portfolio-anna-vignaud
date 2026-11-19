@@ -1084,8 +1084,8 @@ interface ProjectData {
 }
 
 function ProjectWindow({
-  num, title, color, accentBg, visual, tags,
-  href, siteHref, desktopOnly,
+  num, label, title, desc, color, accentBg, visual, tags,
+  href, desktopOnly,
   delay = 0, isMobile = false,
 }: ProjectData & { delay?: number; isMobile?: boolean }) {
   const { lang } = useLang();
@@ -1096,7 +1096,7 @@ function ProjectWindow({
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay, ease: SP }}
-      whileHover={{ y: -4, boxShadow: "0 16px 40px rgba(0,0,0,0.12)" }}
+      whileHover={{ y: -4, boxShadow: `0 16px 40px rgba(0,0,0,0.10)` }}
       style={{
         display: "flex", flexDirection: "column",
         borderRadius: 16,
@@ -1106,6 +1106,9 @@ function ProjectWindow({
         boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
       }}
     >
+      {/* Accent bar */}
+      <div style={{ height: 3, background: color, flexShrink: 0 }} />
+
       {/* Thumbnail */}
       <div style={{ position: "relative" }}>
         <VisualArea accentBg={accentBg} visual={visual} />
@@ -1128,46 +1131,73 @@ function ProjectWindow({
       </div>
 
       {/* Footer */}
-      <div style={{ padding: "14px 16px 16px", borderTop: `1px solid ${BORD}`, display: "flex", flexDirection: "column", gap: 12 }}>
-        <div style={{ minWidth: 0 }}>
-          <span style={{ fontSize: 11, fontWeight: 700, color: color, textTransform: "uppercase", letterSpacing: "0.06em" }}>
+      <div style={{ padding: "16px 18px 18px", borderTop: `1px solid ${BORD}`, display: "flex", flexDirection: "column", gap: 14, flex: 1 }}>
+
+        {/* Meta: num + label */}
+        <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
+          <span style={{ fontSize: 11, fontWeight: 700, color, textTransform: "uppercase", letterSpacing: "0.07em", flexShrink: 0 }}>
             {num}
           </span>
-          <p style={{ fontSize: 13, fontWeight: 600, color: INK, margin: "2px 0 0",
-            overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", letterSpacing: "-0.01em" }}>
-            {title}
-          </p>
+          <span style={{ fontSize: 11, color: INK3, letterSpacing: "-0.01em",
+            overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+            {label}
+          </span>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+
+        {/* Title */}
+        <p style={{ fontSize: 15, fontWeight: 600, color: INK, margin: 0,
+          letterSpacing: "-0.02em", lineHeight: 1.3,
+          display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical",
+          overflow: "hidden" }}>
+          {title}
+        </p>
+
+        {/* Description */}
+        {desc && (
+          <p style={{ fontSize: 13, color: INK3, margin: 0, lineHeight: 1.55,
+            display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical",
+            overflow: "hidden" }}>
+            {desc}
+          </p>
+        )}
+
+        {/* Tags */}
+        {tags && tags.length > 0 && (
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            {tags.slice(0, 4).map((tag) => (
+              <span key={tag} style={{
+                fontSize: 11, fontWeight: 500, color: INK3,
+                padding: "3px 9px", borderRadius: 100,
+                border: `1px solid ${BORD}`,
+                background: SURF,
+                whiteSpace: "nowrap",
+              }}>{tag}</span>
+            ))}
+          </div>
+        )}
+
+        {/* CTA */}
+        <div style={{ marginTop: "auto", paddingTop: 4 }}>
           {href && !isExternal && (
             <Link href={href} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
               style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
-                padding: "9px 14px", borderRadius: 10, fontSize: 13, fontWeight: 600,
+                padding: "10px 16px", borderRadius: 10, fontSize: 13, fontWeight: 600,
                 background: color, color: "#fff",
-                textDecoration: "none", whiteSpace: "nowrap" }}>
+                textDecoration: "none" }}>
               {UI_STRINGS[lang].caseStudy} <ArrowUpRight size={13} strokeWidth={2} />
-            </Link>
-          )}
-          {siteHref && (
-            <Link href={siteHref} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
-              style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
-                padding: "9px 14px", borderRadius: 10, fontSize: 13, fontWeight: 600,
-                background: `color-mix(in srgb, ${color} 10%, transparent)`,
-                color, border: `1px solid color-mix(in srgb, ${color} 25%, transparent)`,
-                textDecoration: "none", whiteSpace: "nowrap" }}>
-              {UI_STRINGS[lang].viewDemo} <ArrowUpRight size={13} strokeWidth={2} />
             </Link>
           )}
           {href && isExternal && (
             <a href={href} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
               style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
-                padding: "9px 14px", borderRadius: 10, fontSize: 13, fontWeight: 600,
-                background: BLUE, color: "#fff",
-                textDecoration: "none", whiteSpace: "nowrap" }}>
+                padding: "10px 16px", borderRadius: 10, fontSize: 13, fontWeight: 600,
+                background: color, color: "#fff",
+                textDecoration: "none" }}>
               {UI_STRINGS[lang].visitSite} <ArrowUpRight size={13} strokeWidth={2} />
             </a>
           )}
         </div>
+
       </div>
     </motion.article>
   );
