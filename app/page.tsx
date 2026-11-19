@@ -1106,9 +1106,6 @@ function ProjectWindow({
         boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
       }}
     >
-      {/* Accent bar */}
-      <div style={{ height: 3, background: color, flexShrink: 0 }} />
-
       {/* Thumbnail */}
       <div style={{ position: "relative" }}>
         <VisualArea accentBg={accentBg} visual={visual} />
