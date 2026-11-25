@@ -190,14 +190,21 @@ function Scene({ drag, labelRefs }: {
   drag: { current: Drag };
   labelRefs: { current: (HTMLDivElement | null)[] };
 }) {
-  const { camera, size } = useThree();
+  const { camera, size, gl } = useThree();
 
   // Chargement des vraies captures d'écran depuis /public
   const textures = useMemo(() => {
     const loader = new THREE.TextureLoader();
+    const maxAniso = gl.capabilities.getMaxAnisotropy();
     const load = (url: string) => {
       const t = loader.load(url);
-      t.colorSpace = THREE.SRGBColorSpace;
+      t.colorSpace    = THREE.SRGBColorSpace;
+      // Textures non-POT : désactiver les mipmaps pour éviter le flou
+      t.minFilter     = THREE.LinearFilter;
+      t.magFilter     = THREE.LinearFilter;
+      t.generateMipmaps = false;
+      // Anisotropie max → netteté lors des rotations coverflow
+      t.anisotropy    = maxAniso;
       return t;
     };
     return {
@@ -205,7 +212,7 @@ function Scene({ drag, labelRefs }: {
       t1: load("/figma/project-1.png"),             // 1606×904 → Mac14 16:9
       t2: load("/revision/profile.png"),            // 390×844  → iPhone portrait ✓
     };
-  }, []);
+  }, [gl]);
 
   useEffect(() => () => {
     textures.t0.dispose();
@@ -422,8 +429,8 @@ export function ProjectGallery3D({ projects = [] }: { projects?: ProjectItem[] }
         camera={{ fov: 34, position: [0, 0, 7.5] as [number, number, number], near: 0.1, far: 100 }}
         gl={{ antialias: true, powerPreference: "high-performance" }}
         onCreated={({ gl }) => {
-          gl.toneMapping = THREE.ACESFilmicToneMapping;
-          gl.toneMappingExposure = 1.0;
+          // NoToneMapping : couleurs exactes des screenshots UI (pas de courbe S cinématique)
+          gl.toneMapping        = THREE.NoToneMapping;
           gl.setClearColor(0xffffff, 1);
         }}
       >
