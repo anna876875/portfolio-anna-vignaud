@@ -320,7 +320,7 @@ export function ProjectGallery3D({ projects = [] }: { projects?: ProjectItem[] }
   return (
     <div
       ref={containerRef}
-      style={{ position: "relative", width: "100%", height: "100vh", background: "#ffffff", overflow: "hidden", userSelect: "none", cursor: "grab", fontFamily: ff, color: "#1c1d20" }}
+      style={{ position: "relative", width: "100%", height: "100vh", background: "#ffffff", userSelect: "none", cursor: "grab", fontFamily: ff, color: "#1c1d20" }}
       onPointerDown={(e) => {
         drag.current.isDragging    = true;
         drag.current.pointerStartX = e.clientX;
