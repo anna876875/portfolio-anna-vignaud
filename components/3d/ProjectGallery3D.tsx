@@ -17,15 +17,18 @@ export interface ProjectItem {
 // ── Shadow texture (ellipse sombre, partagée entre écrans) ───────────────
 
 function mkShadowTex(): THREE.CanvasTexture {
+  const W = 512, H = 256;
   const c = document.createElement("canvas");
-  c.width = 256; c.height = 64;
+  c.width = W; c.height = H;
   const ctx = c.getContext("2d")!;
-  const grad = ctx.createRadialGradient(128, 32, 0, 128, 32, 128);
-  grad.addColorStop(0,    "rgba(8,6,24,0.50)");
-  grad.addColorStop(0.35, "rgba(8,6,24,0.22)");
-  grad.addColorStop(0.70, "rgba(8,6,24,0.06)");
+  // Rayon = H/2 : le dégradé atteint exactement 0 aux bords haut et bas du canvas
+  const r = H / 2;
+  const grad = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, r);
+  grad.addColorStop(0,    "rgba(8,6,24,0.40)");
+  grad.addColorStop(0.30, "rgba(8,6,24,0.16)");
+  grad.addColorStop(0.65, "rgba(8,6,24,0.04)");
   grad.addColorStop(1,    "rgba(0,0,0,0)");
-  ctx.fillStyle = grad; ctx.fillRect(0, 0, 256, 64);
+  ctx.fillStyle = grad; ctx.fillRect(0, 0, W, H);
   const t = new THREE.CanvasTexture(c);
   t.colorSpace = THREE.SRGBColorSpace;
   return t;
@@ -94,7 +97,7 @@ function ScreenCard({
 
   const frameGeo  = useMemo(() => roundedRect(width + 0.03, height + 0.03, 0.10), [width, height]);
   const screenGeo = useMemo(() => roundedRect(width, height, 0.08), [width, height]);
-  const shadowGeo = useMemo(() => new THREE.PlaneGeometry(width * 1.5, 0.45), [width]);
+  const shadowGeo = useMemo(() => new THREE.PlaneGeometry(width * 1.6, 1.1), [width]);
   const shadowTex = useMemo(() => mkShadowTex(), []);
 
   useEffect(() => () => {
@@ -139,7 +142,7 @@ function ScreenCard({
         <meshBasicMaterial ref={screenRef} map={texture} transparent />
       </mesh>
       {/* Ombre portée sous l'écran */}
-      <mesh geometry={shadowGeo} position={[0, -height / 2 - 0.06, -0.28]}>
+      <mesh geometry={shadowGeo} position={[0, -height / 2 - 0.18, -0.28]}>
         <meshBasicMaterial ref={shadowRef} map={shadowTex} transparent depthWrite={false} />
       </mesh>
     </group>
