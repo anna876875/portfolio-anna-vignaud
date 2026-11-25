@@ -31,26 +31,6 @@ function mkShadowTex(): THREE.CanvasTexture {
   return t;
 }
 
-// ── Halo texture (soft radial gradient, per-project color) ───────────────
-
-function mkHaloTex(hex: string): THREE.CanvasTexture {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  const c = document.createElement("canvas");
-  c.width = 512; c.height = 512;
-  const ctx = c.getContext("2d")!;
-  const grad = ctx.createRadialGradient(256, 256, 0, 256, 256, 256);
-  grad.addColorStop(0,    `rgba(${r},${g},${b},0.45)`);
-  grad.addColorStop(0.28, `rgba(${r},${g},${b},0.22)`);
-  grad.addColorStop(0.55, `rgba(${r},${g},${b},0.08)`);
-  grad.addColorStop(0.82, `rgba(${r},${g},${b},0.02)`);
-  grad.addColorStop(1,    `rgba(${r},${g},${b},0)`);
-  ctx.fillStyle = grad; ctx.fillRect(0, 0, 512, 512);
-  const t = new THREE.CanvasTexture(c);
-  t.colorSpace = THREE.SRGBColorSpace;
-  return t;
-}
 
 // ── Rounded-rectangle ShapeGeometry ──────────────────────────────────────
 
@@ -99,53 +79,41 @@ const CLAMP    = 4.2;
 // ── ScreenCard : rounded corners · halo · Y-rotation · depth transitions ─
 
 function ScreenCard({
-  localX, width, height, texture, accentColor, groupRef, drag,
+  localX, width, height, texture, groupRef, drag,
 }: {
   localX: number;
   width: number;
   height: number;
   texture: THREE.Texture;
-  accentColor: string;
   groupRef: { current: THREE.Group | null };
   drag: { current: Drag };
 }) {
   const frameRef  = useRef<THREE.MeshStandardMaterial>(null);
   const screenRef = useRef<THREE.MeshBasicMaterial>(null);
-  const haloRef   = useRef<THREE.MeshBasicMaterial>(null);
   const shadowRef = useRef<THREE.MeshBasicMaterial>(null);
 
-  // Rounded geometries
   const frameGeo  = useMemo(() => roundedRect(width + 0.18, height + 0.18, 0.14), [width, height]);
   const screenGeo = useMemo(() => roundedRect(width, height, 0.08), [width, height]);
-  const haloGeo   = useMemo(() => new THREE.PlaneGeometry(width + 4.0, height + 2.8), [width, height]);
   const shadowGeo = useMemo(() => new THREE.PlaneGeometry(width * 1.5, 0.45), [width]);
-
-  const haloTex   = useMemo(() => mkHaloTex(accentColor), [accentColor]);
   const shadowTex = useMemo(() => mkShadowTex(), []);
 
   useEffect(() => () => {
     frameGeo.dispose(); screenGeo.dispose();
-    haloGeo.dispose(); shadowGeo.dispose();
-    haloTex.dispose(); shadowTex.dispose();
-  }, [frameGeo, screenGeo, haloGeo, shadowGeo, haloTex, shadowTex]);
+    shadowGeo.dispose(); shadowTex.dispose();
+  }, [frameGeo, screenGeo, shadowGeo, shadowTex]);
 
   useFrame(() => {
     if (!groupRef.current) return;
     const worldX = localX + drag.current.currentOffsetX;
     const dist   = Math.abs(worldX);
 
-    // Écran : fondu 1.0 → ~0.42 aux côtés
     const tOpacity = 0.35 + 0.65 * Math.exp(-dist * 0.5);
-    // Halo reste visible même hors-centre
-    const tHalo    = Math.max(0.52, tOpacity);
     const tZ       = -dist * 0.14;
     const tScale   = 0.86 + 0.14 * Math.exp(-dist * 0.45);
-    // Rotation Y : effet coverflow ±22°
     const tRotY    = -worldX * 0.095;
 
     if (frameRef.current)  frameRef.current.opacity  = THREE.MathUtils.lerp(frameRef.current.opacity,  tOpacity,       0.09);
     if (screenRef.current) screenRef.current.opacity = THREE.MathUtils.lerp(screenRef.current.opacity, tOpacity,       0.09);
-    if (haloRef.current)   haloRef.current.opacity   = THREE.MathUtils.lerp(haloRef.current.opacity,   tHalo,          0.09);
     if (shadowRef.current) shadowRef.current.opacity = THREE.MathUtils.lerp(shadowRef.current.opacity, tOpacity * 0.6, 0.09);
 
     groupRef.current.position.z = THREE.MathUtils.lerp(groupRef.current.position.z, tZ,    0.09);
@@ -156,10 +124,6 @@ function ScreenCard({
 
   return (
     <group ref={groupRef} position={[localX, 0, 0]}>
-      {/* Halo coloré — le projet flotte dedans */}
-      <mesh geometry={haloGeo} position={[0, 0, -0.22]}>
-        <meshBasicMaterial ref={haloRef} map={haloTex} transparent depthWrite={false} />
-      </mesh>
       {/* Cadre (bezel) arrondi */}
       <mesh geometry={frameGeo} position={[0, 0, -0.002]}>
         <meshStandardMaterial
@@ -252,9 +216,9 @@ function Scene({ drag, labelRefs }: {
       <directionalLight position={[-3, 2, 4]} intensity={0.3} color={0xe8eeff} />
 
       <group ref={devicesGroupRef}>
-        <ScreenCard localX={DEVICE_X[0]} width={3.4} height={2.125} texture={textures.t0} accentColor="#6366f1" groupRef={mac13Ref}  drag={drag} />
-        <ScreenCard localX={DEVICE_X[1]} width={3.8} height={2.375} texture={textures.t1} accentColor="#a259ff" groupRef={mac14Ref}  drag={drag} />
-        <ScreenCard localX={DEVICE_X[2]} width={1.1} height={2.2}   texture={textures.t2} accentColor="#a855f7" groupRef={iphoneRef} drag={drag} />
+        <ScreenCard localX={DEVICE_X[0]} width={3.4} height={2.125} texture={textures.t0} groupRef={mac13Ref}  drag={drag} />
+        <ScreenCard localX={DEVICE_X[1]} width={3.8} height={2.375} texture={textures.t1} groupRef={mac14Ref}  drag={drag} />
+        <ScreenCard localX={DEVICE_X[2]} width={1.1} height={2.2}   texture={textures.t2} groupRef={iphoneRef} drag={drag} />
       </group>
     </>
   );
