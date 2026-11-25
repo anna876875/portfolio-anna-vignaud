@@ -1,524 +1,434 @@
 "use client";
-import { useRef, useCallback, Suspense, useMemo, useState, useEffect } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { useTexture, RoundedBox, Html, ContactShadows } from "@react-three/drei";
+
+import { useRef, useMemo, useEffect } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import Link from "next/link";
 
-// ─── constants ───────────────────────────────────────────────────────
-const SCREEN_URLS = [
-  "/paynow-screens/dashboard.png",
-  "/onboarding/hero.png",
-  "/figma/project-1.png",
-];
+// ── Types ────────────────────────────────────────────────────────────────
 
-const DEVICE_X: [number, number, number] = [-3.1, 0, 3.05];
-const SNAP_POSITIONS: [number, number, number] = [3.1, 0, -3.05];
-const MAX_OFFSET =  3.3;
-const MIN_OFFSET = -3.2;
-const SPRING = 0.09;
-const SNAP_DELAY_MS = 500;
-
-/*
- * White studio aesthetic — matches user brief:
- * - fond blanc pur
- * - podium blanc épuré
- * - appareils clairs (MacBook alu clair, iPhone blanc)
- */
-const MAC_ALUM      = "#e2e2e0";
-const MAC_ALUM_DARK = "#d4d4d2";
-const IPHONE_WHITE  = "#e5e5ea";
-const PODIUM_COLOR  = "#f7f8fa";
-const BG_COLOR      = "#ffffff";
-
-// ─── Shared drag state ────────────────────────────────────────────────
-interface DragState {
-  dragging:  boolean;
-  lastX:     number;
-  vel:       number;
-  offset:    number;
-  snapTarget: number;
-  isSnapping: boolean;
-  snapTimer?: ReturnType<typeof setTimeout>;
+export interface ProjectItem {
+  title: string;
+  href: string;
+  accentColor?: string;
+  label?: string;
+  tags?: string[];
 }
 
-// ─── helpers ──────────────────────────────────────────────────────────
-function makeScreenShape(w: number, h: number, r: number): THREE.Shape {
-  const s = new THREE.Shape();
-  s.moveTo(-w / 2 + r, -h / 2);
-  s.lineTo( w / 2 - r, -h / 2);
-  s.quadraticCurveTo( w / 2, -h / 2,  w / 2, -h / 2 + r);
-  s.lineTo( w / 2,  h / 2 - r);
-  s.quadraticCurveTo( w / 2,  h / 2,  w / 2 - r,  h / 2);
-  s.lineTo(-w / 2 + r,  h / 2);
-  s.quadraticCurveTo(-w / 2,  h / 2, -w / 2,  h / 2 - r);
-  s.lineTo(-w / 2, -h / 2 + r);
-  s.quadraticCurveTo(-w / 2, -h / 2, -w / 2 + r, -h / 2);
-  return s;
+// ── Shadow texture (ellipse sombre, partagée entre écrans) ───────────────
+
+function mkShadowTex(): THREE.CanvasTexture {
+  const c = document.createElement("canvas");
+  c.width = 256; c.height = 64;
+  const ctx = c.getContext("2d")!;
+  const grad = ctx.createRadialGradient(128, 32, 0, 128, 32, 128);
+  grad.addColorStop(0,    "rgba(8,6,24,0.50)");
+  grad.addColorStop(0.35, "rgba(8,6,24,0.22)");
+  grad.addColorStop(0.70, "rgba(8,6,24,0.06)");
+  grad.addColorStop(1,    "rgba(0,0,0,0)");
+  ctx.fillStyle = grad; ctx.fillRect(0, 0, 256, 64);
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  return t;
 }
 
-function snapToNearest(offset: number): number {
-  let best = SNAP_POSITIONS[0];
-  let bestDist = Infinity;
-  for (let i = 0; i < 3; i++) {
-    const d = Math.abs(offset - SNAP_POSITIONS[i]);
-    if (d < bestDist) { bestDist = d; best = SNAP_POSITIONS[i]; }
+// ── Halo texture (soft radial gradient, per-project color) ───────────────
+
+function mkHaloTex(hex: string): THREE.CanvasTexture {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  const c = document.createElement("canvas");
+  c.width = 512; c.height = 512;
+  const ctx = c.getContext("2d")!;
+  const grad = ctx.createRadialGradient(256, 256, 0, 256, 256, 256);
+  grad.addColorStop(0,    `rgba(${r},${g},${b},0.45)`);
+  grad.addColorStop(0.28, `rgba(${r},${g},${b},0.22)`);
+  grad.addColorStop(0.55, `rgba(${r},${g},${b},0.08)`);
+  grad.addColorStop(0.82, `rgba(${r},${g},${b},0.02)`);
+  grad.addColorStop(1,    `rgba(${r},${g},${b},0)`);
+  ctx.fillStyle = grad; ctx.fillRect(0, 0, 512, 512);
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+}
+
+// ── Rounded-rectangle ShapeGeometry ──────────────────────────────────────
+
+function roundedRect(w: number, h: number, r: number): THREE.ShapeGeometry {
+  const shape = new THREE.Shape();
+  const hw = w / 2, hh = h / 2;
+  shape.moveTo(-hw + r, -hh);
+  shape.lineTo( hw - r, -hh);
+  shape.absarc( hw - r, -hh + r, r, -Math.PI / 2, 0,               false);
+  shape.lineTo( hw,      hh - r);
+  shape.absarc( hw - r,  hh - r, r,  0,            Math.PI / 2,     false);
+  shape.lineTo(-hw + r,  hh);
+  shape.absarc(-hw + r,  hh - r, r,  Math.PI / 2,  Math.PI,         false);
+  shape.lineTo(-hw,     -hh + r);
+  shape.absarc(-hw + r, -hh + r, r,  Math.PI,      Math.PI * 3 / 2, false);
+  shape.closePath();
+  const geo = new THREE.ShapeGeometry(shape, 20);
+  // ShapeGeometry émet les coordonnées XY brutes comme UV (u ∈ [-w/2, w/2]).
+  // On les normalise manuellement vers [0, 1] × [0, 1].
+  const pos = geo.attributes.position as THREE.BufferAttribute;
+  const uv  = geo.attributes.uv       as THREE.BufferAttribute;
+  for (let i = 0; i < pos.count; i++) {
+    uv.setXY(i, pos.getX(i) / w + 0.5, pos.getY(i) / h + 0.5);
   }
-  return best;
+  uv.needsUpdate = true;
+  return geo;
 }
 
-function activeIndex(offset: number): number {
-  let best = 0;
-  let bestDist = Infinity;
-  for (let i = 0; i < 3; i++) {
-    const d = Math.abs(DEVICE_X[i] + offset);
-    if (d < bestDist) { bestDist = d; best = i; }
-  }
-  return best;
+// ── Drag state ────────────────────────────────────────────────────────────
+
+interface Drag {
+  isDragging: boolean;
+  pointerStartX: number;
+  startOffsetX: number;
+  targetOffsetX: number;
+  currentOffsetX: number;
 }
 
-// ─── MacBook ──────────────────────────────────────────────────────────
-interface MacBookProps {
-  baseW:  number; baseD:   number;
-  screenW: number; screenH: number;
-  lidTilt: number;
-  textureUrl: string;
-  posX: number; rotY: number;
-  isActive: boolean;
-}
+// ── Constants ─────────────────────────────────────────────────────────────
 
-function MacBook({ baseW, baseD, screenW, screenH, lidTilt,
-  textureUrl, posX, rotY, isActive }: MacBookProps) {
-  const groupRef    = useRef<THREE.Group>(null!);
-  const targetScale = isActive ? 1.08 : 0.9;
-  const scaleVec    = useMemo(() => new THREE.Vector3(1, 1, 1), []);
+// Devices rapprochés à ±4.2 : les écrans adjacents sont ~40-47 % visibles au repos
+const DEVICE_X = [-4.2, 0, 4.2] as const;
+const SNAPS    = [4.2, 0, -4.2] as const;
+const CLAMP    = 4.2;
 
-  useFrame(() => {
-    if (!groupRef.current) return;
-    scaleVec.set(targetScale, targetScale, targetScale);
-    groupRef.current.scale.lerp(scaleVec, 0.1);
-  });
+// ── ScreenCard : rounded corners · halo · Y-rotation · depth transitions ─
 
-  const texture = useTexture(textureUrl);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  /*
-   * flipY = false : ShapeGeometry génère des UVs en Y croissant vers le haut
-   * (convention mathématique), mais les PNG chargés par THREE ont flipY=true
-   * par défaut (origine en haut). Sans cette correction, l'image est inversée.
-   */
-  texture.flipY = false;
-
-  const screenShape = useMemo(
-    () => makeScreenShape(screenW, screenH, 0.06),
-    [screenW, screenH],
-  );
-
-  const BASE_H   = 0.085;
-  const LID_THICK = 0.055;
-  const lidH     = screenH + 0.22;
-
-  return (
-    <group ref={groupRef} position={[posX, 0, 0]} rotation={[0, rotY, 0]}>
-      {/* Chassis (base keyboard) */}
-      <RoundedBox args={[baseW, BASE_H, baseD]} radius={0.03} smoothness={4}
-        position={[0, BASE_H / 2, 0]}>
-        <meshStandardMaterial color={MAC_ALUM} roughness={0.18} metalness={0.38} />
-      </RoundedBox>
-
-      {/* Keyboard area inset */}
-      <mesh position={[0, BASE_H + 0.0005, 0.08]}>
-        <boxGeometry args={[baseW * 0.86, 0.001, baseD * 0.5]} />
-        <meshStandardMaterial color={MAC_ALUM_DARK} roughness={0.6} metalness={0.1} />
-      </mesh>
-
-      {/* Trackpad */}
-      <mesh position={[0, BASE_H + 0.001, baseD * 0.3]}>
-        <boxGeometry args={[baseW * 0.36, 0.002, baseD * 0.22]} />
-        <meshStandardMaterial color="#dddbd9" roughness={0.08} metalness={0.5} />
-      </mesh>
-
-      {/*
-       * ── Lid pivot at hinge ──────────────────────────────────────────
-       * Pivot group is positioned at the hinge: [0, BASE_H, -baseD/2]
-       * The lid extends in +Y from this pivot when rotation=[0,0,0] (vertical).
-       *
-       * lidTilt > 0 → top of screen leans slightly AWAY from viewer (natural position)
-       * Screen ShapeGeometry lives in XY plane, its +Z normal faces the viewer.
-       * With lidTilt ~0.13-0.14 and camera at z=4.6 y=1.6, the dot-product
-       * screen_normal·camera_ray ≈ 0.998 → near-perfect face-on view.
-       */}
-      <group position={[0, BASE_H, -baseD / 2]} rotation={[lidTilt, 0, 0]}>
-        {/* Lid panel */}
-        <RoundedBox args={[baseW, lidH, LID_THICK]} radius={0.03} smoothness={4}
-          position={[0, lidH / 2, 0]}>
-          <meshStandardMaterial color={MAC_ALUM} roughness={0.18} metalness={0.38} />
-        </RoundedBox>
-
-        {/* Apple logo — back face */}
-        <mesh position={[0, lidH / 2, -LID_THICK / 2 - 0.001]}>
-          <circleGeometry args={[0.09, 20]} />
-          <meshStandardMaterial color="#c8c8c6" roughness={0.05} metalness={0.8} />
-        </mesh>
-
-        {/* Black bezel — front face */}
-        <mesh position={[0, lidH / 2, LID_THICK / 2 + 0.001]}>
-          <boxGeometry args={[screenW + 0.14, screenH + 0.14, 0.001]} />
-          <meshStandardMaterial color="#0d0d0d" roughness={1} metalness={0} />
-        </mesh>
-
-        {/* Screen texture — XY plane, +Z normal → faces viewer */}
-        <mesh position={[0, lidH / 2, LID_THICK / 2 + 0.003]}>
-          <shapeGeometry args={[screenShape]} />
-          <meshBasicMaterial map={texture} side={THREE.FrontSide} />
-        </mesh>
-
-        {/* Notch */}
-        <mesh position={[0, lidH - 0.08, LID_THICK / 2 + 0.004]}>
-          <boxGeometry args={[0.16, 0.038, 0.001]} />
-          <meshStandardMaterial color="#111" roughness={1} metalness={0} />
-        </mesh>
-      </group>
-    </group>
-  );
-}
-
-// ─── iPhone 15 Pro (blanc/silver) ─────────────────────────────────────
-function IPhone({ textureUrl, posX, isActive }: {
-  textureUrl: string; posX: number; isActive: boolean;
-}) {
-  const groupRef    = useRef<THREE.Group>(null!);
-  const targetScale = isActive ? 1.08 : 0.9;
-  const scaleVec    = useMemo(() => new THREE.Vector3(1, 1, 1), []);
-
-  useFrame(() => {
-    if (!groupRef.current) return;
-    scaleVec.set(targetScale, targetScale, targetScale);
-    groupRef.current.scale.lerp(scaleVec, 0.1);
-  });
-
-  const texture = useTexture(textureUrl);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  texture.flipY = false;
-
-  const W = 0.76, H = 1.65, D = 0.096;
-  const screenShape = useMemo(() => makeScreenShape(W - 0.1, H - 0.14, 0.085), []);
-
-  return (
-    <group ref={groupRef} position={[posX, 0, 0]} rotation={[-0.04, -0.18, 0]}>
-      {/* Body — blanc titane */}
-      <RoundedBox args={[W, H, D]} radius={0.095} smoothness={6}
-        position={[0, H / 2, 0]}>
-        <meshStandardMaterial color={IPHONE_WHITE} roughness={0.14} metalness={0.55} />
-      </RoundedBox>
-
-      {/* Screen */}
-      <mesh position={[0, H / 2, D / 2 + 0.002]}>
-        <shapeGeometry args={[screenShape]} />
-        <meshBasicMaterial map={texture} side={THREE.FrontSide} />
-      </mesh>
-
-      {/* Dynamic island */}
-      <mesh position={[0, H - 0.14, D / 2 + 0.003]}>
-        <boxGeometry args={[0.21, 0.05, 0.001]} />
-        <meshStandardMaterial color="#111" roughness={1} />
-      </mesh>
-
-      {/* Side button */}
-      <mesh position={[W / 2 + 0.004, H * 0.55, 0]}>
-        <boxGeometry args={[0.012, 0.18, D * 0.6]} />
-        <meshStandardMaterial color="#d8d8d6" roughness={0.1} metalness={0.8} />
-      </mesh>
-    </group>
-  );
-}
-
-// ─── Scene ────────────────────────────────────────────────────────────
-function Scene({
-  projects, drag, onActiveChange,
+function ScreenCard({
+  localX, width, height, texture, accentColor, groupRef, drag,
 }: {
-  projects: { title: string; href: string; accentColor: string }[];
-  drag: React.MutableRefObject<DragState>;
-  onActiveChange: (idx: number) => void;
+  localX: number;
+  width: number;
+  height: number;
+  texture: THREE.Texture;
+  accentColor: string;
+  groupRef: { current: THREE.Group | null };
+  drag: { current: Drag };
 }) {
-  const sliderRef = useRef<THREE.Group>(null!);
-  const prevIdx   = useRef(-1);
+  const frameRef  = useRef<THREE.MeshStandardMaterial>(null);
+  const screenRef = useRef<THREE.MeshBasicMaterial>(null);
+  const haloRef   = useRef<THREE.MeshBasicMaterial>(null);
+  const shadowRef = useRef<THREE.MeshBasicMaterial>(null);
+
+  // Rounded geometries
+  const frameGeo  = useMemo(() => roundedRect(width + 0.18, height + 0.18, 0.14), [width, height]);
+  const screenGeo = useMemo(() => roundedRect(width, height, 0.08), [width, height]);
+  const haloGeo   = useMemo(() => new THREE.PlaneGeometry(width + 4.0, height + 2.8), [width, height]);
+  const shadowGeo = useMemo(() => new THREE.PlaneGeometry(width * 1.5, 0.45), [width]);
+
+  const haloTex   = useMemo(() => mkHaloTex(accentColor), [accentColor]);
+  const shadowTex = useMemo(() => mkShadowTex(), []);
+
+  useEffect(() => () => {
+    frameGeo.dispose(); screenGeo.dispose();
+    haloGeo.dispose(); shadowGeo.dispose();
+    haloTex.dispose(); shadowTex.dispose();
+  }, [frameGeo, screenGeo, haloGeo, shadowGeo, haloTex, shadowTex]);
+
+  useFrame(() => {
+    if (!groupRef.current) return;
+    const worldX = localX + drag.current.currentOffsetX;
+    const dist   = Math.abs(worldX);
+
+    // Écran : fondu 1.0 → ~0.42 aux côtés
+    const tOpacity = 0.35 + 0.65 * Math.exp(-dist * 0.5);
+    // Halo reste visible même hors-centre
+    const tHalo    = Math.max(0.52, tOpacity);
+    const tZ       = -dist * 0.14;
+    const tScale   = 0.86 + 0.14 * Math.exp(-dist * 0.45);
+    // Rotation Y : effet coverflow ±22°
+    const tRotY    = -worldX * 0.095;
+
+    if (frameRef.current)  frameRef.current.opacity  = THREE.MathUtils.lerp(frameRef.current.opacity,  tOpacity,       0.09);
+    if (screenRef.current) screenRef.current.opacity = THREE.MathUtils.lerp(screenRef.current.opacity, tOpacity,       0.09);
+    if (haloRef.current)   haloRef.current.opacity   = THREE.MathUtils.lerp(haloRef.current.opacity,   tHalo,          0.09);
+    if (shadowRef.current) shadowRef.current.opacity = THREE.MathUtils.lerp(shadowRef.current.opacity, tOpacity * 0.6, 0.09);
+
+    groupRef.current.position.z = THREE.MathUtils.lerp(groupRef.current.position.z, tZ,    0.09);
+    groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, tRotY, 0.09);
+    const s = THREE.MathUtils.lerp(groupRef.current.scale.x, tScale, 0.09);
+    groupRef.current.scale.setScalar(s);
+  });
+
+  return (
+    <group ref={groupRef} position={[localX, 0, 0]}>
+      {/* Halo coloré — le projet flotte dedans */}
+      <mesh geometry={haloGeo} position={[0, 0, -0.22]}>
+        <meshBasicMaterial ref={haloRef} map={haloTex} transparent depthWrite={false} />
+      </mesh>
+      {/* Cadre (bezel) arrondi */}
+      <mesh geometry={frameGeo} position={[0, 0, -0.002]}>
+        <meshStandardMaterial
+          ref={frameRef}
+          transparent
+          color={0x0c0e1a}
+          metalness={0.85}
+          roughness={0.08}
+          emissive={0x06081a}
+          emissiveIntensity={0.65}
+        />
+      </mesh>
+      {/* Contenu écran arrondi — UV normalisés */}
+      <mesh geometry={screenGeo} position={[0, 0, 0.012]}>
+        <meshBasicMaterial ref={screenRef} map={texture} transparent />
+      </mesh>
+      {/* Ombre portée sous l'écran */}
+      <mesh geometry={shadowGeo} position={[0, -height / 2 - 0.06, -0.28]}>
+        <meshBasicMaterial ref={shadowRef} map={shadowTex} transparent depthWrite={false} />
+      </mesh>
+    </group>
+  );
+}
+
+// ── Scene ─────────────────────────────────────────────────────────────────
+
+function Scene({ drag, labelRefs }: {
+  drag: { current: Drag };
+  labelRefs: { current: (HTMLDivElement | null)[] };
+}) {
+  const { camera, size } = useThree();
+
+  // Chargement des vraies captures d'écran depuis /public
+  const textures = useMemo(() => {
+    const loader = new THREE.TextureLoader();
+    const load = (url: string) => {
+      const t = loader.load(url);
+      t.colorSpace = THREE.SRGBColorSpace;
+      return t;
+    };
+    return {
+      t0: load("/paynow-screens/dashboard.png"),   // 1280×800 → Mac13 16:10 ✓
+      t1: load("/figma/project-1.png"),             // 1606×904 → Mac14 16:9
+      t2: load("/revision/profile.png"),            // 390×844  → iPhone portrait ✓
+    };
+  }, []);
+
+  useEffect(() => () => {
+    textures.t0.dispose();
+    textures.t1.dispose();
+    textures.t2.dispose();
+  }, [textures]);
+
+  const devicesGroupRef = useRef<THREE.Group>(null);
+  const mac13Ref        = useRef<THREE.Group>(null);
+  const mac14Ref        = useRef<THREE.Group>(null);
+  const iphoneRef       = useRef<THREE.Group>(null);
+  const tmpV = useRef(new THREE.Vector3());
 
   useFrame(() => {
     const d = drag.current;
-    if (d.dragging) {
-      d.offset += d.vel * 0.08;
-      d.vel *= 0.88;
-    } else if (d.isSnapping) {
-      d.offset += (d.snapTarget - d.offset) * SPRING;
-      if (Math.abs(d.snapTarget - d.offset) < 0.004) {
-        d.offset    = d.snapTarget;
-        d.isSnapping = false;
-      }
-    } else {
-      d.vel    *= 0.88;
-      d.offset += d.vel * 0.08;
-      d.offset  = Math.max(MIN_OFFSET, Math.min(MAX_OFFSET, d.offset));
-    }
-    if (sliderRef.current) sliderRef.current.position.x = d.offset;
+    // Lerp adaptatif : rapide au loin, doux à l'arrivée
+    const gap = Math.abs(d.targetOffsetX - d.currentOffsetX);
+    const lf  = gap > 1.0 ? 0.15 : 0.1;
+    d.currentOffsetX = THREE.MathUtils.lerp(d.currentOffsetX, d.targetOffsetX, lf);
+    if (devicesGroupRef.current) devicesGroupRef.current.position.x = d.currentOffsetX;
 
-    // Notify parent of active index change
-    const idx = activeIndex(d.offset);
-    if (idx !== prevIdx.current) { prevIdx.current = idx; onActiveChange(idx); }
+    [mac13Ref, mac14Ref, iphoneRef].forEach((ref, idx) => {
+      const el = labelRefs.current[idx];
+      if (!el || !ref.current) return;
+      ref.current.getWorldPosition(tmpV.current);
+      tmpV.current.y -= 1.5;
+      tmpV.current.project(camera);
+      el.style.left = `${(tmpV.current.x * 0.5 + 0.5) * size.width}px`;
+      el.style.top  = `${(-tmpV.current.y * 0.5 + 0.5) * size.height}px`;
+    });
   });
-
-  const idx = activeIndex(drag.current.offset);
 
   return (
     <>
-      {/*
-       * ── Studio lighting ──────────────────────────────────────────────
-       * - ambientLight: base fill uniforme
-       * - hemisphereLight: simulé sky/ground pour adoucir les ombres
-       * - directionalLight key: depuis avant-haut, doux (ombres douces)
-       * - directionalLight fill: depuis gauche, plus doux
-       * Pas de point lights pour éviter les reflets ponctuels agressifs.
-       */}
-      <ambientLight intensity={1.5} />
-      <hemisphereLight args={["#ffffff", "#f0f0f5", 0.7]} />
-      <directionalLight
-        position={[2, 10, 8]} intensity={0.9}
-        color="#fff8f4"
-        castShadow
-        shadow-mapSize={[1024, 1024]}
-        shadow-camera-near={1}
-        shadow-camera-far={30}
-        shadow-camera-left={-10}
-        shadow-camera-right={10}
-        shadow-camera-top={10}
-        shadow-camera-bottom={-10}
-      />
-      <directionalLight position={[-5, 6, 3]} intensity={0.4} color="#f0f4ff" />
+      <ambientLight intensity={1.1} />
+      <directionalLight position={[3, 4, 6]} intensity={0.55} />
+      <directionalLight position={[-3, 2, 4]} intensity={0.3} color={0xe8eeff} />
 
-      <group ref={sliderRef}>
-        {/* Podium octagonal blanc épuré */}
-        <mesh rotation={[0, Math.PI / 8, 0]} position={[0, 0.2, 0]} receiveShadow>
-          <cylinderGeometry args={[6.0, 6.0, 0.4, 8]} />
-          <meshStandardMaterial color={PODIUM_COLOR} roughness={0.42} metalness={0.04} />
-        </mesh>
-        {/* Rim highlight */}
-        <mesh rotation={[0, Math.PI / 8, 0]} position={[0, 0.402, 0]}>
-          <cylinderGeometry args={[6.02, 6.02, 0.006, 8]} />
-          <meshStandardMaterial color="#ffffff" roughness={0.08} metalness={0.25} />
-        </mesh>
-
-        <ContactShadows
-          position={[0, 0.202, 0]}
-          opacity={0.18} scale={18} blur={2.8} far={2.5}
-          color="#c8c8d4"
-        />
-
-        {/* Devices */}
-        <group position={[0, 0.4, -0.1]}>
-          <Suspense fallback={null}>
-            <MacBook
-              baseW={1.72} baseD={1.12} screenW={1.44} screenH={0.9}
-              lidTilt={0.14} textureUrl={SCREEN_URLS[0]}
-              posX={DEVICE_X[0]} rotY={0.22} isActive={idx === 0}
-            />
-            <MacBook
-              baseW={2.0} baseD={1.3} screenW={1.72} screenH={1.07}
-              lidTilt={0.13} textureUrl={SCREEN_URLS[1]}
-              posX={DEVICE_X[1]} rotY={0} isActive={idx === 1}
-            />
-            <IPhone
-              textureUrl={SCREEN_URLS[2]}
-              posX={DEVICE_X[2]} isActive={idx === 2}
-            />
-          </Suspense>
-        </group>
+      <group ref={devicesGroupRef}>
+        <ScreenCard localX={DEVICE_X[0]} width={3.4} height={2.125} texture={textures.t0} accentColor="#6366f1" groupRef={mac13Ref}  drag={drag} />
+        <ScreenCard localX={DEVICE_X[1]} width={3.8} height={2.375} texture={textures.t1} accentColor="#a259ff" groupRef={mac14Ref}  drag={drag} />
+        <ScreenCard localX={DEVICE_X[2]} width={1.1} height={2.2}   texture={textures.t2} accentColor="#a855f7" groupRef={iphoneRef} drag={drag} />
       </group>
     </>
   );
 }
 
-// ─── Public export ────────────────────────────────────────────────────
-export function ProjectGallery3D({ projects }: {
-  projects: { title: string; href: string; accentColor: string; label?: string; tags?: string[] }[];
-}) {
-  const [activeIdx, setActiveIdx] = useState(1);
-  const drag = useRef<DragState>({
-    dragging:   false, lastX:  0, vel: 0,
-    offset:     0,     snapTarget: 0, isSnapping: false,
+// ── Main export ───────────────────────────────────────────────────────────
+
+export function ProjectGallery3D({ projects = [] }: { projects?: ProjectItem[] }) {
+  const drag = useRef<Drag>({
+    isDragging: false,
+    pointerStartX: 0,
+    startOffsetX: 0,
+    targetOffsetX: 0,
+    currentOffsetX: 0,
+  });
+  const labelRefs    = useRef<(HTMLDivElement | null)[]>([null, null, null]);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const dragVelocity = useRef(0);
+  const lastClientX  = useRef(0);
+
+  const snapNearest = (offset: number): number =>
+    [...SNAPS].reduce((best, s) =>
+      Math.abs(s - offset) < Math.abs(best - offset) ? s : best
+    );
+
+  const goTo = (direction: -1 | 1) => {
+    const cur = snapNearest(drag.current.targetOffsetX);
+    const idx = SNAPS.indexOf(cur as typeof SNAPS[number]);
+    const next = idx + direction;
+    if (next >= 0 && next < SNAPS.length) drag.current.targetOffsetX = SNAPS[next];
+  };
+
+  useEffect(() => {
+    const onMove = (e: PointerEvent) => {
+      if (!drag.current.isDragging) return;
+      dragVelocity.current = e.clientX - lastClientX.current;
+      lastClientX.current  = e.clientX;
+      const dx = (e.clientX - drag.current.pointerStartX) * 0.015;
+      drag.current.targetOffsetX = Math.max(-CLAMP, Math.min(CLAMP, drag.current.startOffsetX + dx));
+    };
+    const onUp = () => {
+      if (!drag.current.isDragging) return;
+      drag.current.isDragging = false;
+      // Snap momentum : si vitesse > seuil, passe au suivant dans la direction
+      const vel = dragVelocity.current;
+      const cur = snapNearest(drag.current.targetOffsetX);
+      const idx = SNAPS.indexOf(cur as typeof SNAPS[number]);
+      if      (vel < -4 && idx < SNAPS.length - 1) drag.current.targetOffsetX = SNAPS[idx + 1];
+      else if (vel >  4 && idx > 0)                drag.current.targetOffsetX = SNAPS[idx - 1];
+      else                                          drag.current.targetOffsetX = cur;
+      if (containerRef.current) containerRef.current.style.cursor = "grab";
+    };
+    const onWheel = (e: WheelEvent) => {
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      const cur = snapNearest(drag.current.targetOffsetX);
+      const idx = SNAPS.indexOf(cur as typeof SNAPS[number]);
+      if (delta > 20 && idx < SNAPS.length - 1) drag.current.targetOffsetX = SNAPS[idx + 1];
+      if (delta < -20 && idx > 0)              drag.current.targetOffsetX = SNAPS[idx - 1];
+    };
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp);
+    window.addEventListener("wheel", onWheel, { passive: true });
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("wheel", onWheel);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const labels = projects.length >= 3
+    ? projects.slice(0, 3).map((p) => p.title)
+    : ["PayNow", "Sentinelle", "Révision"];
+
+  const ff = "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif";
+
+  const arrowStyle = (side: "left" | "right"): React.CSSProperties => ({
+    position: "absolute",
+    [side]: 28,
+    top: "50%",
+    transform: "translateY(-50%)",
+    zIndex: 15,
+    width: 44,
+    height: 44,
+    borderRadius: "50%",
+    border: "1px solid rgba(0,0,0,0.09)",
+    background: "rgba(255,255,255,0.78)",
+    backdropFilter: "blur(16px)",
+    WebkitBackdropFilter: "blur(16px)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: "pointer",
+    fontSize: 20,
+    color: "#36393f",
+    boxShadow: "0 2px 14px rgba(0,0,0,0.07)",
+    pointerEvents: "auto",
+    lineHeight: 1,
   });
 
-  const onPointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    if ((e.target as HTMLElement).closest("a")) return;
-    drag.current.dragging  = true;
-    drag.current.lastX     = e.clientX;
-    drag.current.vel       = 0;
-    drag.current.isSnapping = false;
-    clearTimeout(drag.current.snapTimer);
-    (e.currentTarget as HTMLDivElement).setPointerCapture(e.pointerId);
-    (e.currentTarget as HTMLDivElement).style.cursor = "grabbing";
-  }, []);
-
-  const onPointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    if (!drag.current.dragging) return;
-    const dx = (e.clientX - drag.current.lastX) / 160;
-    drag.current.vel    = dx;
-    drag.current.lastX  = e.clientX;
-    drag.current.offset = Math.max(MIN_OFFSET, Math.min(MAX_OFFSET,
-      drag.current.offset + dx));
-  }, []);
-
-  const onPointerUp = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    if (!drag.current.dragging) return;
-    drag.current.dragging = false;
-    (e.currentTarget as HTMLDivElement).style.cursor = "grab";
-    clearTimeout(drag.current.snapTimer);
-    drag.current.snapTimer = setTimeout(() => {
-      drag.current.snapTarget  = snapToNearest(drag.current.offset);
-      drag.current.isSnapping  = true;
-    }, SNAP_DELAY_MS);
-  }, []);
-
-  const handleWheel = useCallback((e: React.WheelEvent<HTMLDivElement>) => {
-    const d = drag.current;
-    if (e.deltaX >  30 || e.deltaY >  30) {
-      d.snapTarget  = snapToNearest(d.offset - 3.1);
-      d.isSnapping  = true;
-    } else if (e.deltaX < -30 || e.deltaY < -30) {
-      d.snapTarget  = snapToNearest(d.offset + 3.1);
-      d.isSnapping  = true;
-    }
-  }, []);
-
-  const active = projects[activeIdx];
-
   return (
-    <div style={{ position: "relative", width: "100%", borderRadius: 20, overflow: "hidden" }}>
-
-      {/* ── Header fixe en haut ──────────────────────────────── */}
-      <div style={{
-        position: "absolute", top: 0, left: 0, right: 0, zIndex: 10,
-        textAlign: "center", pointerEvents: "none",
-        padding: "20px 24px 0",
-      }}>
-        <p style={{
-          margin: 0, fontSize: 10, fontWeight: 700,
-          letterSpacing: "0.18em", textTransform: "uppercase",
-          color: "#A259FF",
-        }}>
+    <div
+      ref={containerRef}
+      style={{ position: "relative", width: "100%", height: "100vh", background: "#ffffff", overflow: "hidden", userSelect: "none", cursor: "grab", fontFamily: ff, color: "#1c1d20" }}
+      onPointerDown={(e) => {
+        drag.current.isDragging    = true;
+        drag.current.pointerStartX = e.clientX;
+        drag.current.startOffsetX  = drag.current.targetOffsetX;
+        dragVelocity.current       = 0;
+        lastClientX.current        = e.clientX;
+        if (containerRef.current) containerRef.current.style.cursor = "grabbing";
+      }}
+    >
+      {/* Header */}
+      <div style={{ position: "absolute", top: 34, left: 0, right: 0, zIndex: 10, pointerEvents: "none", textAlign: "center" }}>
+        <div style={{ fontSize: "clamp(12px,1.35vw,20px)", fontWeight: 500, letterSpacing: "0.14em", textTransform: "uppercase", color: "#26282c", marginBottom: 14 }}>
           ANNA VIGNAUD · PRODUCT DESIGNER UX/UI
-        </p>
-        <p style={{
-          margin: "4px 0 0", fontSize: 11.5, fontWeight: 700,
-          letterSpacing: "0.14em", textTransform: "uppercase",
-          color: "#1a1a1a",
-        }}>
+        </div>
+        <h2 style={{ margin: 0, fontSize: "clamp(24px,3.3vw,48px)", fontWeight: 300, letterSpacing: "0.12em", textTransform: "uppercase", color: "#6f747d" }}>
           PROJETS SÉLECTIONNÉS
-        </p>
+        </h2>
       </div>
 
-      {/* ── Canvas 3D ────────────────────────────────────────── */}
-      <div
-        style={{
-          width: "100%", height: "64vh",
-          minHeight: 480, maxHeight: 680,
-          cursor: "grab",
-        }}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerLeave={onPointerUp}
-        onWheel={handleWheel}
-      >
-        <Canvas
-          /*
-           * Camera: y=1.6 (eye-level), z=4.6 (proche), fov=55 (large).
-           * lookAt(0, 0.9, 0) centre les écrans des MacBooks dans la vue.
-           * Avec lidTilt=0.13-0.14, le produit scalaire screen_normal·ray ≈ 0.998.
-           */
-          camera={{ position: [0, 1.6, 4.6], fov: 55 }}
-          onCreated={({ camera }) => { camera.lookAt(0, 0.9, 0); }}
-          gl={{ antialias: true, alpha: false }}
-          dpr={[1, 1.5]}
-          style={{ background: BG_COLOR }}
-        >
-          <color attach="background" args={[BG_COLOR]} />
-          <Scene projects={projects} drag={drag} onActiveChange={setActiveIdx} />
-        </Canvas>
-      </div>
-
-      {/* ── Labels sous le slider (position statique par index) ─ */}
-      <div style={{
-        position: "absolute",
-        bottom: 60,
-        left: `${(activeIdx / (projects.length - 1)) * 100}%`,
-        transform: "translateX(-50%)",
-        textAlign: "center",
-        transition: "left 0.4s cubic-bezier(0.22,1,0.36,1)",
-        pointerEvents: "none",
-        zIndex: 10,
-        minWidth: 240,
-      }}>
-        {active && (
-          <>
-            <p style={{
-              margin: "0 0 2px", fontSize: 10, fontWeight: 700,
-              letterSpacing: "0.1em", textTransform: "uppercase",
-              color: active.accentColor,
-            }}>
-              {String(activeIdx + 1).padStart(2, "0")}
-            </p>
-            <p style={{
-              margin: "0 0 2px", fontSize: 15, fontWeight: 600,
-              color: "#1a1a1a", letterSpacing: "-0.02em",
-            }}>
-              {active.title}
-            </p>
-            {active.label && (
-              <p style={{ margin: "0 0 10px", fontSize: 12, color: "#6b7280" }}>
-                {active.label}
-              </p>
-            )}
-            {active.tags && active.tags.length > 0 && (
-              <div style={{ display: "flex", gap: 5, justifyContent: "center", flexWrap: "wrap", pointerEvents: "none" }}>
-                {active.tags.map(tag => (
-                  <span key={tag} style={{
-                    fontSize: 10, padding: "2px 8px", borderRadius: 999, fontWeight: 600,
-                    background: active.accentColor + "15",
-                    color: active.accentColor,
-                    border: `1px solid ${active.accentColor}30`,
-                  }}>{tag}</span>
-                ))}
-              </div>
-            )}
-          </>
-        )}
-      </div>
-
-      {/* ── Boutons de navigation + hint ─────────────────────── */}
-      <div style={{
-        position: "absolute", bottom: 16, left: "50%", transform: "translateX(-50%)",
-        display: "flex", alignItems: "center", gap: 12, zIndex: 10,
-      }}>
-        {projects.map((p, i) => (
-          <button key={p.href} onClick={() => {
-            const d = drag.current;
-            d.snapTarget  = SNAP_POSITIONS[i];
-            d.isSnapping  = true;
-          }} style={{
-            width: activeIdx === i ? 20 : 8, height: 8,
-            borderRadius: 999, border: "none", padding: 0,
-            background: activeIdx === i ? "#A259FF" : "#d1d5db",
-            cursor: "pointer", transition: "all 0.3s ease",
-          }} />
+      {/* Labels projetés depuis la 3D */}
+      <div style={{ position: "absolute", inset: 0, zIndex: 10, pointerEvents: "none" }}>
+        {labels.map((label, i) => (
+          <div
+            key={i}
+            ref={(el) => { labelRefs.current[i] = el; }}
+            style={{ position: "absolute", transform: "translate(-50%, 0)", fontSize: "clamp(11px,1.05vw,15px)", fontWeight: 500, color: "#36393f", whiteSpace: "nowrap", letterSpacing: "-0.01em" }}
+          >
+            {label}
+          </div>
         ))}
       </div>
-      <div style={{
-        position: "absolute", bottom: 40, left: "50%", transform: "translateX(-50%)",
-        fontSize: 10, color: "#9ca3af", letterSpacing: "0.08em",
-        textTransform: "uppercase", pointerEvents: "none", zIndex: 10,
-        whiteSpace: "nowrap",
-      }}>
-        ← glisser pour explorer →
+
+      {/* Flèche gauche */}
+      <button
+        onClick={(e) => { e.stopPropagation(); goTo(-1); }}
+        style={arrowStyle("left")}
+        aria-label="Projet précédent"
+      >
+        ‹
+      </button>
+
+      {/* Flèche droite */}
+      <button
+        onClick={(e) => { e.stopPropagation(); goTo(1); }}
+        style={arrowStyle("right")}
+        aria-label="Projet suivant"
+      >
+        ›
+      </button>
+
+      {/* Hint */}
+      <div style={{ position: "absolute", bottom: 58, left: "50%", transform: "translateX(-50%)", zIndex: 10, fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase", color: "#8b9099", pointerEvents: "none", whiteSpace: "nowrap" }}>
+        Glisser ou scroller pour changer de projet
       </div>
+
+      {/* Nav dots */}
+      <div style={{ position: "absolute", bottom: 24, left: "50%", transform: "translateX(-50%)", zIndex: 15, display: "flex", gap: 10, alignItems: "center" }}>
+        {SNAPS.map((s, i) => (
+          <button key={i} onClick={() => { drag.current.targetOffsetX = s; }}
+            style={{ width: drag.current.targetOffsetX === s ? 22 : 8, height: 8, borderRadius: 999, border: "none", padding: 0, background: drag.current.targetOffsetX === s ? "#2b2e34" : "#d1d5db", cursor: "pointer", transition: "all 0.3s ease" }}
+          />
+        ))}
+      </div>
+
+      {/* R3F Canvas */}
+      <Canvas
+        style={{ position: "absolute", inset: 0 }}
+        camera={{ fov: 34, position: [0, 0, 7.5] as [number, number, number], near: 0.1, far: 100 }}
+        gl={{ antialias: true, powerPreference: "high-performance" }}
+        onCreated={({ gl }) => {
+          gl.toneMapping = THREE.ACESFilmicToneMapping;
+          gl.toneMappingExposure = 1.0;
+          gl.setClearColor(0xffffff, 1);
+        }}
+      >
+        <Scene drag={drag} labelRefs={labelRefs} />
+      </Canvas>
     </div>
   );
 }
