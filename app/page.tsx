@@ -8,6 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import _C from "@/data/content.json";
 import { useLang } from "@/components/ui/LanguageContext";
+import { ProjectGalleryDynamic } from "@/components/3d/ProjectGalleryDynamic";
 
 /* ═══════════════════════════════════════════════════════════════════
    CONSTANTS
@@ -1742,7 +1743,17 @@ export default function HomePage() {
             </h2>
           </Reveal>
 
-          <ProjectCanvas projects={PROJECTS} isMobile={isMobile} />
+          {isMobile ? (
+            <ProjectCanvas projects={PROJECTS} isMobile={isMobile} />
+          ) : (
+            <ProjectGalleryDynamic projects={PROJECTS.map(p => ({
+              title: p.title,
+              href:  p.href ?? "/",
+              accentColor: p.color,
+              label: p.desc,
+              tags:  p.tags,
+            }))} />
+          )}
 
           <Reveal>
             <div style={{ marginTop: 72 }}>
