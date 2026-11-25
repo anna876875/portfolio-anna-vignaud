@@ -92,7 +92,7 @@ function ScreenCard({
   const screenRef = useRef<THREE.MeshBasicMaterial>(null);
   const shadowRef = useRef<THREE.MeshBasicMaterial>(null);
 
-  const frameGeo  = useMemo(() => roundedRect(width + 0.18, height + 0.18, 0.14), [width, height]);
+  const frameGeo  = useMemo(() => roundedRect(width + 0.07, height + 0.07, 0.11), [width, height]);
   const screenGeo = useMemo(() => roundedRect(width, height, 0.08), [width, height]);
   const shadowGeo = useMemo(() => new THREE.PlaneGeometry(width * 1.5, 0.45), [width]);
   const shadowTex = useMemo(() => mkShadowTex(), []);
@@ -129,11 +129,9 @@ function ScreenCard({
         <meshStandardMaterial
           ref={frameRef}
           transparent
-          color={0x0c0e1a}
-          metalness={0.85}
-          roughness={0.08}
-          emissive={0x06081a}
-          emissiveIntensity={0.65}
+          color={0xc8cace}
+          metalness={0.25}
+          roughness={0.55}
         />
       </mesh>
       {/* Contenu écran arrondi — UV normalisés */}
